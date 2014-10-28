@@ -1,0 +1,48 @@
+@CHARSET "UTF-8";
+ .example { } /* the jQTE editor */
+    .example_focused { } /* focused the editor */
+    
+    /* toolbar area */
+    .example_toolbar { } /* the toolbar */
+    .example_tool { } /* the tool button */
+    .example_tool_icon { } /* icon of the toolbar buttons */
+    .example_tool_depressed { } /* depressed toolbar buttons */
+    
+    /* adding link area */
+    .example_linkform { } /* adding link form */
+    .example_linkinput { } /* input of adding link */
+    .example_linkbutton { } /* button of adding link */
+    
+    .example_linktypeselect { } /* link type selector */
+    .example_linktypeview { } /* the link type selector's descriptive */
+    .example_linktypetext { } /* the link type selector's value */
+    .example_linktypearrow { } /* the link type selector's arrow icon */
+    .example_linktypes { } /* the link type selector's hidden menu */
+    
+    /* text format selector */
+    .example_formats { } /* text format list area */
+    .example_format { } /* selecting format item */
+    /* font size selector */
+    .example_fontsizes { } /* font list area */
+    .example_fontsize { } /* selecting font item */
+    
+    /* color palette */
+    .example_cpalette { } /* color palette */
+    .example_color { } /* button of adding color */
+    
+    /* editor area and source area */
+    .example_editor { } /* the editor area */
+    .example_source { } /* the source area */
+    
+    /* title bubble */
+    .example_title { } /* the title bubbles of buttons */
+    .example_titleArrow { } /* the title bubbles arrow */
+    .example_titleArrowIcon { } /* the title bubbles icon */
+    .example_titleText { } /* the text box in the title bubbles */
+    
+    /* placeholder */
+    .example_placeholder { } /* the placeholder */
+    .example_placeholder_text { } /* the text of the placeholder */
+    
+    /* hidden areas */
+    .example_hiddenField { } /* the hidden elements */

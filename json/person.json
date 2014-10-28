@@ -1,0 +1,23 @@
+[
+  {
+     "id"  : 1,
+    "name"  : "levin",
+    "description" : "some desc",
+    "size"  : "100KG",
+     "actions" : {
+                 "walking" : true,
+                  "eating" : true
+                  }
+  },
+  {
+    "id"  : 2,
+    "name"  : "clara",
+    "description" : "some desc",
+    "size"  : "2000KG",
+     "actions" : {
+                 "walking" : false,
+                  "eating" : true
+                  }
+
+  }
+]

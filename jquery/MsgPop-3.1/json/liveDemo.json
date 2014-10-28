@@ -1,0 +1,19 @@
+{
+	"MsgPopQueue":[
+		{	"Type":"success",
+			"Content":"Password scopiazzata1!",
+			"AutoClose":true, 
+			"displaySmall":true,
+			"position":"bottom-right",
+			"CloseTimer":3000
+		},
+		{	"Type":"success",
+			"Content":"Password scopiazzata2!",
+			"AutoClose":true, 
+			"displaySmall":true,
+			"position":"bottom-right",
+			"CloseTimer":3000
+		}
+	],
+	"content": "<div>This is new <b>text!</b></div>"
+}

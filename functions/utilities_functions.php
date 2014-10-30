@@ -1,11 +1,23 @@
 <?php
 
+
+/**
+ * Nome dell'aplicazione
+ */
 define("APPLICATION_NAME", "PhpRegistroScuolaNetBeans");
 
+/**
+ * 
+ * @return type
+ */
 function getApplicationName() {
     return APPLICATION_NAME;
 }
 
+/**
+ * 
+ * @return type
+ */
 function getBaseURL() {
     return 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . '://'
             . $_SERVER['HTTP_HOST']
@@ -171,6 +183,11 @@ function removeAllCookyes() {
     }
 }
 
+/**
+ * 
+ * @param type $password
+ * @return type
+ */
 function passwordTestStrenght($password) {
     //VALIDATE PASSWORD
     return filter_var($password, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => "((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,20})")));

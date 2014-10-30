@@ -1,16 +1,19 @@
+<title><![CDATA[<b>My</b> Project]]></title>
 <?php
-//
-//  mysql_functions.php
-//  XAMPP
-//
-//  Created by Roberto Della Grotta on 2014-10-09.
-//  Copyright 2014 Roberto Della Grotta. All rights reserved.
-//
 
 
-/*
-TODO salvataggio email inviate dal server in apposita tabella
-*/
+
+
+/**
+ * @name mysql_functions.php
+ * @uses XAMPP
+ * @package functions
+ * @author Roberto Della Grotta on 2014-10-09.
+ * @copyright 2014 Roberto Della Grotta. All rights reserved.
+ * @todo salvataggio email inviate dal server in apposita tabella
+ * @version 1.0
+ * 
+ */
 
 /**
  * Registra evento relativo ad accesso fallito! nella tabella utenti_logger
@@ -225,7 +228,7 @@ function postChangePasswordRequest($cognome, $nome, $email, $hash) {
  * questa funzione viene utilizzata dagli amministratori: nel momento che
  * cambiano la password su richiesta di un utente, settano = 1 il campo
  * in modo che l'utente riceva l'invito a cambiare la password.
- * Un'altro caso in cui viene utilizzata è quando l'utente,
+ * Un'altro caso in cui viene utilizzata ÔøΩ quando l'utente,
  * dopo aver ricevuto la password dall'admin esegue il cambio di password;
  * allora il campo viene riportato = 0.
  * @param unknown_type $user
@@ -248,9 +251,9 @@ function setUserHasToChangePassword($user, $value) {
 
 /**
  * Verifica se l'utente $user ha un invito a cambiare la propria password;
- * questo si verifica quando viene richiesta una nuova password perchè persa
+ * questo si verifica quando viene richiesta una nuova password perchÔøΩ persa
  * o dimenticata, allora l'utente che entra per la prima volta con le nuove
- * credenziali, dopo la presente verifica riceverà un invito ossessivo,
+ * credenziali, dopo la presente verifica riceverÔøΩ un invito ossessivo,
  * a cambiare la propria password.
  * @param unknown_type $user
  */
@@ -301,7 +304,7 @@ function retrievePassword($id_utente) {
 /**
  * Ritorna il massimo id_recipient ovvero l'id ultimo con il quale
  * il destinatario di una email , inserito nella casella TO, CC o BCC,
- * è stato registrato nella tabella email_recipients. Questo id serve per
+ * ÔøΩ stato registrato nella tabella email_recipients. Questo id serve per
  * l'operazione di cancellazione del destinatario ultimo inserito.
  * @param unknown_type $id_email
  * @param unknown_type $param
@@ -1143,7 +1146,7 @@ function getServerInfo() {
 /**
  * Recupera i parametri di connessione al server MySql
  * in base alle scelte fatte dall'utente nella pagina iniziale.<br>
- * Questa feature dovrà essere disabilitata ?!
+ * Questa feature dovrÔøΩ essere disabilitata ?!
  * @return Ambigous <string, multitype:string >
  */
 function getServerConnectionParameters() {
@@ -1335,7 +1338,7 @@ function changeUtenteScuolaPassword($id_utente, $user_email,$oldpassword,$newpas
 			$msg = '<span class="error">PASSWORD cambiata per l\'utente: <h2>' . getUserName($id_utente) .'</h2> email: <h3>'. $user_email . '</h3></span>';
 			setcookie("message",$msg);
 		}else{
-			$msg = '<span class="error">Non è stato possibile cambiare la PASSWORD per ' .
+			$msg = '<span class="error">Non ÔøΩ stato possibile cambiare la PASSWORD per ' .
 			$user_email . ': ' . mysql_error($GLOBALS['link']) . '</span>';
 			setcookie("message",$msg);
 		}

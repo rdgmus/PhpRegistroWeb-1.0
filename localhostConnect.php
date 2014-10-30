@@ -1,3 +1,15 @@
+/**
+ * we connect to MySql on socket or on local server instance 
+ *
+ * @author Roberto Della Grotta
+ * @version $Id$
+ * @copyright , 29 October, 2014
+ * @package default
+ */
+
+/**
+ * Define DocBlock
+ */
 <html>
 <body>
 <h1>

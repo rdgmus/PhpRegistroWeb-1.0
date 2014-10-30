@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<phpdoc>
+    <parser>
+        <target>phpdoc/output</target>
+    </parser>
+    <transformer>
+        <target>phpdoc/output</target>
+    </transformer>
+    <files>
+        <file>*.php</file>
+        <file>functions/*.php</file>
+        <file>email-templates/*.php</file>
+        <file>frames/*.php</file>
+        <file>jquery/*.php</file>
+    </files>
+</phpdoc>

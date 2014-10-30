@@ -1,4 +1,4 @@
-<?php include 'jquery/jquery.php';?>
+
 <a href="index.php"><img src="images/home1.png" width="64" height="64" 
 title="Home"/>
 	<span class="error">
@@ -7,4 +7,6 @@ title="Home"/>
 	}
 	?></span>
 	<?php 
-	echo 'MYSQL_SERVER:'.$_COOKIE['MYSQL_SERVER']?> </a>
+            echo 'MYSQL_SERVER:'.$_COOKIE['MYSQL_SERVER'];
+                
+?> </a>

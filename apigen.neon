@@ -1,0 +1,44 @@
+source:
+	- ./PHPMailer.php
+	- ./ajax.php
+	- ./changeOthersPassword.php
+	- ./changePassword.php
+	- ./config.php
+	- ./confirmRequestByUserPage.php
+	- ./createPdf.php
+	- ./emailToUser.php
+	- ./errorPage.php
+	- ./form2.php
+	- ./index.php
+	- ./localhostConnect.php
+	- ./login.php
+	- ./register.php
+	- ./socketConnect.php
+	- ./tryConnections.php
+	- ./userAuthentication.php
+	- ./userMenu.php
+	- ./userRegistration.php
+	- ./functions/MySqlFunctionsClass.php
+	- ./functions/mysql_functions.php
+	- ./functions/utilities_functions.php
+	- ./frames/agendaUtentiEMailFrame.php
+	- ./frames/alertFrame.php
+	- ./frames/confirmFrame.php
+	- ./frames/homeFrame.php
+	- ./frames/logoTitleFrame.php
+	- ./frames/othersPasswordFrame.php
+	- ./frames/passwordGeneratorFrame.php
+	- ./frames/ruoliUtenteFrame.php
+	- ./frames/templateFrame.php
+	- ./frames/utentiSelectFrame.php
+	- ./jquery/jq_dialogs.php
+	- ./jquery/jq_emails.php
+	- ./jquery/jq_index.php
+	- ./jquery/jq_ruoli_utente.php
+	- ./jquery/jquery.php
+	- ./json/benvenutoUser.json
+	- ./json/passwordCopiata.json
+	- ./json/person.json
+	
+destination: ./apigen
+title: PhpRegistroScuola 1.0

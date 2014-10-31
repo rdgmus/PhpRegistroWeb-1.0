@@ -200,7 +200,7 @@ if (NULL != filter_input(INPUT_POST, 'page')) {
                 $user_email = $mySqlFunctions->getUserEmail($selectedRecipient);
 
                 $oldpassword = filter_input(INPUT_POST, 'oldpassword');
-                $oldpasswordErr = testPasswordErr($oldpassword);
+                $oldpasswordErr = $mySqlFunctions->testPasswordErr($oldpassword);
                 setcookie('oldpasswordErr', $oldpasswordErr);
                 if ($oldpasswordErr != '*') {
                     echo filter_input(INPUT_SERVER, 'SERVER_NAME');
@@ -209,7 +209,7 @@ if (NULL != filter_input(INPUT_POST, 'page')) {
 
 
                 $password = filter_input(INPUT_POST, 'password');
-                $newpasswordErr = testPasswordErr($password);
+                $newpasswordErr = $mySqlFunctions->testPasswordErr($password);
                 setcookie('newpasswordErr', $newpasswordErr);
                 if ($newpasswordErr != '*') {
                     echo filter_input(INPUT_SERVER, 'SERVER_NAME');
@@ -253,7 +253,7 @@ if (NULL != filter_input(INPUT_POST, 'page')) {
                 $user_email = $mySqlFunctions->getUserEmail($selectedRecipient);
 
                 $oldpassword = filter_input(INPUT_POST, 'oldpassword');
-                $oldpasswordErr = testPasswordErr($oldpassword);
+                $oldpasswordErr = $mySqlFunctions->testPasswordErr($oldpassword);
                 setcookie('oldpasswordErr', $oldpasswordErr);
                 if ($oldpasswordErr != '*') {
                     echo filter_input(INPUT_SERVER, 'SERVER_NAME');
@@ -262,7 +262,7 @@ if (NULL != filter_input(INPUT_POST, 'page')) {
 
 
                 $password = filter_input(INPUT_POST, 'password');
-                $newpasswordErr = testPasswordErr($password);
+                $newpasswordErr = $mySqlFunctions->testPasswordErr($password);
                 setcookie('newpasswordErr', $newpasswordErr);
                 if ($newpasswordErr != '*') {
                     echo filter_input(INPUT_SERVER, 'SERVER_NAME');

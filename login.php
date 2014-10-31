@@ -107,9 +107,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         "&nome=" . $nome .
                         "&email=" . $email;
                 inviaRichiestaConfermaTo($cognome, $nome, $email, $toLink);
-                echo 1;
+                echo (int)1;
             } else {
-                echo 0;
+                echo (int)0;
             }
         } elseif ($_POST['actionLogin'] == 'generatePassword') {
             //GENERA PASSWORD

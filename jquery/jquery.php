@@ -413,22 +413,8 @@ if (isset($_COOKIE['firstLogin'])) {
                         "password_one": password_one},
                     success: function (response) {//response is value returned from php (for your example it's "bye bye"
                         //alert(response);
-                        /*
-                         $.ajax({
-                         type: "POST",
-                         url: 'ajax.php',
-                         data: { "email": getUserEmail($selectedRecipient),
-                         "action": "changePassword",
-                         "sender": oldpassword,
-                         "subject": password,
-                         "message": password_one },
-                         success: function (response) {//response is value returned from php (for your example it's "bye bye"
-                         //alert(response);
-                         window.location = "http://"+response+"/PhpRegistroScuolaNetBeans/changePassword.php";
-                         }
-                         });
-                         */
-                        window.location = "http://" + response + "/PhpRegistroScuolaNetBeans/changePassword.php";
+                        location.reload();
+//                        window.location = "http://" + response + "/PhpRegistroScuolaNetBeans/changePassword.php";
                     }
                 });
             });
@@ -611,7 +597,7 @@ if (isset($_COOKIE['firstLogin'])) {
 
         $(function () {//GESTIONE DEGLI UTENTI: RUOLI, EMAIL, PASSWORD
 
-            
+
 
             $(function () {
 
@@ -1030,16 +1016,19 @@ if (isset($_COOKIE['firstLogin'])) {
                             focus: 1,
                             submit: function (e, v, m, f) {
                                 e.preventDefault();
+                                
                                 if (v == 0)
                                     $.prompt.close();
                                 else if (v == 1) {
-                                    $.prompt.goToState('state4');
+//                                    $.prompt.goToState('state4');
                                     mydata = "actionLogin=sendRequestChangePassword";
                                     $.each(f, function (i, obj) {
                                         mydata = mydata + "&" + i + "=" + obj;
+//                                        alert(mydata);
                                     });
                                     //ELABORA LA RICHIESTA DI CAMBIO PASSWORD CON ajax???
                                     //alert(mydata);
+                                    
                                     $.ajax({
                                         type: "POST",
                                         url: 'login.php',
@@ -1047,15 +1036,15 @@ if (isset($_COOKIE['firstLogin'])) {
                                         success: function (response) {//response is value returned from php (for your example it's "bye bye"
                                             //alert(response);
                                             if (response == 1) {
-                                                e.preventDefault();
-                                                $.prompt.goToState('state2');
+                                                //e.preventDefault();
+                                                $.prompt.goToState('state2');//RICHIESTA INOLTRATA
                                             }
                                             else if (response == 0) {
                                                 e.preventDefault();
-                                                $.prompt.goToState('state3');
+                                                $.prompt.goToState('state3');//RICHIESTA FALLITA
                                             }
                                         }
-                                    });
+                                    });//FINE
                                 }
                             }
                         },
@@ -1082,16 +1071,6 @@ if (isset($_COOKIE['firstLogin'])) {
                                     e.preventDefault();
                                     $.prompt.goToState('state1');
                                 }
-                            }
-                        },
-                        state4: {
-                            html: '<h1>Attendere Prego!</h1>' +
-                                    '<h3>elaborazione in corso...</h3>',
-                            buttons: {"Continua": 1},
-                            focus: 0,
-                            submit: function (e, v, m, f) {
-                                //e.preventDefault();
-                                $.prompt.goToState('state1');
                             }
                         }
                     };

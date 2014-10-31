@@ -171,7 +171,7 @@ class MySqlFunctionsClass {
      * @return bigint
      */
     function retrieveIdRequest($hash) {
-        if (connectToMySqlWithParams('localhost:3307', 'root', 'myzconun')) {
+        if ($this->connectToMySqlWithParams('localhost:3307', 'root', 'myzconun')) {
             //RECUPERA id_request dalla tabella
             $query = sprintf("SELECT id_request FROM scuola.change_password_request" .
                     " WHERE hash = '%s'", $hash);
@@ -1055,7 +1055,7 @@ class MySqlFunctionsClass {
      * @param tinyint $confirmed [DEFAULT TRUE]
      */
     function countPasswordToChangePending($pending = 1, $confirmed = 1) {
-        $result = listaUtentiToChangePassword($pending, $confirmed);
+        $result = $this->listaUtentiToChangePassword($pending, $confirmed);
         return mysql_num_rows($result);
     }
 

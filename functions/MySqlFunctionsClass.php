@@ -251,7 +251,7 @@ class MySqlFunctionsClass {
      * @return boolean
      */
     function setUserHasToChangePassword($user, $value) {
-        if (connectToMySql()) {
+        if ($this->connectToMySql()) {
             $query = sprintf("UPDATE scuola.utenti_scuola
 		SET has_to_change_password = %s WHERE id_utente = %s", $value, $user);
 
@@ -276,7 +276,7 @@ class MySqlFunctionsClass {
      * @return boolean
      */
     function hasUserToChangePassword($user) {
-        if (connectToMySql()) {
+        if ($this->connectToMySql()) {
             $query = sprintf("SELECT has_to_change_password FROM scuola.utenti_scuola
 		 WHERE id_utente = %s", $user);
 
@@ -328,7 +328,7 @@ class MySqlFunctionsClass {
             $query+=" AND bcc_recipient = '1'";
         }
         $queryWithParameters = sprintf($query, $id_email);
-        if (\connectToMySql()) {
+        if ($this->connectToMySql()) {
             // Perform Query
             $result = mysql_query($queryWithParameters);
             if (!$result) {
@@ -349,7 +349,7 @@ class MySqlFunctionsClass {
         if ($param == 'to') {
             $id_recipient = getMaxIdRecipient($id_email, $param);
             if ($id_recipient != null) {
-                if (connectToMySql()) {
+                if ($this->connectToMySql()) {
                     $query = sprintf("DELETE FROM scuola.email_recipients
 			WHERE id_email = %s 
 			AND to_recipient = '1' 
@@ -368,7 +368,7 @@ class MySqlFunctionsClass {
         } elseif ($param == 'cc') {
             $id_recipient = getMaxIdRecipient($id_email, $param);
             if ($id_recipient != null) {
-                if (connectToMySql()) {
+                if ($this->connectToMySql()) {
                     $query = sprintf("DELETE FROM scuola.email_recipients
 			WHERE id_email = %s 
 			AND cc_recipient = '1' 
@@ -387,7 +387,7 @@ class MySqlFunctionsClass {
         } elseif ($param == 'bcc') {
             $id_recipient = getMaxIdRecipient($id_email, $param);
             if ($id_recipient != null) {
-                if (connectToMySql()) {
+                if ($this->connectToMySql()) {
                     $query = sprintf("DELETE FROM scuola.email_recipients
 			WHERE id_email = %s 
 			AND bcc_recipient = '1' 
@@ -418,7 +418,7 @@ class MySqlFunctionsClass {
      * @param tinyint $bcc
      */
     function addRecipientToEmail($id_email, $recip_email, $recip_name, $to, $cc, $bcc) {
-        if (connectToMySql()) {
+        if ($this->connectToMySql()) {
             $query = sprintf("INSERT INTO scuola.email_recipients(
 		id_email, email, name, to_recipient, cc_recipient, bcc_recipient)" .
                     "VALUES (%s,'%s','%s',%s,%s,%s)", $id_email, $recip_email, $recip_name, $to, $cc, $bcc);
@@ -443,7 +443,7 @@ class MySqlFunctionsClass {
      * @param tinyint $bcc
      */
     function recipientExists($id_email, $recip_email, $recip_name) {
-        if (connectToMySql()) {
+        if ($this->connectToMySql()) {
             $query = sprintf("SELECT * FROM scuola.email_recipients WHERE
 		id_email = %s AND
 		email = '%s' AND
@@ -499,7 +499,7 @@ class MySqlFunctionsClass {
      * @return mail dell'utente con data_email = null
      */
     function getNewEmailId($id_user) {
-        if (connectToMySql()) {
+        if ($this->connectToMySql()) {
             $query = sprintf("SELECT * FROM scuola.email_store WHERE isnull(data_email)" .
                     " AND id_user = %s", $id_user);
 
@@ -520,7 +520,7 @@ class MySqlFunctionsClass {
      * @return  una descrizione della email per mostrarla all'utente
      */
     function getInfoEmail($id_email) {
-        if (connectToMySql()) {
+        if ($this->connectToMySql()) {
             $query = sprintf("SELECT * FROM scuola.email_store WHERE id_email = %s", $id_email);
 
             // Perform Query
@@ -543,7 +543,7 @@ class MySqlFunctionsClass {
      * @param bigint $id_email
      */
     function deleteNullEmail($id_user, $id_email) {
-        if (connectToMySql()) {
+        if ($this->connectToMySql()) {
             $query = sprintf("DELETE FROM scuola.email_store WHERE id_user = '%s'" .
                     " AND id_email = '%s'" .
                     " AND isnull(data_email)", $id_user, $id_email);
@@ -571,7 +571,7 @@ class MySqlFunctionsClass {
         if (mysql_num_rows($result) > 0) {//Se vi sono email pregresse ritorna la lista delle email pregresse
             return $result;
         }
-        if (connectToMySql()) {
+        if ($this->connectToMySql()) {
             $query = sprintf("INSERT INTO scuola.email_store(from_email, from_name, id_user, subject, body) VALUES ('%s','%s', '%s', '<NO SUBJECT>', '<NO BODY>')", $from_email, $from_name, $id_user);
 
             // Perform Query
@@ -591,7 +591,7 @@ class MySqlFunctionsClass {
      * @param string $mailbox - to, cc, bcc
      */
     function getArrayOfRecipientsInMailBox($emailId, $mailbox) {
-        if (connectToMySql()) {
+        if ($this->connectToMySql()) {
             if ($mailbox == 'to') {
                 $query = sprintf("SELECT * FROM scuola.email_recipients WHERE id_email = %s AND to_recipient = 1", $emailId);
             } elseif ($mailbox == 'cc') {
@@ -626,7 +626,7 @@ class MySqlFunctionsClass {
      */
     function getToRecipients($emailId) {
         // SELECT * FROM `email_recipients` WHERE `id_email` = %s AND `to_recipient` = 1
-        if (connectToMySql()) {
+        if ($this->connectToMySql()) {
             $query = sprintf("SELECT * FROM scuola.email_recipients WHERE id_email = %s AND to_recipient = 1", $emailId);
 
             $recipients = '';
@@ -657,7 +657,7 @@ class MySqlFunctionsClass {
      */
     function getCcRecipients($emailId) {
         // SELECT * FROM `email_recipients` WHERE `id_email` = %s AND `to_recipient` = 1
-        if (connectToMySql()) {
+        if ($this->connectToMySql()) {
             $query = sprintf("SELECT * FROM scuola.email_recipients WHERE id_email = %s AND cc_recipient = 1", $emailId);
 
             $recipients = '';
@@ -689,7 +689,7 @@ class MySqlFunctionsClass {
      */
     function getBccRecipients($emailId) {
         // SELECT * FROM `email_recipients` WHERE `id_email` = %s AND `to_recipient` = 1
-        if (connectToMySql()) {
+        if ($this->connectToMySql()) {
             $query = sprintf("SELECT * FROM scuola.email_recipients WHERE id_email = %s AND bcc_recipient = 1", $emailId);
 
             $recipients = '';
@@ -720,7 +720,7 @@ class MySqlFunctionsClass {
      * @param text $body
      */
     function saveEmailDraft($emailId, $subject, $body) {
-        if (connectToMySql()) {
+        if ($this->connectToMySql()) {
             $query = sprintf("UPDATE scuola.email_store
 		SET subject = \"%s\", body = \"%s\" WHERE id_email = %s", mysql_real_escape_string($subject), mysql_real_escape_string($body), ($emailId));
 
@@ -739,7 +739,7 @@ class MySqlFunctionsClass {
      * @param bigint $emailId
      */
     function getEmailSubject($emailId) {
-        if (connectToMySql()) {
+        if ($this->connectToMySql()) {
             $query = sprintf("SELECT subject FROM scuola.email_store WHERE id_email = %s", $emailId);
 
             // Perform Query
@@ -760,7 +760,7 @@ class MySqlFunctionsClass {
      * @param unknown_type $subject
      */
     function setEmailSubject($emailId, $subject) {
-        if (connectToMySql()) {
+        if ($this->connectToMySql()) {
             $query = sprintf("UPDATE scuola.email_store
 		SET subject = \"%s\" WHERE id_email = %s", mysql_real_escape_string($subject), ($emailId));
 
@@ -779,7 +779,7 @@ class MySqlFunctionsClass {
      * @param unknown_type $emailId
      */
     function getEmailBody($emailId) {
-        if (connectToMySql()) {
+        if ($this->connectToMySql()) {
             $query = sprintf("SELECT body FROM scuola.email_store WHERE id_email = %s", $emailId);
 
             // Perform Query
@@ -800,7 +800,7 @@ class MySqlFunctionsClass {
      * @param unknown_type $body
      */
     function setEmailBody($emailId, $body) {
-        if (connectToMySql()) {
+        if ($this->connectToMySql()) {
             $query = sprintf("UPDATE scuola.email_store
 		SET body = \"%s\" WHERE id_email = %s", mysql_real_escape_string($body), ($emailId));
 
@@ -862,7 +862,7 @@ class MySqlFunctionsClass {
      */
     function registerEmailInviata($emailId) {
         //echo $emailId;
-        if (connectToMySql()) {
+        if ($this->connectToMySql()) {
             $query = sprintf("UPDATE scuola.email_store
 			 SET email_inviata = 1 WHERE id_email = %s ", $emailId);
 
@@ -946,7 +946,7 @@ class MySqlFunctionsClass {
      */
     function setUnsetRuoloUtente($id_utente, $id_ruolo) {
 
-        if (connectToMySql()) {
+        if ($this->connectToMySql()) {
             if (userHasRole($id_utente, $id_ruolo)) {
                 $query = sprintf("DELETE FROM scuola.ruoli_granted_to_utenti
 		WHERE id_utente = %s and id_ruolo = %s", $id_utente, $id_ruolo);
@@ -979,7 +979,7 @@ class MySqlFunctionsClass {
      * @return boolean
      */
     function userHasRole($id_utente, $id_ruolo) {
-        if (connectToMySql()) {
+        if ($this->connectToMySql()) {
             $query = sprintf("SELECT id_ruoli_granted, id_utente, id_ruolo, ruolo FROM scuola.ruoli_granted_to_utenti
 		WHERE id_utente= '%s' and id_ruolo = '%s'", mysql_real_escape_string($id_utente, $GLOBALS['link']), mysql_real_escape_string($id_ruolo, $GLOBALS['link']));
 
@@ -999,7 +999,7 @@ class MySqlFunctionsClass {
      * ESCLUDE DALLA LISTA L' UTENTE AMMINISTRATORE CHE E' ANCHE L'UTENTE ATTIVO E HA id_utente = $_COOKIE['id_utente']
      */
     function listaUtentiScuola($passordIsNull = FALSE, $userNotVisible = FALSE) {
-        if (connectToMySql()) {
+        if ($this->connectToMySql()) {
             $query = "SELECT  id_utente ,  cognome ,  nome ,  email ,  password ,
 	 user_is_admin  FROM  scuola.utenti_scuola ";
             if ($passordIsNull && !$userNotVisible) {//$passordIsNull TRUE
@@ -1039,7 +1039,7 @@ class MySqlFunctionsClass {
      * @param tinyint $confirmed [DEFAULT TRUE]
      */
     function listaUtentiToChangePassword($pending = 1, $confirmed = 1) {
-        if (connectToMySql()) {
+        if ($this->connectToMySql()) {
             $query = sprintf("SELECT a.id_utente, a.cognome, a.nome, a.email, b.request_date, b.id_request "
                     . " FROM scuola.utenti_scuola as a,"
                     . " scuola.change_password_request as b "
@@ -1061,7 +1061,7 @@ class MySqlFunctionsClass {
      */
     function getAdmittedRolesArray() {
 
-        if (connectToMySql()) {
+        if ($this->connectToMySql()) {
             $query = sprintf("SELECT id_ruolo, ruolo FROM scuola.ruoli_utenti ORDER BY id_ruolo");
 
             // Perform Query
@@ -1282,7 +1282,7 @@ class MySqlFunctionsClass {
  * @param unknown_type $password
  */
 function changePassword($selectedRecipient, $user_email, $oldpassword, $password) {
-    if (connectToMySql()) {
+    if ($this->connectToMySql()) {
         //QUERY FOR USER ACCOUNT HERE
         if (authenticateUser($user_email, $oldpassword, FALSE)) {
             //QUI CAMBIA LA PASSWORD

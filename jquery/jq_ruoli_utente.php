@@ -97,6 +97,11 @@ class RuoliUtentiActions {
 
 }
 ?>
+<link
+    href="jquery/select2-3.5.1/select2.css" rel="stylesheet" />
+<script
+src="jquery/select2-3.5.1/select2.js"></script>
+
 <script type="text/javascript">
 <!--
 
@@ -155,8 +160,7 @@ class RuoliUtentiActions {
                                 data: mydata,
                                 success: function (response) {//response is value returned from php (for your example it's "bye bye"
                                     //alert(response);
-
-                                    window.location = "http://" + response + "/PhpRegistroScuolaNetBeans/userMenu.php";
+                                    location.reload();
                                 }
                             });
                         }
@@ -164,6 +168,7 @@ class RuoliUtentiActions {
                     }
                 });
     }
+
 
     $(document).ready(function () {
         // Stuff to do as soon as the DOM is ready;
@@ -214,30 +219,63 @@ class RuoliUtentiActions {
 
         });
         /**
-         * richiamata quando si seleziona un utente del quale si vogliono
-         * gestire i permessi.
+         * $("#selectedUtenteId").select2()
+         * 
+         * Seleziona gli utenti nella ruoliUtentiFrame.php
+         * 
+         * @returns {undefined}
          */
         $(function () {
-            $("#selectedUtenteId").click(function ()
-            {
-
-                mydata = $("form#userMenuForm").serialize();
-                mydata = mydata + "&page=" + "userMenu.php";
-                //alert(mydata);
+            function format(state) {
+                var originalOption = state.element;
+                if (!state.id)
+                    return state.text; // optgroup
+                if ($(originalOption).data('isadmin') == 1)
+                    return "<img class='flag' src='images/administrator.jpeg' width='16' height='16'/>" +
+                            state.text;
+                else
+                    return "<img class='flag' src='images/ruolo_utente.png' width='16' height='16'/>" +
+                            state.text;
+            }
+            function retrieveRuoliUtente(selectedUtente) {
+                //alert(selectedUtente);
                 $.ajax({
                     type: "POST",
                     url: 'ajax.php',
-                    data: mydata,
+                    data: {"page": "userMenu.php",
+                        "action": "changeUser",
+                        "selectedUtente": selectedUtente},
                     success: function (response) {//response is value returned from php (for your example it's "bye bye"
                         //alert(response);
-                        window.location = "http://" + response + "/PhpRegistroScuolaNetBeans/userMenu.php";
+                        location.reload();
                     }
                 });
-
             }
-            );
-        });
+            function selectUtente(state) {
+                var originalOption = state.element;
+                if ($.cookie('selectedUtente') != $(originalOption).val()) {
+                    $.cookie('selectedUtente', $(originalOption).val());
+                    var response = retrieveRuoliUtente($(originalOption).val());
+                }
 
+                if (!state.id)
+                    return state.text; // optgroup
+                if ($(originalOption).data('isadmin') == 1)
+                    return "<img class='flag' src='images/administrator.jpeg' width='16' height='16'/>" +
+                            state.text;
+                else
+                    return "<img class='flag' src='images/ruolo_utente.png' width='16' height='16'/>" +
+                            state.text;
+            }
+            $("#selectedUtenteId").select2({
+                formatResult: format,
+                formatSelection: selectUtente,
+                escapeMarkup: function (m) {
+                    return m;
+                }
+            })
+
+        });
         /**
          * gestione ruolo con id=1 AMMINISTRATORE
          */

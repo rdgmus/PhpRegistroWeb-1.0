@@ -158,9 +158,6 @@ include 'jquery/jq_ruoli_utente.php';
 include 'jquery/jq_index.php';
 include 'jquery/jq_dialogs.php';
 include 'jquery/jq_emails.php';
-
-
-
 ?>
 
 <script>
@@ -613,6 +610,9 @@ if (isset($_COOKIE['firstLogin'])) {
 
 
         $(function () {//GESTIONE DEGLI UTENTI: RUOLI, EMAIL, PASSWORD
+
+            
+
             $(function () {
 
                 $("#selectUserEmailId").select2();
@@ -837,13 +837,7 @@ if (isset($_COOKIE['firstLogin'])) {
                     );
                 });
             });
-            $(function () {
-                $("#selectedUtenteId").select2();
-                $("#selectedUtenteId").click(function () {
-                    //alert("Selected value is: "+$("#selectedUtenteId").select2("val"));
 
-                });
-            });
             $(function () {
 
                 $("#MySqlServer").select2();

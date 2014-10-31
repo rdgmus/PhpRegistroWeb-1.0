@@ -65,6 +65,9 @@ if (isset($_COOKIE['firstLogin'])) {
                                                          id="changePassword" title="Cambia tua Password" />
                     </td>
                     <?php
+                    /**
+                     * Menu che compaiono solo per l'amministratore
+                     */
                     if ($mySqlFunctions->userIsAdministrator($_COOKIE['id_utente'])) {
                         include 'frames/othersPasswordFrame.php';
                         include 'frames/ruoliUtenteFrame.php';

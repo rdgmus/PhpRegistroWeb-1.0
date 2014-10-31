@@ -45,7 +45,7 @@
                                 $nome = $row['nome'];
                                 $id_utente = $row['id_utente'];
                                 ?>
-                        <option value="<?php echo $id_utente ?>"
+                    <option value="<?php echo $id_utente ?>" data-isadmin="<?php echo $mySqlFunctions->userIsAdministrator($id_utente);?>"
                         <?php
                         if (NULL != filter_input(INPUT_COOKIE, 'selectedUtente')) {
                             if (filter_input(INPUT_COOKIE, 'selectedUtente') == $id_utente) {
@@ -75,8 +75,8 @@
 
             if (NULL != filter_input(INPUT_COOKIE, 'selectedUtente')) {
                 $selectedUtente = filter_input(INPUT_COOKIE, 'selectedUtente');
+                $hasRole = $mySqlFunctions->userHasRole($selectedUtente, $id_ruolo);
             }
-            $hasRole = $mySqlFunctions->userHasRole($selectedUtente, $id_ruolo);
             ?>
 
 
@@ -87,10 +87,8 @@
                                  'images/accept_icon.png' : 'images/dialog_close_icon.png');
                          ?>"
                          width="16" height="16" id="ruoloImage<?php echo $id_ruolo ?>"
-                         title="<?php
-                         echo ( $hasRole ? ' Rimuovi ruolo ' . $ruolo . '(' . $id_ruolo . ') all\'utente:' . $selectedUtente . '?' :
-                                 ' Aggiungi ruolo ' . $ruolo . '(' . $id_ruolo . ') all\'utente:' . $selectedUtente . '?')
-                         ?>"> 
+                         
+                         > 
                          <?php echo '<strong> - ' . $ruolo . '</strong>'; ?>
                     <input type="hidden" name="hasRole<?php echo $id_ruolo ?>" value="<?php echo $hasRole ?>">
                     <input type="hidden" name="role<?php echo $id_ruolo ?>" value="<?php echo $ruolo ?>">

@@ -939,6 +939,32 @@ class MySqlFunctionsClass {
     }
 
     /**
+     * Carica i ruoli e le abilitazioni agli stessi dell'utente
+     * 
+     * @param bigint $id_utente
+     * @return array
+     */
+    function getUserRoles($id_utente) {
+        $userRoles = array();
+        if ($this->connectToMySql()) {
+            $query = sprintf("SELECT id_ruoli_granted, id_utente, id_ruolo, ruolo "
+                    . "FROM scuola.ruoli_granted_to_utenti WHERE id_utente = %s", $id_utente);
+
+            // Perform Query
+            $result = mysql_query($query);
+
+            $i = 1;
+            while ($row = mysql_fetch_assoc($result)) {
+                $userRoles[$i] = array('id_utente' => $row['id_utente'],
+                    'id_ruolo' => $row['id_ruolo'], 'ruolo' => $row['ruolo']);
+                $i++;
+            }
+            $this->closeConnection();
+        }
+        return $userRoles;
+    }
+
+    /**
      * Abilita o disabilita ruoli per gli utenti
      * @param bigint $id_utente
      * @param bigint $id_ruolo
@@ -1273,71 +1299,73 @@ class MySqlFunctionsClass {
             return $result;
         }
     }
-/**
- *
- * Enter description here ...
- * @param unknown_type $selectedRecipient
- * @param unknown_type $user_email
- * @param unknown_type $oldpassword
- * @param unknown_type $password
- */
-function changePassword($selectedRecipient, $user_email, $oldpassword, $password) {
-    if ($this->connectToMySql()) {
-        //QUERY FOR USER ACCOUNT HERE
-        if (authenticateUser($user_email, $oldpassword, FALSE)) {
-            //QUI CAMBIA LA PASSWORD
-            changeUtenteScuolaPassword($selectedRecipient, $user_email, $oldpassword, $password);
-            closeConnection();
-            return TRUE;
-        } else {
-            $msg = '<span class="error">L\'utente selezionato non ha i permessi di accesso!</span>';
-            setcookie("message", $msg);
-            closeConnection();
-            return FALSE;
+
+    /**
+     *
+     * Enter description here ...
+     * @param unknown_type $selectedRecipient
+     * @param unknown_type $user_email
+     * @param unknown_type $oldpassword
+     * @param unknown_type $password
+     */
+    function changePassword($selectedRecipient, $user_email, $oldpassword, $password) {
+        if ($this->connectToMySql()) {
+            //QUERY FOR USER ACCOUNT HERE
+            if (authenticateUser($user_email, $oldpassword, FALSE)) {
+                //QUI CAMBIA LA PASSWORD
+                changeUtenteScuolaPassword($selectedRecipient, $user_email, $oldpassword, $password);
+                closeConnection();
+                return TRUE;
+            } else {
+                $msg = '<span class="error">L\'utente selezionato non ha i permessi di accesso!</span>';
+                setcookie("message", $msg);
+                closeConnection();
+                return FALSE;
+            }
         }
+        return FALSE;
     }
-    return FALSE;
-}
 
-/**
- *
- * Enter description here ...
- * @param unknown_type $password
- */
-function testPasswordErr($password) {
-    if (empty($password)) {
-        $passwordErr = 'Password required';
-    } else {
-        $password = test_input($password);
-        //VALIDATE PASSWORD
-        if (!filter_var($password, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => "((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,10})")))) {
-            //da 4 a 10 caratteri, deve contenere maiuscole, minuscole e numeri
-            $passwordErr = "Invalid Password format";
-        } else
-            $passwordErr = "*";
+    /**
+     *
+     * Enter description here ...
+     * @param unknown_type $password
+     */
+    function testPasswordErr($password) {
+        if (empty($password)) {
+            $passwordErr = 'Password required';
+        } else {
+            $password = test_input($password);
+            //VALIDATE PASSWORD
+            if (!filter_var($password, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => "((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,10})")))) {
+                //da 4 a 10 caratteri, deve contenere maiuscole, minuscole e numeri
+                $passwordErr = "Invalid Password format";
+            } else
+                $passwordErr = "*";
+        }
+        return $passwordErr;
     }
-    return $passwordErr;
-}
 
-/**
- *
- * Enter description here ...
- * @param unknown_type $password
- * @param unknown_type $password_one
- */
-function testPasswordsAreEqual($password, $password_one) {
-    if (empty($password_one)) {
-        $passwordErr = 'Password required';
-    } elseif (strlen($password) > 0 && strlen($password_one) > 0 && $password == $password_one) {
-        //QUERY FOR DATABASE CONNECTION HERE
-        if (!filter_var($password, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => "((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,10})")))) {
-            //da 4 a 10 caratteri, deve contenere maiuscole, minuscole e numeri
-            $passwordErr = "Invalid Password format";
-        } else
-            $passwordErr = "*";
-    }else {
-        $passwordErr = 'Passwords do not match!';
+    /**
+     *
+     * Enter description here ...
+     * @param unknown_type $password
+     * @param unknown_type $password_one
+     */
+    function testPasswordsAreEqual($password, $password_one) {
+        if (empty($password_one)) {
+            $passwordErr = 'Password required';
+        } elseif (strlen($password) > 0 && strlen($password_one) > 0 && $password == $password_one) {
+            //QUERY FOR DATABASE CONNECTION HERE
+            if (!filter_var($password, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => "((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,10})")))) {
+                //da 4 a 10 caratteri, deve contenere maiuscole, minuscole e numeri
+                $passwordErr = "Invalid Password format";
+            } else
+                $passwordErr = "*";
+        }else {
+            $passwordErr = 'Passwords do not match!';
+        }
+        return $passwordErr;
     }
-    return $passwordErr;
-}
+
 }

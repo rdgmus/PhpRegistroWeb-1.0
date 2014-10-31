@@ -93,7 +93,7 @@ if (NULL != filter_input(INPUT_POST, 'page')) {
                     } else {
                         echo $to;
                     }
-                }elseif ($emailButton == "Cc") {//email destinatario da mettere nella casella CC
+                } elseif ($emailButton == "Cc") {//email destinatario da mettere nella casella CC
                     $cc = stripcslashes(filter_input(INPUT_POST, 'cc'));
                     if (!$mySqlFunctions->recipientExists($id_email, $mySqlFunctions->getUserEmail($selectedRecipient), $mySqlFunctions->getUserName($selectedRecipient))) {
                         $mySqlFunctions->addRecipientToEmail($id_email, $mySqlFunctions->getUserEmail($selectedRecipient), $mySqlFunctions->getUserName($selectedRecipient), 0, 1, 0, 0);
@@ -101,7 +101,7 @@ if (NULL != filter_input(INPUT_POST, 'page')) {
                     } else {
                         echo $cc;
                     }
-                }elseif ($emailButton == "Bcc") {//email destinatario da mettere nella casella BCC
+                } elseif ($emailButton == "Bcc") {//email destinatario da mettere nella casella BCC
                     $bcc = stripcslashes(filter_input(INPUT_POST, 'bcc'));
                     if (!$mySqlFunctions->recipientExists($id_email, $mySqlFunctions->getUserEmail($selectedRecipient), $mySqlFunctions->getUserName($selectedRecipient))) {
                         $mySqlFunctions->addRecipientToEmail($id_email, $mySqlFunctions->getUserEmail($selectedRecipient), $mySqlFunctions->getUserName($selectedRecipient), 0, 0, 1, 0);
@@ -110,7 +110,7 @@ if (NULL != filter_input(INPUT_POST, 'page')) {
                         echo $bcc;
                     }
                 }
-            }else {
+            } else {
                 echo $mySqlFunctions->getUserName($selectedRecipient) . '<' . $mySqlFunctions->getUserEmail($selectedRecipient) . '>;';
             }
             setcookie('selectedRecipient', filter_input(INPUT_POST, 'selectedRecipient'));
@@ -160,6 +160,21 @@ if (NULL != filter_input(INPUT_POST, 'page')) {
             } elseif (filter_input(INPUT_POST, 'action') == "logout") {
                 $mySqlFunctions->registerLogEvent("LOGOUT", "LOGOUT DA REGISTRO SCOLASTICO", filter_input(INPUT_COOKIE, 'id_utente'), filter_input(INPUT_SERVER, 'REMOTE_ADDR'));
                 echo filter_input(INPUT_SERVER, 'SERVER_NAME');
+            } elseif (filter_input(INPUT_POST, 'action') == "changeUser") {
+                /**
+                 * (INPUT_POST, 'action') == "changeUser" 
+                 * 
+                 * Avviene quando si cambia utente selezionato nella ruoliUtentiFrame.
+                 * Setta soltanto una cookye: setcookie('selectedUtente', $selectedUtente);
+                 */
+                if (NULL != filter_input(INPUT_POST, 'selectedUtente')) {
+                    $selectedUtente = filter_input(INPUT_POST, 'selectedUtente');
+                    //setcookie('firstLogin', FALSE);
+                    setcookie('selectedUtente', $selectedUtente);
+                    exit();
+                } else {
+                    echo filter_input(INPUT_SERVER, 'SERVER_NAME');
+                }
             }
         } elseif (NULL != filter_input(INPUT_POST, 'id_ruolo')) {
             $id_utente = filter_input(INPUT_POST, 'selectedUtente');

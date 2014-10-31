@@ -205,7 +205,7 @@ class MySqlFunctionsClass {
      */
     function postChangePasswordRequest($cognome, $nome, $email, $hash) {
 
-        if (connectToMySqlWithParams('localhost:3307', 'root', 'myzconun')) {
+        if ($this->connectToMySqlWithParams('localhost:3307', 'root', 'myzconun')) {
             //RECUPERA l'id_utente
             $query = sprintf("SELECT id_utente FROM scuola.utenti_scuola" .
                     " WHERE cognome = upper('%s') AND nome = upper('%s') AND email = '%s'", $cognome, $nome, $email);

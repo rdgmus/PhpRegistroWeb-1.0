@@ -1,9 +1,9 @@
 <?php
 
 include 'functions/utilities_functions.php';
-//include 'functions/MySqlFunctionsClass.php';
+include 'functions/MySqlFunctionsClass.php';
 
-//$mySqlFunctions = new MySqlFunctionsClass();
+$mySqlFunctions = new MySqlFunctionsClass();
 /**
  *
  *
@@ -16,10 +16,11 @@ include 'functions/utilities_functions.php';
  * 	CHIAMATE A FUNZIONI EFFETTUATE DA TINYMCE PLUGIN
  *
  */
-if (isset($_POST['actionRequest'])) {
-    if ($_POST['actionRequest'] == 'confirmChangePassword') {
-        $hash = ($_POST['hash']);
-        $id_request = ($_POST['id_request']);
+//filter_input(INPUT_POST, 'var_name') instead of $_POST['var_name']
+if (NULL != filter_input(INPUT_POST, 'actionRequest')) {
+    if (filter_input(INPUT_POST, 'actionRequest') == 'confirmChangePassword') {
+        $hash = (filter_input(INPUT_POST, 'hash'));
+        $id_request = (filter_input(INPUT_POST, 'id_request'));
 
         echo $mySqlFunctions->setRequestConfirmedFor($hash, $id_request);
         exit();
@@ -28,244 +29,236 @@ if (isset($_POST['actionRequest'])) {
     exit();
 }
 
-if (isset($_POST['callGetEmailSubject'])) {
-    if (isset($_POST['emailSubject'])) {
-        $subject = ($_POST['emailSubject']);
-        $mySqlFunctions->setEmailSubject($_COOKIE['emailId'], $subject);
+if (NULL != filter_input(INPUT_POST, 'callGetEmailSubject')) {
+    if (NULL != filter_input(INPUT_POST, 'emailSubject')) {
+        $subject = (filter_input(INPUT_POST, 'emailSubject'));
+        $mySqlFunctions->setEmailSubject(filter_input(INPUT_COOKIE, 'emailId'), $subject);
     }
-    echo $mySqlFunctions->getEmailSubject($_COOKIE['emailId']);
+    echo $mySqlFunctions->getEmailSubject(filter_input(INPUT_COOKIE, 'emailId'));
 }
-if (isset($_POST['callGetEmailBody'])) {//emailBody
-    if (isset($_POST['emailBody'])) {
-        $body = ($_POST['emailBody']);
-        $mySqlFunctions->setEmailBody($_COOKIE['emailId'], $body);
+
+if (NULL != filter_input(INPUT_POST, 'callGetEmailBody')) {//emailBody
+    if (NULL != filter_input(INPUT_POST, 'emailBody')) {
+        $body = filter_input(INPUT_POST, 'emailBody');
+        $mySqlFunctions->setEmailBody(filter_input(INPUT_COOKIE, 'emailId'), $body);
     }
-    echo $mySqlFunctions->getEmailBody($_COOKIE['emailId']);
+    echo $mySqlFunctions->getEmailBody(filter_input(INPUT_COOKIE, 'emailId'));
 }
-if (isset($_POST['callUndoToLastRecipient'])) {//cancella ultmo destinatario To textarea
-    $mySqlFunctions->undoLastRecipient($_COOKIE['emailId'], 'to');
-    echo $mySqlFunctions->getToRecipients($_COOKIE['emailId']);
+if (NULL != filter_input(INPUT_POST, 'callUndoToLastRecipient')) {//cancella ultmo destinatario To textarea
+    $mySqlFunctions->undoLastRecipient(filter_input(INPUT_COOKIE, 'emailId'), 'to');
+    echo $mySqlFunctions->getToRecipients(filter_input(INPUT_COOKIE, 'emailId'));
 }
-if (isset($_POST['callUndoCcLastRecipient'])) {//cancella ultmo destinatario To textarea
-    $mySqlFunctions->undoLastRecipient($_COOKIE['emailId'], 'cc');
-    echo $mySqlFunctions->getCcRecipients($_COOKIE['emailId']);
+if (NULL != filter_input(INPUT_POST, 'callUndoCcLastRecipient')) {//cancella ultmo destinatario To textarea
+    $mySqlFunctions->undoLastRecipient(filter_input(INPUT_COOKIE, 'emailId'), 'cc');
+    echo $mySqlFunctions->getCcRecipients(filter_input(INPUT_COOKIE, 'emailId'));
 }
-if (isset($_POST['callUndoBccLastRecipient'])) {//cancella ultmo destinatario To textarea
-    $mySqlFunctions->undoLastRecipient($_COOKIE['emailId'], 'bcc');
-    echo $mySqlFunctions->getBccRecipients($_COOKIE['emailId']);
+if (NULL != filter_input(INPUT_POST, 'callUndoBccLastRecipient')) {//cancella ultmo destinatario To textarea
+    $mySqlFunctions->undoLastRecipient(filter_input(INPUT_COOKIE, 'emailId'), 'bcc');
+    echo $mySqlFunctions->getBccRecipients(filter_input(INPUT_COOKIE, 'emailId'));
 }
 
 /**
  * SELEZIONA LE OPERAZIONI DA SVOLGERE IN BASE AL PARAMETRO page
  * CHE VIENE FORNITO DALLA CHIAMATA $.ajax EFFETTUATA DALL'UTENTE
  */
-if (isset($_POST['page'])) {
-    $page = $_POST['page'];
+if (NULL != filter_input(INPUT_POST, 'page')) {
+    $page = filter_input(INPUT_POST, 'page');
 
 
     /**
      * $page == 'index.php'
      */
     if ($page == 'index.php') {//index.php
-        setcookie('MYSQL_SERVER', trim($_POST['MySqlServer']));
-        echo $_SERVER['SERVER_NAME'];
+        setcookie('MYSQL_SERVER', trim(filter_input(INPUT_POST, 'MySqlServer')));
+        echo filter_input(INPUT_SERVER, 'SERVER_NAME');
     }
     /**
      * $page == 'emailToUser.php'
      */ elseif ($page == 'emailToUser.php') {//emailToUser.php
-        if (isset($_POST['action'])) {
-            if ($_POST['action'] == 'selectRecipient') {
-                setcookie('selectedRecipient', $_POST['selectedRecipient']);
-                echo $_SERVER['SERVER_NAME'];
+        if (NULL != filter_input(INPUT_POST, 'action')) {
+            if (filter_input(INPUT_POST, 'action') == 'selectRecipient') {
+                setcookie('selectedRecipient', filter_input(INPUT_POST, 'selectedRecipient'));
+                echo filter_input(INPUT_SERVER, 'SERVER_NAME');
             }
-        } elseif (isset($_POST['selectedRecipient'])) {
-            $selectedRecipient = $_POST['selectedRecipient'];
-            if (isset($_POST['emailButton'])) {
-                $emailButton = $_POST['emailButton'];
-                $id_email = $_COOKIE['emailId'];
+        } elseif (NULL != filter_input(INPUT_POST, 'selectedRecipient')) {
+            $selectedRecipient = filter_input(INPUT_POST, 'selectedRecipient');
+            if (NULL != filter_input(INPUT_POST, 'emailButton')) {
+                $emailButton = filter_input(INPUT_POST, 'emailButton');
+                $id_email = filter_input(INPUT_COOKIE, 'emailId');
                 if ($emailButton == "To") {
-                    $to = stripcslashes($_POST['to']); //email destinatario da mettere nella casella TO
-                    if (!$mySqlFunctions->recipientExists($id_email, 
-                            $mySqlFunctions->getUserEmail($selectedRecipient), 
-                            $mySqlFunctions->getUserName($selectedRecipient))) {
-                        $mySqlFunctions->addRecipientToEmail($id_email, 
-                                $mySqlFunctions->getUserEmail($selectedRecipient), 
-                                $mySqlFunctions->getUserName($selectedRecipient), 1, 0, 0, 0);
-                        echo $mySqlFunctions->getToRecipients($_COOKIE['emailId']);
-                    } else
+                    $to = stripcslashes(filter_input(INPUT_POST, 'to')); //email destinatario da mettere nella casella TO
+                    if (!$mySqlFunctions->recipientExists($id_email, $mySqlFunctions->getUserEmail($selectedRecipient), $mySqlFunctions->getUserName($selectedRecipient))) {
+                        $mySqlFunctions->addRecipientToEmail($id_email, $mySqlFunctions->getUserEmail($selectedRecipient), $mySqlFunctions->getUserName($selectedRecipient), 1, 0, 0, 0);
+                        echo $mySqlFunctions->getToRecipients(filter_input(INPUT_COOKIE, 'emailId'));
+                    } else {
                         echo $to;
+                    }
                 }elseif ($emailButton == "Cc") {//email destinatario da mettere nella casella CC
-                    $cc = stripcslashes($_POST['cc']);
-                    if (!$mySqlFunctions->recipientExists($id_email, 
-                            $mySqlFunctions->getUserEmail($selectedRecipient), 
-                            $mySqlFunctions->getUserName($selectedRecipient))) {
-                        $mySqlFunctions->addRecipientToEmail($id_email, 
-                                $mySqlFunctions->getUserEmail($selectedRecipient), 
-                                $mySqlFunctions->getUserName($selectedRecipient), 0, 1, 0, 0);
-                        echo $mySqlFunctions->getCcRecipients($_COOKIE['emailId']);
-                    } else
+                    $cc = stripcslashes(filter_input(INPUT_POST, 'cc'));
+                    if (!$mySqlFunctions->recipientExists($id_email, $mySqlFunctions->getUserEmail($selectedRecipient), $mySqlFunctions->getUserName($selectedRecipient))) {
+                        $mySqlFunctions->addRecipientToEmail($id_email, $mySqlFunctions->getUserEmail($selectedRecipient), $mySqlFunctions->getUserName($selectedRecipient), 0, 1, 0, 0);
+                        echo $mySqlFunctions->getCcRecipients(filter_input(INPUT_COOKIE, 'emailId'));
+                    } else {
                         echo $cc;
+                    }
                 }elseif ($emailButton == "Bcc") {//email destinatario da mettere nella casella BCC
-                    $bcc = stripcslashes($_POST['bcc']);
-                    if (!$mySqlFunctions->recipientExists($id_email, 
-                            $mySqlFunctions->getUserEmail($selectedRecipient), 
-                            $mySqlFunctions->getUserName($selectedRecipient))) {
-                        $mySqlFunctions->addRecipientToEmail($id_email, 
-                                $mySqlFunctions->getUserEmail($selectedRecipient), 
-                                $mySqlFunctions->getUserName($selectedRecipient), 0, 0, 1, 0);
-                        echo $mySqlFunctions->getBccRecipients($_COOKIE['emailId']);
-                    } else
+                    $bcc = stripcslashes(filter_input(INPUT_POST, 'bcc'));
+                    if (!$mySqlFunctions->recipientExists($id_email, $mySqlFunctions->getUserEmail($selectedRecipient), $mySqlFunctions->getUserName($selectedRecipient))) {
+                        $mySqlFunctions->addRecipientToEmail($id_email, $mySqlFunctions->getUserEmail($selectedRecipient), $mySqlFunctions->getUserName($selectedRecipient), 0, 0, 1, 0);
+                        echo $mySqlFunctions->getBccRecipients(filter_input(INPUT_COOKIE, 'emailId'));
+                    } else {
                         echo $bcc;
+                    }
                 }
             }else {
                 echo $mySqlFunctions->getUserName($selectedRecipient) . '<' . $mySqlFunctions->getUserEmail($selectedRecipient) . '>;';
             }
-            setcookie('selectedRecipient', $_POST['selectedRecipient']);
+            setcookie('selectedRecipient', filter_input(INPUT_POST, 'selectedRecipient'));
         } else {
-            echo $_SERVER['SERVER_NAME'];
+            echo filter_input(INPUT_SERVER, 'SERVER_NAME');
         }
     }
     /**
      * $page == 'userRegistration.php'
      */ elseif ($page == 'userRegistration.php') {//userRegistration.php
-        echo $_SERVER['SERVER_NAME'];
+        echo filter_input(INPUT_SERVER, 'SERVER_NAME');
     }
     /**
      * $page == 'userMenu.php'
      */ elseif ($page == 'userMenu.php') {//userMenu.php
-        if (isset($_POST['action'])) {
-            if ($_POST['action'] == "gotochangeOthersPassword") {
-                echo $_SERVER['SERVER_NAME'];
+        if (NULL != filter_input(INPUT_POST, 'action')) {
+            if (filter_input(INPUT_POST, 'action') == "gotochangeOthersPassword") {
+                echo filter_input(INPUT_SERVER, 'SERVER_NAME');
                 //echo get_ip();
                 //echo $_SERVER['SERVER_ADDR'];
-            } elseif ($_POST['action'] == "createEmail") {
+            } elseif (filter_input(INPUT_POST, 'action') == "createEmail") {
                 //Crea una nuova email se non ne � stata salvata una
 
                 createEmailAndCookyes();
 
-                echo $_SERVER['SERVER_NAME'];
-            } elseif ($_POST['action'] == "backToUserMenu") {
+                echo filter_input(INPUT_SERVER, 'SERVER_NAME');
+            } elseif (filter_input(INPUT_POST, 'action') == "backToUserMenu") {
                 //cancella le email con data a NULL?
                 //$.prompt("Hello World!");
-                if (isset($_POST['cancellaEmail'])) {
-                    if ($_POST['cancellaEmail'] == 'true') {
-                        $mySqlFunctions->deleteNullEmail($_COOKIE['id_utente'], $_COOKIE['emailId']);
+                if (NULL != filter_input(INPUT_POST, 'cancellaEmail')) {
+                    if (filter_input(INPUT_POST, 'cancellaEmail') == 'true') {
+                        $mySqlFunctions->deleteNullEmail(filter_input(INPUT_COOKIE, 'id_utente'), filter_input(INPUT_COOKIE, 'emailId'));
                     } else {
                         //Salva Email
-                        if (isset($_POST['subject'])) {
-                            $subject = $_POST['subject'];
+                        if (NULL != filter_input(INPUT_POST, 'subject')) {
+                            $subject = filter_input(INPUT_POST, 'subject');
                         }
-                        if (isset($_POST['body'])) {
-                            $body = $_POST['body'];
+                        if (NULL != filter_input(INPUT_POST, 'body')) {
+                            $body = filter_input(INPUT_POST, 'body');
                         }
-                        $mySqlFunctions->saveEmailDraft($_COOKIE['emailId'], $subject, $body);
+                        $mySqlFunctions->saveEmailDraft(filter_input(INPUT_COOKIE, 'emailId'), $subject, $body);
                     }
                 }
-                echo $_SERVER['SERVER_NAME'];
-            } elseif ($_POST['action'] == "testUserHasToChangePassword") {
-                echo $mySqlFunctions->hasUserToChangePassword($_COOKIE['id_utente']);
-            } elseif ($_POST['action'] == "logout") {
-                $mySqlFunctions->registerLogEvent("LOGOUT", "LOGOUT DA REGISTRO SCOLASTICO", $_COOKIE['id_utente'], $_SERVER['REMOTE_ADDR']);
-                echo $_SERVER['SERVER_NAME'];
+                echo filter_input(INPUT_SERVER, 'SERVER_NAME');
+            } elseif (filter_input(INPUT_POST, 'action') == "testUserHasToChangePassword") {
+                echo $mySqlFunctions->hasUserToChangePassword(filter_input(INPUT_COOKIE, 'id_utente'));
+            } elseif (filter_input(INPUT_POST, 'action') == "logout") {
+                $mySqlFunctions->registerLogEvent("LOGOUT", "LOGOUT DA REGISTRO SCOLASTICO", filter_input(INPUT_COOKIE, 'id_utente'), filter_input(INPUT_SERVER, 'REMOTE_ADDR'));
+                echo filter_input(INPUT_SERVER, 'SERVER_NAME');
             }
-        } elseif (isset($_POST['id_ruolo'])) {
-            $id_utente = $_POST['selectedUtente'];
-            $id_ruolo = $_POST['id_ruolo'];
+        } elseif (NULL != filter_input(INPUT_POST, 'id_ruolo')) {
+            $id_utente = filter_input(INPUT_POST, 'selectedUtente');
+            $id_ruolo = filter_input(INPUT_POST, 'id_ruolo');
             $mySqlFunctions->setUnsetRuoloUtente($id_utente, $id_ruolo);
-            echo $_SERVER['SERVER_NAME'];
-        } elseif (isset($_POST['selectedUtente'])) {
-            setcookie('selectedUtente', $_POST['selectedUtente']);
-            echo $_SERVER['SERVER_NAME'];
+            echo filter_input(INPUT_SERVER, 'SERVER_NAME');
+        } elseif (NULL != filter_input(INPUT_POST, 'selectedUtente')) {
+            setcookie('selectedUtente', filter_input(INPUT_POST, 'selectedUtente'));
+            echo filter_input(INPUT_SERVER, 'SERVER_NAME');
         } else {
 
-            echo $_SERVER['SERVER_NAME'];
+            echo filter_input(INPUT_SERVER, 'SERVER_NAME');
         }
     }
     /**
      * $page == 'changePassword.php'
      */ elseif ($page == 'changePassword.php') {
-        if (isset($_POST['action'])) {
-            if ($_POST['action'] == 'changePassword') {
-                $selectedRecipient = $_COOKIE['id_utente']; //$_POST['selectedRecipient'];
+        if (NULL != filter_input(INPUT_POST, 'action')) {
+            if (filter_input(INPUT_POST, 'action') == 'changePassword') {
+                $selectedRecipient = filter_input(INPUT_COOKIE, 'id_utente'); //$_POST['selectedRecipient'];
                 setcookie('selectedRecipient', $selectedRecipient);
 
                 $user_email = $mySqlFunctions->getUserEmail($selectedRecipient);
 
-                $oldpassword = $_POST['oldpassword'];
+                $oldpassword = filter_input(INPUT_POST, 'oldpassword');
                 $oldpasswordErr = testPasswordErr($oldpassword);
                 setcookie('oldpasswordErr', $oldpasswordErr);
                 if ($oldpasswordErr != '*') {
-                    echo $_SERVER['SERVER_NAME'];
+                    echo filter_input(INPUT_SERVER, 'SERVER_NAME');
                     exit();
                 }
 
 
-                $password = $_POST['password'];
+                $password = filter_input(INPUT_POST, 'password');
                 $newpasswordErr = testPasswordErr($password);
                 setcookie('newpasswordErr', $newpasswordErr);
                 if ($newpasswordErr != '*') {
-                    echo $_SERVER['SERVER_NAME'];
+                    echo filter_input(INPUT_SERVER, 'SERVER_NAME');
                     exit();
                 }
 
-                $password_one = $_POST['password_one'];
+                $password_one = filter_input(INPUT_POST, 'password_one');
                 $repeatPasswordErr = testPasswordsAreEqual($password, $password_one);
                 setcookie('repeatPasswordErr', $repeatPasswordErr);
                 if ($repeatPasswordErr != '*') {
-                    echo $_SERVER['SERVER_NAME'];
+                    echo filter_input(INPUT_SERVER, 'SERVER_NAME');
                     exit();
                 }
 
                 if ($oldpasswordErr == '*' && $newpasswordErr = '*' && $repeatPasswordErr = '*') {
                     changePassword($selectedRecipient, $user_email, $oldpassword, $password);
-                    $mySqlFunctions->setUserHasToChangePassword($_COOKIE['id_utente'], 0);
+                    $mySqlFunctions->setUserHasToChangePassword(filter_input(INPUT_COOKIE, 'id_utente'), 0);
 
-                    echo $_SERVER['SERVER_NAME'];
+                    echo filter_input(INPUT_SERVER, 'SERVER_NAME');
                     exit();
                 }
-                echo $_SERVER['SERVER_NAME'];
+                echo filter_input(INPUT_SERVER, 'SERVER_NAME');
             }
         }
     }
     /**
      * $page == 'changeOthersPassword.php'
      */ elseif ($page == 'changeOthersPassword.php') {
-        if (isset($_POST['action'])) {
-            if ($_POST['action'] == 'changeOthersPassword') {
+        if (NULL != filter_input(INPUT_POST, 'action')) {
+            if (filter_input(INPUT_POST, 'action') == 'changeOthersPassword') {
                 //removeChangePasswordCookyes();
-                $countRowPending = $_POST['countRowPending'];
+                $countRowPending = filter_input(INPUT_POST, 'countRowPending');
                 if ($countRowPending == 0) {
                     setcookie('message', 'NESSUNA RICHIESTA PENDENTE');
-                    echo $_SERVER['SERVER_NAME'];
+                    echo filter_input(INPUT_SERVER, 'SERVER_NAME');
                     exit();
                 }
-                $selectedRecipient = $_POST['selectedRecipient'];
+                $selectedRecipient = filter_input(INPUT_POST, 'selectedRecipient');
                 setcookie('selectedRecipient', $selectedRecipient);
 
                 $user_email = $mySqlFunctions->getUserEmail($selectedRecipient);
 
-                $oldpassword = $_POST['oldpassword'];
+                $oldpassword = filter_input(INPUT_POST, 'oldpassword');
                 $oldpasswordErr = testPasswordErr($oldpassword);
                 setcookie('oldpasswordErr', $oldpasswordErr);
                 if ($oldpasswordErr != '*') {
-                    echo $_SERVER['SERVER_NAME'];
+                    echo filter_input(INPUT_SERVER, 'SERVER_NAME');
                     exit();
                 }
 
 
-                $password = $_POST['password'];
+                $password = filter_input(INPUT_POST, 'password');
                 $newpasswordErr = testPasswordErr($password);
                 setcookie('newpasswordErr', $newpasswordErr);
                 if ($newpasswordErr != '*') {
-                    echo $_SERVER['SERVER_NAME'];
+                    echo filter_input(INPUT_SERVER, 'SERVER_NAME');
                     exit();
                 }
 
-                $password_one = $_POST['password_one'];
+                $password_one = filter_input(INPUT_POST, 'password_one');
                 $repeatPasswordErr = testPasswordsAreEqual($password, $password_one);
                 setcookie('repeatPasswordErr', $repeatPasswordErr);
                 if ($repeatPasswordErr != '*') {
-                    echo $_SERVER['SERVER_NAME'];
+                    echo filter_input(INPUT_SERVER, 'SERVER_NAME');
                     exit();
                 }
 
@@ -273,7 +266,7 @@ if (isset($_POST['page'])) {
                     //CAMBIA LA PASSWORD DELL'UTENTE
                     if (changePassword($selectedRecipient, $user_email, $oldpassword, $password)) {
 
-                        $from = getUserEmail($_COOKIE['id_utente']);
+                        $from = getUserEmail(filter_input(INPUT_COOKIE, 'id_utente'));
                         $to = $user_email;
                         $subject = 'Le sue nuove credenziali di accesso sono: <br>' .
                                 "Email: " . $user_email . "<br> Password: " . $password;
@@ -290,33 +283,33 @@ if (isset($_POST['page'])) {
                         $status = send_message($from, $to, $subject, $message_content, $logo);
                         if ($status) {//EMAIL INVIATA
                             //AGGIORNA il DATABASE
-                            $mySqlFunctions->removePendingFromUserRequest($selectedRecipient, $_COOKIE['id_utente']);
+                            $mySqlFunctions->removePendingFromUserRequest($selectedRecipient, filter_input(INPUT_COOKIE, 'id_utente'));
                             $mySqlFunctions->setUserHasToChangePassword($selectedRecipient, 1);
                         }
                     }
-                    echo $_SERVER['SERVER_NAME'];
+                    echo filter_input(INPUT_SERVER, 'SERVER_NAME');
                     exit();
                 }
-            } elseif ($_POST['action'] == 'selectRecipient') {
-                $selectedRecipient = $_POST['selectedRecipient'];
+            } elseif (filter_input(INPUT_POST, 'action') == 'selectRecipient') {
+                $selectedRecipient = filter_input(INPUT_POST, 'selectedRecipient');
                 setcookie('selectedRecipient', $selectedRecipient);
                 echo $mySqlFunctions->retrievePassword($selectedRecipient);
-            } elseif ($_POST['action'] == 'generatePassword') {
-                if (isset($_POST['numChars'])) {
-                    $numChars = $_POST['numChars'];
+            } elseif (filter_input(INPUT_POST, 'action') == 'generatePassword') {
+                if (NULL != filter_input(INPUT_POST, 'numChars')) {
+                    $numChars = filter_input(INPUT_POST, 'numChars');
                     echo generate_password($numChars);
                 }
-            } elseif ($_POST['action'] == 'copyPassword') {
-                if (isset($_POST['password'])) {
-                    $generatedPassword = $_POST['password'];
+            } elseif (filter_input(INPUT_POST, 'action') == 'copyPassword') {
+                if (NULL != filter_input(INPUT_POST, 'password')) {
+                    $generatedPassword = filter_input(INPUT_POST, 'password');
                     echo $generatedPassword;
                 }
-            } else
-                echo $_SERVER['SERVER_NAME'];
+            } else {
+                echo filter_input(INPUT_SERVER, 'SERVER_NAME');
+            }
         }
-    }
-    else {
-        setcookie('selectedUtente', $_POST['selectedUtente']);
+    } else {
+        setcookie('selectedUtente', filter_input(INPUT_POST, 'selectedUtente'));
     }
 }
 

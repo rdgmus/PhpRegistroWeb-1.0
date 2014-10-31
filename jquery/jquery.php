@@ -570,7 +570,10 @@ if (isset($_COOKIE['firstLogin'])) {
                         data: mydata,
                         success: function (response) {//response is value returned from php (for your example it's "bye bye"
                             //alert(response);
-
+                            /**
+                             * Disabilita la cookye per impedire la ricomparsa dei popup relativi
+                             * al messaggio di benvenuto
+                             */
                             $.cookie('firstLogin', 'false');
                             window.location = "http://" + response + "/PhpRegistroScuolaNetBeans/userMenu.php";
                         }
@@ -1093,7 +1096,7 @@ if (isset($_COOKIE['firstLogin'])) {
                             buttons: {"Continua": 1},
                             focus: 0,
                             submit: function (e, v, m, f) {
-                                e.preventDefault();
+                                //e.preventDefault();
                                 $.prompt.goToState('state1');
                             }
                         }

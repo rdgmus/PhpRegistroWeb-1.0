@@ -23,21 +23,25 @@ class RuoliUtentiActions {
      * @var object 
      */
     var $mydata;
+
     /**
      * Ruolo Utente
      * @var string 
      */
     var $ruolo;
+
     /**
      * Ha gi&agrave l'abilitazione oppure no al ruolo indicato
      * @var boolean 
      */
     var $hasRole;
+
     /**
      * Utente sul quale si sta operando
      * @var int 
      */
     var $selectedUtente;
+
     /**
      * Nome dell'utente
      * @var string 
@@ -126,6 +130,13 @@ class RuoliUtentiActions {
             cambiare = "disabilitare";
         else
             cambiare = "abilitare";
+
+
+        /**
+         * Disabilita la cookye per impedire la ricomparsa dei popup relativi
+         * al messaggio di benvenuto
+         */
+        $.cookie('firstLogin', 'false');
         //$.cookye('hasRoleSelectedUtente'), $.coockye('selectedUtente'));
         $.prompt("<h3>Vuoi " + cambiare + " i permessi per il ruolo di </h3><h2>" +
                 ruolo + "</h2><h3> all'utente </h3><h2>"

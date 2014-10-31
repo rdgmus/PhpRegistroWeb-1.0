@@ -17,7 +17,9 @@ global $logoHref, $logoSrc, $logoAlt;
                     <tr>
                         <td valign="top"><input
                                 src="<?php echo $mySqlFunctions->userIsAdministrator($_COOKIE['id_utente']) ? 'images/administrator.jpeg' : 'images/ruolo_utente.png' ?>"
-                                width="64" height="64" title="Torna al Men� utente"
+                                width="64" height="64" title="Torna al Men&ugrave; <?php
+                                echo $mySqlFunctions->userIsAdministrator($_COOKIE['id_utente']) ? 'Amministratore' : 'Utente';
+                                ?>"
                                 id="backToUserMenu" type="image" />
                         </td>
                         <td valign="top">
@@ -40,7 +42,7 @@ global $logoHref, $logoSrc, $logoAlt;
                                 </tr>
                                 <tr>
                                     <td colspan="2"><h1>
-<?php echo $pageTitle ?>
+                                            <?php echo $pageTitle ?>
                                         </h1></td>
                                 </tr>
                             </table>
@@ -48,15 +50,15 @@ global $logoHref, $logoSrc, $logoAlt;
 
                     </tr>
                     <tr>
-<?php if (isset($GLOBALS['logoHref'])) { ?>
+                        <?php if (isset($GLOBALS['logoHref'])) { ?>
                             <td valign="top" colspan="2" align="center"><a
                                     href="<?php echo $GLOBALS['logoHref']; ?>"> <img
                                         src="<?php echo $GLOBALS['logoSrc']; ?>"
                                         alt="<?php echo $GLOBALS['logoAlt']; ?>"
                                         title="<?php echo $GLOBALS['logoAlt']; ?>" /> </a>
                             </td>
-<?php }
-?>
+                        <?php }
+                        ?>
                     </tr>
                 </table></td>
             <td><div id="datepicker"></div></td>

@@ -947,7 +947,7 @@ class MySqlFunctionsClass {
     function setUnsetRuoloUtente($id_utente, $id_ruolo) {
 
         if ($this->connectToMySql()) {
-            if (userHasRole($id_utente, $id_ruolo)) {
+            if ($this->userHasRole($id_utente, $id_ruolo)) {
                 $query = sprintf("DELETE FROM scuola.ruoli_granted_to_utenti
 		WHERE id_utente = %s and id_ruolo = %s", $id_utente, $id_ruolo);
             } else {

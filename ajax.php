@@ -270,7 +270,7 @@ if (NULL != filter_input(INPUT_POST, 'page')) {
                 }
 
                 $password_one = filter_input(INPUT_POST, 'password_one');
-                $repeatPasswordErr = testPasswordsAreEqual($password, $password_one);
+                $repeatPasswordErr = $mySqlFunctions->testPasswordsAreEqual($password, $password_one);
                 setcookie('repeatPasswordErr', $repeatPasswordErr);
                 if ($repeatPasswordErr != '*') {
                     echo filter_input(INPUT_SERVER, 'SERVER_NAME');
@@ -279,9 +279,9 @@ if (NULL != filter_input(INPUT_POST, 'page')) {
 
                 if ($oldpasswordErr == '*' && $newpasswordErr = '*' && $repeatPasswordErr = '*') {
                     //CAMBIA LA PASSWORD DELL'UTENTE
-                    if (changePassword($selectedRecipient, $user_email, $oldpassword, $password)) {
+                    if ($mySqlFunctions->changePassword($selectedRecipient, $user_email, $oldpassword, $password)) {
 
-                        $from = getUserEmail(filter_input(INPUT_COOKIE, 'id_utente'));
+                        $from = $mySqlFunctions->getUserEmail(filter_input(INPUT_COOKIE, 'id_utente'));
                         $to = $user_email;
                         $subject = 'Le sue nuove credenziali di accesso sono: <br>' .
                                 "Email: " . $user_email . "<br> Password: " . $password;

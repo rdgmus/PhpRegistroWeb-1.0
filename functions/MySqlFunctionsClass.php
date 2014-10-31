@@ -116,7 +116,7 @@ class MySqlFunctionsClass {
      * @param rmail $email
      */
     function existRequestPendingFor($id_request, $hash, $cognome, $nome, $email) {
-        if (connectToMySqlWithParams('localhost:3307', 'root', 'myzconun')) {
+        if ($this->connectToMySqlWithParams('localhost:3307', 'root', 'myzconun')) {
             //RECUPERA id_request dalla tabella
             $query = sprintf("SELECT * FROM scuola.change_password_request AS a, scuola.utenti_scuola AS b" .
                     " WHERE a.id_request = %s AND a.hash = '%s' AND  a.pending = 1 AND" .
@@ -1280,7 +1280,7 @@ class MySqlFunctionsClass {
      * @param password $newpassword
      */
     function changeUtenteScuolaPassword($id_utente, $user_email, $oldpassword, $newpassword) {
-        if (authenticateUser($user_email, $oldpassword, FALSE)) {
+        if ($this->authenticateUser($user_email, $oldpassword, FALSE)) {
             // This could be supplied by a user, for example
 
             $query = sprintf("UPDATE scuola.utenti_scuola SET password='%s' " .
@@ -1289,7 +1289,7 @@ class MySqlFunctionsClass {
             // Perform Query
             $result = mysql_query($query);
             if ($result) {
-                $msg = '<span class="error">PASSWORD cambiata per l\'utente: <h2>' . getUserName($id_utente) . '</h2> email: <h3>' . $user_email . '</h3></span>';
+                $msg = '<span class="error">PASSWORD cambiata per l\'utente: <h2>' . $this->getUserName($id_utente) . '</h2> email: <h3>' . $user_email . '</h3></span>';
                 setcookie("message", $msg);
             } else {
                 $msg = '<span class="error">Non � stato possibile cambiare la PASSWORD per ' .
@@ -1311,15 +1311,15 @@ class MySqlFunctionsClass {
     function changePassword($selectedRecipient, $user_email, $oldpassword, $password) {
         if ($this->connectToMySql()) {
             //QUERY FOR USER ACCOUNT HERE
-            if (authenticateUser($user_email, $oldpassword, FALSE)) {
+            if ($this->authenticateUser($user_email, $oldpassword, FALSE)) {
                 //QUI CAMBIA LA PASSWORD
-                changeUtenteScuolaPassword($selectedRecipient, $user_email, $oldpassword, $password);
-                closeConnection();
+                $this->changeUtenteScuolaPassword($selectedRecipient, $user_email, $oldpassword, $password);
+                $this->closeConnection();
                 return TRUE;
             } else {
                 $msg = '<span class="error">L\'utente selezionato non ha i permessi di accesso!</span>';
                 setcookie("message", $msg);
-                closeConnection();
+                $this->closeConnection();
                 return FALSE;
             }
         }

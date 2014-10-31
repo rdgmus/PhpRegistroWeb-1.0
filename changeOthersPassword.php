@@ -43,13 +43,13 @@
                         ?>
                     </td>
                     <td><input type="hidden" name="user_email"
-                               value="<?php echo getUserEmail($_COOKIE['selectedRecipient']) ?>">
+                               value="<?php echo $mySqlFunctions->getUserEmail($_COOKIE['selectedRecipient']) ?>">
                     </td>
                 </tr>
                 <tr>
                     <td align="right"><strong>Old Password:</strong></td>
                     <td colspan="4"><input name="oldpassword" type="password" id="oldpasswordId" size="40"
-                                           value="<?php echo retrievePassword($_COOKIE['selectedRecipient']) ?>"/>
+                                           value="<?php echo $mySqlFunctions->retrievePassword($_COOKIE['selectedRecipient']) ?>"/>
                     </td>
                     <td colspan="2"><span class="error"> <?php
                             $oldpasswordErr = isset($_COOKIE['oldpasswordErr']) ? $_COOKIE['oldpasswordErr'] : '*';
@@ -95,7 +95,7 @@
                     <td colspan="5" align="right"><img name="actionChangeOtherPassword"
                                                        src="images/key_green.png" width="64" height="64"
                                                        title="Cambia Password" id="actionChangeOthersPasswordId" />
-                        <input type="hidden" name="countRowPending" value="<?php echo countPasswordToChangePending(1, 1); ?>">
+                        <input type="hidden" name="countRowPending" value="<?php echo $mySqlFunctions->countPasswordToChangePending(1, 1); ?>">
                     </td>
                 </tr>
                 <tr>

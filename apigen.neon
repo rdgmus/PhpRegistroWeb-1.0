@@ -19,7 +19,6 @@ source:
 	- ./userMenu.php
 	- ./userRegistration.php
 	- ./functions/MySqlFunctionsClass.php
-	- ./functions/mysql_functions.php
 	- ./functions/utilities_functions.php
 	- ./frames/agendaUtentiEMailFrame.php
 	- ./frames/alertFrame.php

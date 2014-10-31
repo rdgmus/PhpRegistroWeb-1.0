@@ -141,7 +141,7 @@ src="jquery/select2-3.5.1/select2.js"></script>
          * Disabilita la cookye per impedire la ricomparsa dei popup relativi
          * al messaggio di benvenuto
          */
-        $.cookie('firstLogin', 'false');
+        //$.cookie('firstLogin', 'false');
         //$.cookye('hasRoleSelectedUtente'), $.coockye('selectedUtente'));
         $.prompt("<h3>Vuoi " + cambiare + " i permessi per il ruolo di </h3><h2>" +
                 ruolo + "</h2><h3> all'utente </h3><h2>"
@@ -247,6 +247,7 @@ src="jquery/select2-3.5.1/select2.js"></script>
                         "selectedUtente": selectedUtente},
                     success: function (response) {//response is value returned from php (for your example it's "bye bye"
                         //alert(response);
+                        
                         location.reload();
                     }
                 });
@@ -255,6 +256,7 @@ src="jquery/select2-3.5.1/select2.js"></script>
                 var originalOption = state.element;
                 if ($.cookie('selectedUtente') != $(originalOption).val()) {
                     $.cookie('selectedUtente', $(originalOption).val());
+                    //$.cookie('firstLogin', false);
                     var response = retrieveRuoliUtente($(originalOption).val());
                 }
 

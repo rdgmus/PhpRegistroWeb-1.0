@@ -59,11 +59,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             if ($mySqlFunctions->connectToMySql()) {
                                 //QUERY FOR USER ACCOUNT HERE
                                 if ($esito = $mySqlFunctions->authenticateUser($user_email, $password, TRUE)) {
-                                    $mySqlFunctions->registerLogEvent('LOGIN_SUCCESS', 'LOGIN IN REGISTRO SCOLASTICO:SUCCESS', 
-                                            $mySqlFunctions->getUserId($user_email, $password), $_SERVER['REMOTE_ADDR']);
+                                    $mySqlFunctions->registerLogEvent('LOGIN_SUCCESS', 'LOGIN IN REGISTRO SCOLASTICO:SUCCESS', $mySqlFunctions->getUserId($user_email, $password), $_SERVER['REMOTE_ADDR']);
 
                                     //SETTA LA COOKYE PER IL MESSAGE POP DI BENVENUTO ALL'UTENTE
-                                    setcookie('firstLogin', 'true');
+                                    setcookie('firstLogin', 'true', time() + 10);
                                     //REINDIRIZZA ALLA PAGINA UTENTE
                                     echo ("http://" . $_SERVER['SERVER_NAME'] . "/PhpRegistroScuolaNetBeans/userMenu.php");
                                 } else {
@@ -107,9 +106,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         "&nome=" . $nome .
                         "&email=" . $email;
                 inviaRichiestaConfermaTo($cognome, $nome, $email, $toLink);
-                echo (int)1;
+                echo (int) 1;
             } else {
-                echo (int)0;
+                echo (int) 0;
             }
         } elseif ($_POST['actionLogin'] == 'generatePassword') {
             //GENERA PASSWORD

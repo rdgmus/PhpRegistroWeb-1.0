@@ -49,7 +49,7 @@ class MySqlFunctionsClass {
 
             return FALSE;
         }
-        if (connectToMySqlWithParams('localhost:3307', 'root', 'myzconun')) {
+        if ($this->connectToMySqlWithParams('localhost:3307', 'root', 'myzconun')) {
 
             $result = mysql_query($query);
 

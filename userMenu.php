@@ -20,7 +20,7 @@
 <?php
 if (isset($_COOKIE['firstLogin'])) {
     if ($_COOKIE['firstLogin'] == 'true') {
-
+        //$_COOKIE['firstLogin'] == 'false';
         if (isset($_COOKIE['id_utente'])) {
             if ($mySqlFunctions->userIsAdministrator($_COOKIE['id_utente'])) {
                 $typeOfUser = " Administrator: ";

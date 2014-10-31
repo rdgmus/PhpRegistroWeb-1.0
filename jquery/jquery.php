@@ -186,6 +186,8 @@ include 'jquery/jq_emails.php';
             responseType: "json",
             success: function (data) {
                 //alert('success: '+data.MsgPopQueue[0].Content);
+                
+                //$.cookie('firstLogin', false);
                 $("#liveDemo").html(data.content);
             },
             error: function (data) {
@@ -543,7 +545,7 @@ if (isset($_COOKIE['firstLogin'])) {
                         }
                     });
 
-                } else {//per le altre pagine dalle quali viene richiamata questra funzione 
+                } else {//per le altre pagine dalle quali viene richiamata questra funzione backToUserMenu 
                     mydata = $("form#mailUserForm").serialize();
                     mydata = mydata + "&page=" + "userMenu.php" + "&action=" + "backToUserMenu";
                     //alert(mydata);
@@ -557,7 +559,7 @@ if (isset($_COOKIE['firstLogin'])) {
                              * Disabilita la cookye per impedire la ricomparsa dei popup relativi
                              * al messaggio di benvenuto
                              */
-                            $.cookie('firstLogin', 'false');
+                            //$.cookie('firstLogin', 'false');
                             window.location = "http://" + response + "/PhpRegistroScuolaNetBeans/userMenu.php";
                         }
                     });

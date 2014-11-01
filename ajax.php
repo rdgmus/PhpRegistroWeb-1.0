@@ -224,7 +224,7 @@ if (NULL != filter_input(INPUT_POST, 'page')) {
                 }
 
                 $password_one = filter_input(INPUT_POST, 'password_one');
-                $repeatPasswordErr = testPasswordsAreEqual($password, $password_one);
+                $repeatPasswordErr =$mySqlFunctions->testPasswordsAreEqual($password, $password_one);
                 setcookie('repeatPasswordErr', $repeatPasswordErr);
                 if ($repeatPasswordErr != '*') {
                     echo filter_input(INPUT_SERVER, 'SERVER_NAME');
@@ -232,7 +232,7 @@ if (NULL != filter_input(INPUT_POST, 'page')) {
                 }
 
                 if ($oldpasswordErr == '*' && $newpasswordErr = '*' && $repeatPasswordErr = '*') {
-                    changePassword($selectedRecipient, $user_email, $oldpassword, $password);
+                    $mySqlFunctions->changePassword($selectedRecipient, $user_email, $oldpassword, $password);
                     $mySqlFunctions->setUserHasToChangePassword(filter_input(INPUT_COOKIE, 'id_utente'), 0);
 
                     echo filter_input(INPUT_SERVER, 'SERVER_NAME');

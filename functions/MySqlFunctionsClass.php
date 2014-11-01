@@ -372,9 +372,9 @@ class MySqlFunctionsClass {
         // Perform Query
         $result = mysql_query($query);
 
-        while ($row = mysql_fetch_assoc($result)) {
-            $password = $row['password'];
-        }
+        $row = mysql_fetch_assoc($result);
+        $password = $row['password'];
+
 
         return base64_decode(base64_decode($password));
     }
@@ -1362,7 +1362,7 @@ class MySqlFunctionsClass {
                 $msg = '<span class="error">PASSWORD cambiata per l\'utente: <h2>' . $this->getUserName($id_utente) . '</h2> email: <h3>' . $user_email . '</h3></span>';
                 setcookie("message", $msg);
             } else {
-                $msg = '<span class="error">Non � stato possibile cambiare la PASSWORD per ' .
+                $msg = '<span class="error">Non &egrave; stato possibile cambiare la PASSWORD per ' .
                         $user_email . ': ' . mysql_error($GLOBALS['link']) . '</span>';
                 setcookie("message", $msg);
             }

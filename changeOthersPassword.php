@@ -11,7 +11,8 @@
         $mySqlFunctions = new MySqlFunctionsClass();
         ?>
 
-        <?php setTitle('Cambia Password utenti');
+        <?php
+        setTitle('Cambia Password utenti');
         include 'frames/logoTitleFrame.php';
         ?>
 
@@ -25,7 +26,13 @@
 
     </head>
     <body>
-
+        <?php
+        $listaUtentiToChangePassword = $mySqlFunctions->listaUtentiToChangePassword();
+        if (mysql_num_rows($listaUtentiToChangePassword) == 0) {
+            echo '<h1> Non vi sono richieste  di cambiamento password!</h1>';
+            die();
+        }
+        ?>
 
         <form method="post" id="changeOthersPasswordForm"
               action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
@@ -48,7 +55,7 @@
                 </tr>
                 <tr>
                     <td align="right"><strong>Old Password:</strong></td>
-                    <td colspan="4"><input name="oldpassword" type="password" id="oldpasswordId" size="40"
+                    <td colspan="4"><input name="oldpassword" type="text" id="oldpasswordId" size="40"
                                            value="<?php echo $mySqlFunctions->retrievePassword($_COOKIE['selectedRecipient']) ?>"/>
                     </td>
                     <td colspan="2"><span class="error"> <?php

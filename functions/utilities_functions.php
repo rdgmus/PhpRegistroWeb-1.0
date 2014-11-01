@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * Nome dell'aplicazione
  */
@@ -235,9 +234,13 @@ function listSessionAttribute() {
  * imposta le cookyes relative
  */
 function createEmailAndCookyes() {
-    createEmail($_COOKIE['email_user'], $_COOKIE['cognome_user'] . " " . $_COOKIE['nome_user'], $_COOKIE['id_utente']);
+    require_once './functions/MySqlFunctionsClass.php';
 
-    $result = getNewEmailId($_COOKIE['id_utente']);
+    $mySqlFunctions = new MySqlFunctionsClass();
+
+    $mySqlFunctions->createEmail($_COOKIE['email_user'], $_COOKIE['cognome_user'] . " " . $_COOKIE['nome_user'], $_COOKIE['id_utente']);
+
+    $result = $mySqlFunctions->getNewEmailId($_COOKIE['id_utente']);
     $row = mysql_fetch_assoc($result);
     setcookie('emailId', $row['id_email']);
 }

@@ -637,7 +637,7 @@ class MySqlFunctionsClass {
      * @param bigint $id_user
      */
     function createEmail($from_email, $from_name, $id_user) {
-        $result = getNewEmailId($id_user); //Contiene le email dell'utente con data a null
+        $result = $this->getNewEmailId($id_user); //Contiene le email dell'utente con data a null
         if (mysql_num_rows($result) > 0) {//Se vi sono email pregresse ritorna la lista delle email pregresse
             return $result;
         }

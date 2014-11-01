@@ -622,7 +622,7 @@ if (isset($_COOKIE['firstLogin'])) {
                         url: 'ajax.php',
                         data: mydata,
                         success: function (response) {
-                            //alert(response);
+                            alert(response);
                             window.location = "http://" + response + "/PhpRegistroScuolaNetBeans/emailToUser.php";
                         }
                     });

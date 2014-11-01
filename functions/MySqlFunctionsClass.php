@@ -143,15 +143,39 @@ class MySqlFunctionsClass {
 
     /**
      *
-     * Enter description here ...
+     * Conferma la richiesta di cambiamento password in modo che un amministratore
+     * possa operare il cambiamento ed inviare una email di conferma con le nuove
+     * generalit&agrave; all'utente.
      * @param string $hash
      * @param bigint $id_request
+     * @return boolean
      */
     function setRequestConfirmedFor($hash, $id_request) {
-        if (connectToMySqlWithParams('localhost:3307', 'root', 'myzconun')) {
+        if ($this->connectToMySqlWithParams('localhost:3307', 'root', 'myzconun')) {
             //RECUPERA id_request dalla tabella
             $query = sprintf("UPDATE scuola.change_password_request" .
                     " SET confirmed = 1 WHERE id_request = %s AND hash = '%s'", $id_request, $hash);
+
+            $result = mysql_query($query);
+
+            $this->closeConnection();
+            return $result;
+        }
+        return FALSE;
+    }
+
+    /**
+     * 
+     * Cancellazione della richiesta di cambiamento password.
+     * @param string $hash
+     * @param bigint $id_request
+     * @return boolean
+     */
+    function confirmCancelRequestFor($hash, $id_request) {
+        if ($this->connectToMySqlWithParams('localhost:3307', 'root', 'myzconun')) {
+            //RECUPERA id_request dalla tabella
+            $query = sprintf("DELETE FROM scuola.change_password_request" .
+                    " WHERE id_request = %s AND hash = '%s'", $id_request, $hash);
 
             $result = mysql_query($query);
 
@@ -189,6 +213,52 @@ class MySqlFunctionsClass {
             }
         }
         return NULL;
+    }
+
+    /**
+     * Controlla se gi&agrave; &egrave; stata inoltrata una richiesta di
+     * cambiamento di password per l'utente in oggetto. 
+     * 
+     * @param string $cognome
+     * @param string $nome
+     * @param email $email
+     * @return boolean
+     */
+    function alreadyExistsPasswordRequestFor($cognome, $nome, $email) {
+        if ($this->connectToMySqlWithParams('localhost:3307', 'root', 'myzconun')) {
+            //RECUPERA l'id_utente
+            $query = sprintf("SELECT id_utente FROM scuola.utenti_scuola" .
+                    " WHERE cognome = upper('%s') AND nome = upper('%s') AND email = '%s'", $cognome, $nome, $email);
+
+            $result = mysql_query($query);
+            if (mysql_numrows($result) != 1) {
+                setcookie('message', mysql_error());
+                $this->closeConnection();
+                return FALSE;
+            } else {
+                $row = mysql_fetch_row($result);
+                $id_utente = $row[0];
+                //Registra la richiesta
+                $query = sprintf("SELECT  * FROM scuola.change_password_request"
+                        . " WHERE from_user = %s AND pending = 1", $id_utente);
+
+                // Perform Query
+                $result = mysql_query($query);
+                if (!$result) {
+                    setcookie('message', mysql_error());
+                    $this->closeConnection();
+                    return FALSE;
+                } else {
+                    if (mysql_num_rows($result) > 0) {
+                        $this->closeConnection();
+                        return TRUE;
+                    }
+                    $this->closeConnection();
+                    return FALSE;
+                }
+            }
+        }
+        return FALSE;
     }
 
     /**

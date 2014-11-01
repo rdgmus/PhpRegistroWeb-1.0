@@ -1,107 +1,108 @@
 <?php
-include 'functions/mysql_functions.php';
+
 include 'functions/utilities_functions.php';
+include './functions/MySqlFunctionsClass.php';
+
+$mySqlFunctions = new MySqlFunctionsClass();
+
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-	$user_emailErr = $passwordErr = $repeatpasswordErr = $nameErr = $surnameErr ="";
-	$msg = "";
+    $user_emailErr = $passwordErr = $repeatpasswordErr = $nameErr = $surnameErr = "";
+    $msg = "";
 
-	if(isset($_POST['actionRegister'])) {
-		if ($_POST['actionRegister'] == 'Register'){
-			$name =trim($_REQUEST['name']);
-			$surname =trim($_REQUEST['surname']);
-			$user_email = trim($_REQUEST['user_email']);
-			$password = trim($_REQUEST['password']);
-			$password_one = trim($_REQUEST['password_one']);
+    if (isset($_POST['actionRegister'])) {
+        if ($_POST['actionRegister'] == 'Register') {
+            $name = trim($_REQUEST['name']);
+            $surname = trim($_REQUEST['surname']);
+            $user_email = trim($_REQUEST['user_email']);
+            $password = trim($_REQUEST['password']);
+            $password_one = trim($_REQUEST['password_one']);
 
-			if (strlen($name)>0) {
-				setcookie('newUserName',$name);
-			}
-			if (strlen($surname)>0) {
-				setcookie('newUserSurname',$surname);
-			}
-			if (strlen($user_email)>0) {
-				setcookie('newUserEmail',$user_email);
-			}
-			if (strlen($password)>0) {
-				setcookie('newUserPassword',$password);
-			}
-			if (strlen($password_one)>0) {
-				setcookie('newUserRepeatPassword',$password_one);
-			}
-			// Arrays to check input against
-			if(empty($name)){
-				$nameErr = 'Name required';
-				setcookie("nameErr",$nameErr);
-				exit();
-			}else{
-				$name=test_input($name);
-			}
-			if(empty($surname)){
-				$surnameErr = 'Surname required';
-				setcookie("surnameErr",$surnameErr);
-				exit();
-			}else{
-				$surname=test_input($surname);
-			}
-			if(empty($user_email)){
-				$user_emailErr = 'Email required';
-				setcookie("user_emailErr",$user_emailErr);
-				exit();
-			}else{
-				$user_email = test_input($user_email);
-				//VALIDATE EMAIL
-				if (!filter_var($user_email, FILTER_VALIDATE_EMAIL)) {
-					$user_emailErr = "Invalid Email format";
-					setcookie("user_emailErr",$user_emailErr);
-				}
-			}
-			if(empty($password)){
-				$passwordErr = 'Password required';
-				setcookie("passwordErr",$passwordErr);
-				exit();
-			}else{
-				$password = test_input($password);
-				//VALIDATE PASSWORD
-				if (!filter_var($password, FILTER_VALIDATE_REGEXP,
-				array("options"=>array("regexp"=>"((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,10})") ))){
-					//da 4 a 10 caratteri, deve contenere maiuscole, minuscole e numeri
-					$passwordErr = "Invalid Password format";
-					setcookie("passwordErr",$passwordErr);
-				}else{
+            if (strlen($name) > 0) {
+                setcookie('newUserName', $name);
+            }
+            if (strlen($surname) > 0) {
+                setcookie('newUserSurname', $surname);
+            }
+            if (strlen($user_email) > 0) {
+                setcookie('newUserEmail', $user_email);
+            }
+            if (strlen($password) > 0) {
+                setcookie('newUserPassword', $password);
+            }
+            if (strlen($password_one) > 0) {
+                setcookie('newUserRepeatPassword', $password_one);
+            }
+            // Arrays to check input against
+            if (empty($name)) {
+                $nameErr = 'Name required';
+                setcookie("nameErr", $nameErr);
+                exit();
+            } else {
+                $name = test_input($name);
+            }
+            if (empty($surname)) {
+                $surnameErr = 'Surname required';
+                setcookie("surnameErr", $surnameErr);
+                exit();
+            } else {
+                $surname = test_input($surname);
+            }
+            if (empty($user_email)) {
+                $user_emailErr = 'Email required';
+                setcookie("user_emailErr", $user_emailErr);
+                exit();
+            } else {
+                $user_email = test_input($user_email);
+                //VALIDATE EMAIL
+                if (!filter_var($user_email, FILTER_VALIDATE_EMAIL)) {
+                    $user_emailErr = "Invalid Email format";
+                    setcookie("user_emailErr", $user_emailErr);
+                }
+            }
+            if (empty($password)) {
+                $passwordErr = 'Password required';
+                setcookie("passwordErr", $passwordErr);
+                exit();
+            } else {
+                $password = test_input($password);
+                //VALIDATE PASSWORD
+                if (!filter_var($password, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => "((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,10})")))) {
+                    //da 4 a 10 caratteri, deve contenere maiuscole, minuscole e numeri
+                    $passwordErr = "Invalid Password format";
+                    setcookie("passwordErr", $passwordErr);
+                } else {
 
-					if(empty($password_one)){
-						$repeatpasswordErr = 'required';
-						setcookie("repeatpasswordErr",$repeatpasswordErr);
-					}else{
-						$password_one = test_input($password_one);
+                    if (empty($password_one)) {
+                        $repeatpasswordErr = 'required';
+                        setcookie("repeatpasswordErr", $repeatpasswordErr);
+                    } else {
+                        $password_one = test_input($password_one);
 
-						if( $password == $password_one){
-							$msg = "Passwords match! ...now searching if user '" . $user_email . "' has a valid account ?<br>";
-							//QUERY FOR DATABASE CONNECTION HERE
-							if (connectToMySql()) {
-								//QUERY FOR USER ACCOUNT HERE
-								if(createUtenteScuola($name,$surname,$user_email,$password)){
-									echo("http://". $_SERVER['SERVER_NAME'] . "/PhpRegistroScuolaNetBeans/userAuthentication.php");
-								}else{
-									$msg = '<span class="error">User not created! ' . mysql_error($GLOBALS['link']) . '</span>';
-								}
-
-							}
-							if (isset($GLOBALS['link'])) {
-								closeConnection();
-							}
-						}else{
-							$repeatpasswordErr = 'Passwords do not match!';
-							setcookie("repeatpasswordErr",$repeatpasswordErr);
-						}
-					}
-
-				}
-			}
-		}
-	}
-}else{
-	echo("http://". $_SERVER['SERVER_NAME'] . "/PhpRegistroScuolaNetBeans/userAuthentication.php");
+                        if ($password == $password_one) {
+                            $msg = "Passwords match! ...now searching if user '" . $user_email . "' has a valid account ?<br>";
+                            //QUERY FOR DATABASE CONNECTION HERE
+                            if ($mySqlFunctions->connectToMySql()) {
+                                //QUERY FOR USER ACCOUNT HERE
+                                if ($mySqlFunctions->createUtenteScuola($name, $surname, $user_email, $password)) {
+                                    echo("http://" . $_SERVER['SERVER_NAME'] . "/PhpRegistroScuolaNetBeans/userAuthentication.php");
+                                } else {
+                                    $msg = '<span class="error">User not created! ' . mysql_error($GLOBALS['link']) . '</span>';
+                                }
+                            }
+                            if (isset($GLOBALS['link'])) {
+                                $mySqlFunctions->closeConnection();
+                            }
+                        } else {
+                            $repeatpasswordErr = 'Passwords do not match!';
+                            setcookie("repeatpasswordErr", $repeatpasswordErr);
+                        }
+                    }
+                }
+            }
+        }
+    }
+} else {
+    echo("http://" . $_SERVER['SERVER_NAME'] . "/PhpRegistroScuolaNetBeans/userAuthentication.php");
 }

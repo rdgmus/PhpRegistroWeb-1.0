@@ -3,10 +3,14 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=MacRoman">
         <title>User Menu</title>
-        <?php include 'functions/utilities_functions.php';
-        include 'functions/mysql_functions.php';
+        <?php
+        include 'functions/utilities_functions.php';
+        include './functions/MySqlFunctionsClass.php';
+
+        $mySqlFunctions = new MySqlFunctionsClass();
         ?>
-        <?php setTitle(userIsAdministrator($_COOKIE['id_utente']) ? 'Men&ugrave Amministratore' : 'Men&ugrave Utente');
+        <?php
+        setTitle($mySqlFunctions->userIsAdministrator($_COOKIE['id_utente']) ? 'Men&ugrave Amministratore' : 'Men&ugrave Utente');
         include 'frames/logoTitleFrame.php';
         ?>
         <link href="css/PhpRegistroWeb.css" rel="stylesheet">
@@ -16,9 +20,9 @@
 <?php
 if (isset($_COOKIE['firstLogin'])) {
     if ($_COOKIE['firstLogin'] == 'true') {
-
+        //$_COOKIE['firstLogin'] == 'false';
         if (isset($_COOKIE['id_utente'])) {
-            if (userIsAdministrator($_COOKIE['id_utente'])) {
+            if ($mySqlFunctions->userIsAdministrator($_COOKIE['id_utente'])) {
                 $typeOfUser = " Administrator: ";
             } else {
                 $typeOfUser = " User: ";
@@ -42,7 +46,7 @@ if (isset($_COOKIE['firstLogin'])) {
                     <th>Logout</th>
                     <th>Invia Email</th>
                     <th colspan="2">Cambia Password</th>
-                    <?php echo userIsAdministrator($_COOKIE['id_utente']) ? '<th>Gestisci Ruoli Utenti</th>' : '' ?>
+                    <?php echo $mySqlFunctions->userIsAdministrator($_COOKIE['id_utente']) ? '<th>Gestisci Ruoli Utenti</th>' : '' ?>
 
                 </tr>
                 <tr>
@@ -61,7 +65,10 @@ if (isset($_COOKIE['firstLogin'])) {
                                                          id="changePassword" title="Cambia tua Password" />
                     </td>
                     <?php
-                    if (userIsAdministrator($_COOKIE['id_utente'])) {
+                    /**
+                     * Menu che compaiono solo per l'amministratore
+                     */
+                    if ($mySqlFunctions->userIsAdministrator($_COOKIE['id_utente'])) {
                         include 'frames/othersPasswordFrame.php';
                         include 'frames/ruoliUtenteFrame.php';
                     }
@@ -78,7 +85,7 @@ if (isset($_COOKIE['firstLogin'])) {
 
 
                 <h2>
-    <?php echo $_COOKIE['message'] ?>
+                    <?php echo $_COOKIE['message'] ?>
                 </h2>
             </div>
             <?php

@@ -1,10 +1,14 @@
+
 <?php
 global $pageTitle;
 global $logoHref, $logoSrc, $logoAlt;
 ?>
 <html>
     <head>
-        <?php include 'jquery/jquery.php';
+        <?php
+        include 'jquery/jquery.php';
+
+        $mySqlFunctions = new MySqlFunctionsClass();
         ?>
     </head>
     <table id="logoTitleFrameTable">
@@ -12,8 +16,10 @@ global $logoHref, $logoSrc, $logoAlt;
             <td valign="top"><table id="logoTitleFrameTable">
                     <tr>
                         <td valign="top"><input
-                                src="<?php echo userIsAdministrator($_COOKIE['id_utente']) ? 'images/administrator.jpeg' : 'images/ruolo_utente.png' ?>"
-                                width="64" height="64" title="Torna al Men� utente"
+                                src="<?php echo $mySqlFunctions->userIsAdministrator($_COOKIE['id_utente']) ? 'images/administrator.jpeg' : 'images/ruolo_utente.png' ?>"
+                                width="64" height="64" title="Torna al Men&ugrave; <?php
+                                echo $mySqlFunctions->userIsAdministrator($_COOKIE['id_utente']) ? 'Amministratore' : 'Utente';
+                                ?>"
                                 id="backToUserMenu" type="image" />
                         </td>
                         <td valign="top">
@@ -22,9 +28,10 @@ global $logoHref, $logoSrc, $logoAlt;
                                     <td><?php echo 'PhpRegistroWeb 1.0'; ?></td>
                                 </tr>
                                 <tr>
-                                    <td><?php echo userIsAdministrator($_COOKIE['id_utente']) ? 'Administrator:' : 'User:' ?>
+                                    <td><?php echo $mySqlFunctions->userIsAdministrator($_COOKIE['id_utente']) ? 'Administrator:' : 'User:' ?>
 
-                                        <?php echo $_COOKIE['cognome_user'] . " " . $_COOKIE['nome_user'] .
+                                        <?php
+                                        echo $_COOKIE['cognome_user'] . " " . $_COOKIE['nome_user'] .
                                         "(" . $_COOKIE['id_utente'] . ")"
                                         ?>
                                     </td>
@@ -50,7 +57,7 @@ global $logoHref, $logoSrc, $logoAlt;
                                         alt="<?php echo $GLOBALS['logoAlt']; ?>"
                                         title="<?php echo $GLOBALS['logoAlt']; ?>" /> </a>
                             </td>
-                            <?php }
+                        <?php }
                         ?>
                     </tr>
                 </table></td>

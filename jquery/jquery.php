@@ -186,7 +186,7 @@ include 'jquery/jq_emails.php';
             responseType: "json",
             success: function (data) {
                 //alert('success: '+data.MsgPopQueue[0].Content);
-                
+
                 //$.cookie('firstLogin', false);
                 $("#liveDemo").html(data.content);
             },
@@ -930,11 +930,16 @@ if (isset($_COOKIE['firstLogin'])) {
                     var statesLanciaConfermaRichiesta = {
                         state0: {
                             html: '<h2>Benvenuto! <hr>' + cognome + ' ' + nome + ' [' + email + ']<hr></h2>' +
-                                    '<h3> se vuoi confermare la tua richiesta' +
-                                    ' all\'amministratore per la riattivazione prosegui...</h3>',
+                                    '<h3>Se sei arrivata/o a questo link, hai inoltrato una\n\
+                                    richiesta di cambiamento password e hai ricevuto una\n\
+                                    email dal nostro sistema.\n\
+                                    Se vuoi confermare la tua richiesta' +
+                                    ' all\'amministratore per la riattivazione clicca \'Prosegui\'\n\
+                                    Se clicchi \'Esci\', la presente richiesta verr&agrave; cancellata!</h3>',
                             buttons: {Esci: false, Prosegui: true},
                             focus: 1,
                             submit: function (e, v, m, f) {
+                                //alert(v);
                                 if (v) {
                                     //ESEGUE LA CONFERMA SUL DATABASE
                                     e.preventDefault();
@@ -956,12 +961,14 @@ if (isset($_COOKIE['firstLogin'])) {
                                         }
                                     });
 
-                                } else
-                                    $.prompt.close();
+                                } else {
+                                    e.preventDefault();
+                                    $.prompt.goToState('state3');
+                                }
                             }
                         },
                         state1: {
-                            html: '<img  src="images/accept_icon.png"  width="32" height="32"><h2>La nuova password verr&agrave inviata per email a:</h2> <hr>' +
+                            html: '<img  src="images/accept_icon.png"  width="32" height="32"><h2>La nuova password le verr&agrave; inviata per email a:</h2> <hr>' +
                                     '<h2>' + cognome + ' ' + nome + ' <br>[' + email + ']</h2><hr>' +
                                     '<h3>Cordiali saluti!</h3>' +
                                     ' <h2>Admin - PhpRegistroWeb 1.0</h2>',
@@ -974,14 +981,41 @@ if (isset($_COOKIE['firstLogin'])) {
                             }
                         },
                         state2: {
-                            html: '<img  src="images/dialog_close_icon.png"  width="32" height="32"><h2>Non  stato possibile confermare</h2> <hr>' +
-                                    '<h2>riprovi pi&ugrave tardi</h2><hr>' +
+                            html: '<img  src="images/dialog_close_icon.png"  width="32" height="32"><h2>Non &egrave; stato possibile confermare</h2> <hr>' +
+                                    '<h2>riprovi pi&ugrave; tardi</h2><hr>' +
                                     '<h3>Cordiali saluti!</h3>' +
                                     ' <h2>Admin - PhpRegistroWeb 1.0</h2>',
                             buttons: {Esci: false},
                             focus: 0,
                             submit: function (e, v, m, f) {
                                 $.prompt.close();
+                            }
+                        },
+                        state3: {
+                            html: '<img  src="images/dialog_close_icon.png"  width="32" height="32"><h2>La richiesta sta per essere\n\
+                                    cancellata!</h2><hr>' +
+                                    '<h3>Cordiali saluti!</h3>' +
+                                    ' <h2>Admin - PhpRegistroWeb 1.0</h2>',
+                            buttons: {"Prosegui": false, "Annulla": true},
+                            focus: 0,
+                            submit: function (e, v, m, f) {
+                                if (v) {
+                                    $.prompt.close();
+                                } else {
+                                    e.preventDefault();
+                                    $.ajax({
+                                        type: "POST",
+                                        url: 'ajax.php',
+                                        data: {"actionRequest": "confirmCancelRequest",
+                                            "hash": hash,
+                                            "id_request": id_request},
+                                        success: function (response) {//response is value returned from php (for your example it's "bye bye"
+                                            //alert(response);
+                                            $.prompt.close();
+                                            location.reload();
+                                        }
+                                    });
+                                }
                             }
                         }
 
@@ -1018,7 +1052,7 @@ if (isset($_COOKIE['firstLogin'])) {
                             focus: 1,
                             submit: function (e, v, m, f) {
                                 e.preventDefault();
-                                
+
                                 if (v == 0)
                                     $.prompt.close();
                                 else if (v == 1) {
@@ -1030,7 +1064,7 @@ if (isset($_COOKIE['firstLogin'])) {
                                     });
                                     //ELABORA LA RICHIESTA DI CAMBIO PASSWORD CON ajax???
                                     //alert(mydata);
-                                    
+
                                     $.ajax({
                                         type: "POST",
                                         url: 'login.php',
@@ -1040,10 +1074,12 @@ if (isset($_COOKIE['firstLogin'])) {
                                             if (response == 1) {
                                                 //e.preventDefault();
                                                 $.prompt.goToState('state2');//RICHIESTA INOLTRATA
-                                            }
-                                            else if (response == 0) {
+                                            }else if (response == 0) {
                                                 e.preventDefault();
                                                 $.prompt.goToState('state3');//RICHIESTA FALLITA
+                                            }else if (response == 2) {
+                                                e.preventDefault();
+                                                $.prompt.goToState('state4');//RICHIESTA ESISTENTE
                                             }
                                         }
                                     });//FINE
@@ -1073,6 +1109,14 @@ if (isset($_COOKIE['firstLogin'])) {
                                     e.preventDefault();
                                     $.prompt.goToState('state1');
                                 }
+                            }
+                        },
+                        state4: {
+                            html: '<img  src="images/dialog_close_icon.png"  width="32" height="32"><h1>Richiesta gi&agrave; inoltrata!</h1>' +
+                                    ' <h2>PhpRegistroWeb 1.0</h2>',                          
+                            submit: function (e, v, m, f) {
+                                 e.preventDefault();
+                                    $.prompt.goToState('state1');
                             }
                         }
                     };

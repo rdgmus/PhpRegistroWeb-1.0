@@ -24,6 +24,12 @@ if (NULL != filter_input(INPUT_POST, 'actionRequest')) {
 
         echo $mySqlFunctions->setRequestConfirmedFor($hash, $id_request);
         exit();
+    } elseif (filter_input(INPUT_POST, 'actionRequest') == 'confirmCancelRequest') {
+        $hash = (filter_input(INPUT_POST, 'hash'));
+        $id_request = (filter_input(INPUT_POST, 'id_request'));
+
+        echo $mySqlFunctions->confirmCancelRequestFor($hash, $id_request);
+        exit();
     }
     echo FALSE;
     exit();
@@ -35,6 +41,7 @@ if (NULL != filter_input(INPUT_POST, 'callGetEmailSubject')) {
         $mySqlFunctions->setEmailSubject(filter_input(INPUT_COOKIE, 'emailId'), $subject);
     }
     echo $mySqlFunctions->getEmailSubject(filter_input(INPUT_COOKIE, 'emailId'));
+    //exit();
 }
 
 if (NULL != filter_input(INPUT_POST, 'callGetEmailBody')) {//emailBody

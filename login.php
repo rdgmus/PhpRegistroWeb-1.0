@@ -89,6 +89,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $nome = $_POST['nome'];
             $email = $_POST['email'];
 
+            if ($mySqlFunctions->alreadyExistsPasswordRequestFor($cognome, $nome, $email)) {
+//                $msg = "<h3>Esiste gi&agrave; una richiesta di cambiamento password per"
+//                        . "</h3><h2> ".$cognome." ".$nome." [".$email."]";
+               
+                echo (int) 2;
+                exit();
+            }
             //GENERO UNA CHIAVE UNICA PER L'UTENTE
             $hash = generaHash($cognome + $nome + $email);
 

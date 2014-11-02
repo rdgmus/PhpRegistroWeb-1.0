@@ -113,7 +113,7 @@
 				<b>Author:</b>
 				rdgmus
 <br>
-		<b>Located at</b> <a href="source-class-MySqlFunctionsClass.html#20-1371" title="Go to source code">MySqlFunctionsClass.php</a><br>
+		<b>Located at</b> <a href="source-class-MySqlFunctionsClass.html#20-1441" title="Go to source code">MySqlFunctionsClass.php</a><br>
 	</div>
 
 
@@ -296,14 +296,14 @@
 		<td class="attributes"><code>
 			 public 
 
-			
+			boolean
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setRequestConfirmedFor">#</a>
-		<code><a href="source-class-MySqlFunctionsClass.html#144-162" title="Go to source code">setRequestConfirmedFor</a>( <span>string <var>$hash</var></span>, <span>bigint <var>$id_request</var></span> )</code>
+		<code><a href="source-class-MySqlFunctionsClass.html#144-165" title="Go to source code">setRequestConfirmedFor</a>( <span>string <var>$hash</var></span>, <span>bigint <var>$id_request</var></span> )</code>
 
 		<div class="description short">
 			
@@ -311,7 +311,9 @@
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Enter description here ...</p>
+			<p>Conferma la richiesta di cambiamento password in modo che un amministratore
+possa operare il cambiamento ed inviare una email di conferma con le nuove
+generalit&agrave; all'utente.</p>
 
 
 
@@ -325,6 +327,55 @@
 </dd>
 				</dl></div>
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="confirmCancelRequestFor" id="_confirmCancelRequestFor">
+
+		<td class="attributes"><code>
+			 public 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_confirmCancelRequestFor">#</a>
+		<code><a href="source-class-MySqlFunctionsClass.html#167-186" title="Go to source code">confirmCancelRequestFor</a>( <span>string <var>$hash</var></span>, <span>bigint <var>$id_request</var></span> )</code>
+
+		<div class="description short">
+			
+
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Cancellazione della richiesta di cambiamento password.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$hash</var></dt>
+					<dd>
+</dd>
+					<dt><var>$id_request</var></dt>
+					<dd>
+</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code>
+				</div>
 
 
 
@@ -344,7 +395,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_retrieveIdRequest">#</a>
-		<code><a href="source-class-MySqlFunctionsClass.html#164-192" title="Go to source code">retrieveIdRequest</a>( <span>text <var>$hash</var></span> )</code>
+		<code><a href="source-class-MySqlFunctionsClass.html#188-216" title="Go to source code">retrieveIdRequest</a>( <span>text <var>$hash</var></span> )</code>
 
 		<div class="description short">
 			<p>Recupera l'id della richiesta di cambio password effettuata dall'utente
@@ -378,6 +429,56 @@ tramite un hash generato $query = sprintf("SELECT id_request FROM scuola.change_
 		</div>
 		</div></td>
 	</tr>
+	<tr data-order="alreadyExistsPasswordRequestFor" id="_alreadyExistsPasswordRequestFor">
+
+		<td class="attributes"><code>
+			 public 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_alreadyExistsPasswordRequestFor">#</a>
+		<code><a href="source-class-MySqlFunctionsClass.html#218-262" title="Go to source code">alreadyExistsPasswordRequestFor</a>( <span>string <var>$cognome</var></span>, <span>string <var>$nome</var></span>, <span>email <var>$email</var></span> )</code>
+
+		<div class="description short">
+			<p>Controlla se gi&agrave; &egrave; stata inoltrata una richiesta di
+cambiamento di password per l'utente in oggetto.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Controlla se gi&agrave; &egrave; stata inoltrata una richiesta di
+cambiamento di password per l'utente in oggetto.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$cognome</var></dt>
+					<dd>
+</dd>
+					<dt><var>$nome</var></dt>
+					<dd>
+</dd>
+					<dt><var>$email</var></dt>
+					<dd>
+</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
 	<tr data-order="postChangePasswordRequest" id="_postChangePasswordRequest">
 
 		<td class="attributes"><code>
@@ -390,7 +491,7 @@ tramite un hash generato $query = sprintf("SELECT id_request FROM scuola.change_
 
 		<td class="name"><div>
 		<a class="anchor" href="#_postChangePasswordRequest">#</a>
-		<code><a href="source-class-MySqlFunctionsClass.html#194-238" title="Go to source code">postChangePasswordRequest</a>( <span>text <var>$cognome</var></span>, <span>text <var>$nome</var></span>, <span>email <var>$email</var></span>, <span>hash <var>$hash</var></span> )</code>
+		<code><a href="source-class-MySqlFunctionsClass.html#264-308" title="Go to source code">postChangePasswordRequest</a>( <span>text <var>$cognome</var></span>, <span>text <var>$nome</var></span>, <span>email <var>$email</var></span>, <span>hash <var>$hash</var></span> )</code>
 
 		<div class="description short">
 			<p>Su richiesta di un utente che ha dimenticato la password,
@@ -447,7 +548,7 @@ di richiesta per cambio password, nella tabella change_password_request.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setUserHasToChangePassword">#</a>
-		<code><a href="source-class-MySqlFunctionsClass.html#240-266" title="Go to source code">setUserHasToChangePassword</a>( <span>bigint <var>$user</var></span>, <span>password <var>$value</var></span> )</code>
+		<code><a href="source-class-MySqlFunctionsClass.html#310-336" title="Go to source code">setUserHasToChangePassword</a>( <span>bigint <var>$user</var></span>, <span>password <var>$value</var></span> )</code>
 
 		<div class="description short">
 			<p>SETTA A 1 IL CAMPO Has_To_Change_Password in utenti_scuola
@@ -506,7 +607,7 @@ allora il campo viene riportato = 0.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_hasUserToChangePassword">#</a>
-		<code><a href="source-class-MySqlFunctionsClass.html#268-292" title="Go to source code">hasUserToChangePassword</a>( <span>bigint <var>$user</var></span> )</code>
+		<code><a href="source-class-MySqlFunctionsClass.html#338-362" title="Go to source code">hasUserToChangePassword</a>( <span>bigint <var>$user</var></span> )</code>
 
 		<div class="description short">
 			<p>Verifica se l'utente $user ha un invito a cambiare la propria password;
@@ -556,7 +657,7 @@ a cambiare la propria password.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_retrievePassword">#</a>
-		<code><a href="source-class-MySqlFunctionsClass.html#294-310" title="Go to source code">retrievePassword</a>( <span>bigint <var>$id_utente</var></span> )</code>
+		<code><a href="source-class-MySqlFunctionsClass.html#364-380" title="Go to source code">retrievePassword</a>( <span>bigint <var>$id_utente</var></span> )</code>
 
 		<div class="description short">
 			<p>Recupera la password dell'utente in chiaro.</p>
@@ -594,7 +695,7 @@ a cambiare la propria password.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getMaxIdRecipient">#</a>
-		<code><a href="source-class-MySqlFunctionsClass.html#312-341" title="Go to source code">getMaxIdRecipient</a>( <span>email <var>$id_email</var></span>, <span>string <var>$param</var></span> )</code>
+		<code><a href="source-class-MySqlFunctionsClass.html#382-411" title="Go to source code">getMaxIdRecipient</a>( <span>email <var>$id_email</var></span>, <span>string <var>$param</var></span> )</code>
 
 		<div class="description short">
 			<p>Ritorna il massimo id_recipient ovvero l'id ultimo con il quale
@@ -643,7 +744,7 @@ l'operazione di cancellazione del destinatario ultimo inserito.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_undoLastRecipient">#</a>
-		<code><a href="source-class-MySqlFunctionsClass.html#343-408" title="Go to source code">undoLastRecipient</a>( <span>bigint <var>$id_email</var></span>, <span>string <var>$param</var></span> )</code>
+		<code><a href="source-class-MySqlFunctionsClass.html#413-478" title="Go to source code">undoLastRecipient</a>( <span>bigint <var>$id_email</var></span>, <span>string <var>$param</var></span> )</code>
 
 		<div class="description short">
 			<p>Cancella ultimo destinatario inserito nella casella $param (i.e. TO, CC, BCC)</p>
@@ -686,7 +787,7 @@ l'operazione di cancellazione del destinatario ultimo inserito.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_addRecipientToEmail">#</a>
-		<code><a href="source-class-MySqlFunctionsClass.html#410-434" title="Go to source code">addRecipientToEmail</a>( <span>bigint <var>$id_email</var></span>, <span>email <var>$recip_email</var></span>, <span>string <var>$recip_name</var></span>, <span>tinyint <var>$to</var></span>, <span>tinyint <var>$cc</var></span>, <span>tinyint <var>$bcc</var></span> )</code>
+		<code><a href="source-class-MySqlFunctionsClass.html#480-504" title="Go to source code">addRecipientToEmail</a>( <span>bigint <var>$id_email</var></span>, <span>email <var>$recip_email</var></span>, <span>string <var>$recip_name</var></span>, <span>tinyint <var>$to</var></span>, <span>tinyint <var>$cc</var></span>, <span>tinyint <var>$bcc</var></span> )</code>
 
 		<div class="description short">
 			<p>Aggiunge un destinatario dell'email o chi la invia, nella tabella
@@ -741,7 +842,7 @@ scuola.email_recipients</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_recipientExists">#</a>
-		<code><a href="source-class-MySqlFunctionsClass.html#436-460" title="Go to source code">recipientExists</a>( <span>bigint <var>$id_email</var></span>, <span>email <var>$recip_email</var></span>, <span>string <var>$recip_name</var></span> )</code>
+		<code><a href="source-class-MySqlFunctionsClass.html#506-530" title="Go to source code">recipientExists</a>( <span>bigint <var>$id_email</var></span>, <span>email <var>$recip_email</var></span>, <span>string <var>$recip_name</var></span> )</code>
 
 		<div class="description short">
 			<p>Test if recipient for email already exists into scuola.email_recipients</p>
@@ -785,7 +886,7 @@ scuola.email_recipients</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getMySqlServerGroups">#</a>
-		<code><a href="source-class-MySqlFunctionsClass.html#462-476" title="Go to source code">getMySqlServerGroups</a>( )</code>
+		<code><a href="source-class-MySqlFunctionsClass.html#532-546" title="Go to source code">getMySqlServerGroups</a>( )</code>
 
 		<div class="description short">
 			<p>scuola.mysql_servers_groups
@@ -821,7 +922,7 @@ per la connessione via port o socket</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getMySqlServerParams">#</a>
-		<code><a href="source-class-MySqlFunctionsClass.html#478-493" title="Go to source code">getMySqlServerParams</a>( <span>mixed <var>$serverGroup</var></span> )</code>
+		<code><a href="source-class-MySqlFunctionsClass.html#548-563" title="Go to source code">getMySqlServerParams</a>( <span>mixed <var>$serverGroup</var></span> )</code>
 
 		<div class="description short">
 			<p>scuola.mysql_server_params
@@ -866,7 +967,7 @@ Parametri della connessione dei server appartenenti ad un gruppo.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getNewEmailId">#</a>
-		<code><a href="source-class-MySqlFunctionsClass.html#495-514" title="Go to source code">getNewEmailId</a>( <span>mixed <var>$id_user</var></span> )</code>
+		<code><a href="source-class-MySqlFunctionsClass.html#565-584" title="Go to source code">getNewEmailId</a>( <span>mixed <var>$id_user</var></span> )</code>
 
 		<div class="description short">
 			<p>id dell'emails create con data ancora = null
@@ -911,7 +1012,7 @@ appartenenti all'utente indicato</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getInfoEmail">#</a>
-		<code><a href="source-class-MySqlFunctionsClass.html#516-538" title="Go to source code">getInfoEmail</a>( <span>bigint <var>$id_email</var></span> )</code>
+		<code><a href="source-class-MySqlFunctionsClass.html#586-608" title="Go to source code">getInfoEmail</a>( <span>bigint <var>$id_email</var></span> )</code>
 
 		<div class="description short">
 			<p>Info Email da tabella email_store</p>
@@ -954,7 +1055,7 @@ appartenenti all'utente indicato</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_deleteNullEmail">#</a>
-		<code><a href="source-class-MySqlFunctionsClass.html#540-560" title="Go to source code">deleteNullEmail</a>( <span>bigint <var>$id_user</var></span>, <span>bigint <var>$id_email</var></span> )</code>
+		<code><a href="source-class-MySqlFunctionsClass.html#610-630" title="Go to source code">deleteNullEmail</a>( <span>bigint <var>$id_user</var></span>, <span>bigint <var>$id_email</var></span> )</code>
 
 		<div class="description short">
 			<p>Cancella una email dalla tabella email_store</p>
@@ -995,7 +1096,7 @@ appartenenti all'utente indicato</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_createEmail">#</a>
-		<code><a href="source-class-MySqlFunctionsClass.html#562-586" title="Go to source code">createEmail</a>( <span>email <var>$from_email</var></span>, <span>string <var>$from_name</var></span>, <span>bigint <var>$id_user</var></span> )</code>
+		<code><a href="source-class-MySqlFunctionsClass.html#632-656" title="Go to source code">createEmail</a>( <span>email <var>$from_email</var></span>, <span>string <var>$from_name</var></span>, <span>bigint <var>$id_user</var></span> )</code>
 
 		<div class="description short">
 			<p>Crea un record di email in scuola.email_store
@@ -1041,7 +1142,7 @@ con data = null</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getArrayOfRecipientsInMailBox">#</a>
-		<code><a href="source-class-MySqlFunctionsClass.html#588-620" title="Go to source code">getArrayOfRecipientsInMailBox</a>( <span>bigint <var>$emailId</var></span>, <span>string <var>$mailbox</var></span> )</code>
+		<code><a href="source-class-MySqlFunctionsClass.html#658-690" title="Go to source code">getArrayOfRecipientsInMailBox</a>( <span>bigint <var>$emailId</var></span>, <span>string <var>$mailbox</var></span> )</code>
 
 		<div class="description short">
 			<p>Array dei recipient nelle varie mailbox</p>
@@ -1084,7 +1185,7 @@ con data = null</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getToRecipients">#</a>
-		<code><a href="source-class-MySqlFunctionsClass.html#622-651" title="Go to source code">getToRecipients</a>( <span>bigint <var>$emailId</var></span> )</code>
+		<code><a href="source-class-MySqlFunctionsClass.html#692-721" title="Go to source code">getToRecipients</a>( <span>bigint <var>$emailId</var></span> )</code>
 
 		<div class="description short">
 			<p>Lista dei recipienti dell'email indicata nella casella To</p>
@@ -1126,7 +1227,7 @@ con data = null</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getCcRecipients">#</a>
-		<code><a href="source-class-MySqlFunctionsClass.html#653-682" title="Go to source code">getCcRecipients</a>( <span>bigint <var>$emailId</var></span> )</code>
+		<code><a href="source-class-MySqlFunctionsClass.html#723-752" title="Go to source code">getCcRecipients</a>( <span>bigint <var>$emailId</var></span> )</code>
 
 		<div class="description short">
 			<p>Lista dei recipienti dell'email indicata nella casella Cc</p>
@@ -1168,7 +1269,7 @@ con data = null</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getBccRecipients">#</a>
-		<code><a href="source-class-MySqlFunctionsClass.html#684-714" title="Go to source code">getBccRecipients</a>( <span>bigint <var>$emailId</var></span> )</code>
+		<code><a href="source-class-MySqlFunctionsClass.html#754-784" title="Go to source code">getBccRecipients</a>( <span>bigint <var>$emailId</var></span> )</code>
 
 		<div class="description short">
 			<p>Lista dei recipienti dell'email indicata nella casella Bcc</p>
@@ -1210,7 +1311,7 @@ con data = null</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_saveEmailDraft">#</a>
-		<code><a href="source-class-MySqlFunctionsClass.html#716-735" title="Go to source code">saveEmailDraft</a>( <span>bigint <var>$emailId</var></span>, <span>text <var>$subject</var></span>, <span>text <var>$body</var></span> )</code>
+		<code><a href="source-class-MySqlFunctionsClass.html#786-805" title="Go to source code">saveEmailDraft</a>( <span>bigint <var>$emailId</var></span>, <span>text <var>$subject</var></span>, <span>text <var>$body</var></span> )</code>
 
 		<div class="description short">
 			<p>Enter description here ...</p>
@@ -1254,7 +1355,7 @@ con data = null</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getEmailSubject">#</a>
-		<code><a href="source-class-MySqlFunctionsClass.html#737-755" title="Go to source code">getEmailSubject</a>( <span>bigint <var>$emailId</var></span> )</code>
+		<code><a href="source-class-MySqlFunctionsClass.html#807-825" title="Go to source code">getEmailSubject</a>( <span>bigint <var>$emailId</var></span> )</code>
 
 		<div class="description short">
 			<p>Enter description here ...</p>
@@ -1292,7 +1393,7 @@ con data = null</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setEmailSubject">#</a>
-		<code><a href="source-class-MySqlFunctionsClass.html#757-775" title="Go to source code">setEmailSubject</a>( <span>unknown_type <var>$emailId</var></span>, <span>unknown_type <var>$subject</var></span> )</code>
+		<code><a href="source-class-MySqlFunctionsClass.html#827-845" title="Go to source code">setEmailSubject</a>( <span>unknown_type <var>$emailId</var></span>, <span>unknown_type <var>$subject</var></span> )</code>
 
 		<div class="description short">
 			<p>Enter description here ...</p>
@@ -1333,7 +1434,7 @@ con data = null</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getEmailBody">#</a>
-		<code><a href="source-class-MySqlFunctionsClass.html#777-795" title="Go to source code">getEmailBody</a>( <span>unknown_type <var>$emailId</var></span> )</code>
+		<code><a href="source-class-MySqlFunctionsClass.html#847-865" title="Go to source code">getEmailBody</a>( <span>unknown_type <var>$emailId</var></span> )</code>
 
 		<div class="description short">
 			<p>Enter description here ...</p>
@@ -1371,7 +1472,7 @@ con data = null</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setEmailBody">#</a>
-		<code><a href="source-class-MySqlFunctionsClass.html#797-815" title="Go to source code">setEmailBody</a>( <span>unknown_type <var>$emailId</var></span>, <span>unknown_type <var>$body</var></span> )</code>
+		<code><a href="source-class-MySqlFunctionsClass.html#867-885" title="Go to source code">setEmailBody</a>( <span>unknown_type <var>$emailId</var></span>, <span>unknown_type <var>$body</var></span> )</code>
 
 		<div class="description short">
 			<p>Enter description here ...</p>
@@ -1412,7 +1513,7 @@ con data = null</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_userIsAdministrator">#</a>
-		<code><a href="source-class-MySqlFunctionsClass.html#817-837" title="Go to source code">userIsAdministrator</a>( <span>mixed <var>$id_utente</var></span> )</code>
+		<code><a href="source-class-MySqlFunctionsClass.html#887-907" title="Go to source code">userIsAdministrator</a>( <span>mixed <var>$id_utente</var></span> )</code>
 
 		<div class="description short">
 			<p>Controlla che l'utente sia AMMINISTRATORE</p>
@@ -1454,7 +1555,7 @@ con data = null</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_removePendingFromUserRequest">#</a>
-		<code><a href="source-class-MySqlFunctionsClass.html#839-857" title="Go to source code">removePendingFromUserRequest</a>( <span>bigint <var>$user</var></span>, <span>bigint <var>$admin</var></span> )</code>
+		<code><a href="source-class-MySqlFunctionsClass.html#909-927" title="Go to source code">removePendingFromUserRequest</a>( <span>bigint <var>$user</var></span>, <span>bigint <var>$admin</var></span> )</code>
 
 		<div class="description short">
 			<p>Setta il record in change_password_request,
@@ -1501,7 +1602,7 @@ con request_served, pending = 0 (non more pending)</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_registerEmailInviata">#</a>
-		<code><a href="source-class-MySqlFunctionsClass.html#859-881" title="Go to source code">registerEmailInviata</a>( <span>unknown_type <var>$emailId</var></span> )</code>
+		<code><a href="source-class-MySqlFunctionsClass.html#929-951" title="Go to source code">registerEmailInviata</a>( <span>unknown_type <var>$emailId</var></span> )</code>
 
 		<div class="description short">
 			<p>Registra nel database l'orario di invio dell'email e mette a inviato il flag email_inviata</p>
@@ -1539,7 +1640,7 @@ con request_served, pending = 0 (non more pending)</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getUserId">#</a>
-		<code><a href="source-class-MySqlFunctionsClass.html#883-904" title="Go to source code">getUserId</a>( <span>email <var>$user_email</var></span>, <span>password <var>$password</var></span> )</code>
+		<code><a href="source-class-MySqlFunctionsClass.html#953-974" title="Go to source code">getUserId</a>( <span>email <var>$user_email</var></span>, <span>password <var>$password</var></span> )</code>
 
 		<div class="description short">
 			<p>Ottiene l'id dell'utente con le date credenziali</p>
@@ -1584,7 +1685,7 @@ con request_served, pending = 0 (non more pending)</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getUserEmail">#</a>
-		<code><a href="source-class-MySqlFunctionsClass.html#906-922" title="Go to source code">getUserEmail</a>( <span>mixed <var>$id_utente</var></span> )</code>
+		<code><a href="source-class-MySqlFunctionsClass.html#976-992" title="Go to source code">getUserEmail</a>( <span>mixed <var>$id_utente</var></span> )</code>
 
 		<div class="description short">
 			<p>Ritorna l'email dell'utente fornito come parametro</p>
@@ -1626,7 +1727,7 @@ con request_served, pending = 0 (non more pending)</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getUserName">#</a>
-		<code><a href="source-class-MySqlFunctionsClass.html#924-939" title="Go to source code">getUserName</a>( <span>bigint <var>$id_utente</var></span> )</code>
+		<code><a href="source-class-MySqlFunctionsClass.html#994-1009" title="Go to source code">getUserName</a>( <span>bigint <var>$id_utente</var></span> )</code>
 
 		<div class="description short">
 			<p>Enter description here ...</p>
@@ -1664,7 +1765,7 @@ con request_served, pending = 0 (non more pending)</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getUserRoles">#</a>
-		<code><a href="source-class-MySqlFunctionsClass.html#941-965" title="Go to source code">getUserRoles</a>( <span>bigint <var>$id_utente</var></span> )</code>
+		<code><a href="source-class-MySqlFunctionsClass.html#1011-1035" title="Go to source code">getUserRoles</a>( <span>bigint <var>$id_utente</var></span> )</code>
 
 		<div class="description short">
 			<p>Carica i ruoli e le abilitazioni agli stessi dell'utente</p>
@@ -1706,7 +1807,7 @@ con request_served, pending = 0 (non more pending)</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setUnsetRuoloUtente">#</a>
-		<code><a href="source-class-MySqlFunctionsClass.html#967-996" title="Go to source code">setUnsetRuoloUtente</a>( <span>bigint <var>$id_utente</var></span>, <span>bigint <var>$id_ruolo</var></span> )</code>
+		<code><a href="source-class-MySqlFunctionsClass.html#1037-1066" title="Go to source code">setUnsetRuoloUtente</a>( <span>bigint <var>$id_utente</var></span>, <span>bigint <var>$id_ruolo</var></span> )</code>
 
 		<div class="description short">
 			<p>Abilita o disabilita ruoli per gli utenti</p>
@@ -1751,7 +1852,7 @@ con request_served, pending = 0 (non more pending)</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_userHasRole">#</a>
-		<code><a href="source-class-MySqlFunctionsClass.html#998-1018" title="Go to source code">userHasRole</a>( <span>mixed <var>$id_utente</var></span>, <span>mixed <var>$id_ruolo</var></span> )</code>
+		<code><a href="source-class-MySqlFunctionsClass.html#1068-1088" title="Go to source code">userHasRole</a>( <span>mixed <var>$id_utente</var></span>, <span>mixed <var>$id_ruolo</var></span> )</code>
 
 		<div class="description short">
 			<p>La funzione ritorna TRUE or FALSE in base al fatto che l'utente contrassegnato dall'$id_utente
@@ -1800,7 +1901,7 @@ al ruolo contrassegnato $id_ruolo</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_listaUtentiScuola">#</a>
-		<code><a href="source-class-MySqlFunctionsClass.html#1020-1045" title="Go to source code">listaUtentiScuola</a>( <span>mixed <var>$passordIsNull</var> = <span class="php-keyword1">FALSE</span></span>, <span>mixed <var>$userNotVisible</var> = <span class="php-keyword1">FALSE</span></span> )</code>
+		<code><a href="source-class-MySqlFunctionsClass.html#1090-1115" title="Go to source code">listaUtentiScuola</a>( <span>mixed <var>$passordIsNull</var> = <span class="php-keyword1">FALSE</span></span>, <span>mixed <var>$userNotVisible</var> = <span class="php-keyword1">FALSE</span></span> )</code>
 
 		<div class="description short">
 			<p>Lista degli utenti della scuola.</p>
@@ -1843,7 +1944,7 @@ ESCLUDE DALLA LISTA L' UTENTE AMMINISTRATORE CHE E' ANCHE L'UTENTE ATTIVO E HA i
 
 		<td class="name"><div>
 		<a class="anchor" href="#_countPasswordToChangePending">#</a>
-		<code><a href="source-class-MySqlFunctionsClass.html#1052-1060" title="Go to source code">countPasswordToChangePending</a>( <span>tinyint <var>$pending</var> = <span class="php-num">1</span></span>, <span>tinyint <var>$confirmed</var> = <span class="php-num">1</span></span> )</code>
+		<code><a href="source-class-MySqlFunctionsClass.html#1122-1130" title="Go to source code">countPasswordToChangePending</a>( <span>tinyint <var>$pending</var> = <span class="php-num">1</span></span>, <span>tinyint <var>$confirmed</var> = <span class="php-num">1</span></span> )</code>
 
 		<div class="description short">
 			<p>Conta il numero di utenti con richieste di cambio password pendenti e/o confermate</p>
@@ -1884,7 +1985,7 @@ ESCLUDE DALLA LISTA L' UTENTE AMMINISTRATORE CHE E' ANCHE L'UTENTE ATTIVO E HA i
 
 		<td class="name"><div>
 		<a class="anchor" href="#_listaUtentiToChangePassword">#</a>
-		<code><a href="source-class-MySqlFunctionsClass.html#1062-1081" title="Go to source code">listaUtentiToChangePassword</a>( <span>tinyint <var>$pending</var> = <span class="php-num">1</span></span>, <span>tinyint <var>$confirmed</var> = <span class="php-num">1</span></span> )</code>
+		<code><a href="source-class-MySqlFunctionsClass.html#1132-1151" title="Go to source code">listaUtentiToChangePassword</a>( <span>tinyint <var>$pending</var> = <span class="php-num">1</span></span>, <span>tinyint <var>$confirmed</var> = <span class="php-num">1</span></span> )</code>
 
 		<div class="description short">
 			<p>Lista delle richieste pendenti ($pending = 1) e/o confermate ($confirmed = 1)</p>
@@ -1925,7 +2026,7 @@ ESCLUDE DALLA LISTA L' UTENTE AMMINISTRATORE CHE E' ANCHE L'UTENTE ATTIVO E HA i
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getAdmittedRolesArray">#</a>
-		<code><a href="source-class-MySqlFunctionsClass.html#1083-1099" title="Go to source code">getAdmittedRolesArray</a>( )</code>
+		<code><a href="source-class-MySqlFunctionsClass.html#1153-1169" title="Go to source code">getAdmittedRolesArray</a>( )</code>
 
 		<div class="description short">
 			<p>Elenco dei  ruoli utente ammessi dal database.</p>
@@ -1961,7 +2062,7 @@ ESCLUDE DALLA LISTA L' UTENTE AMMINISTRATORE CHE E' ANCHE L'UTENTE ATTIVO E HA i
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getServerInfo">#</a>
-		<code><a href="source-class-MySqlFunctionsClass.html#1101-1108" title="Go to source code">getServerInfo</a>( )</code>
+		<code><a href="source-class-MySqlFunctionsClass.html#1171-1178" title="Go to source code">getServerInfo</a>( )</code>
 
 		<div class="description short">
 			<p>Ottiene le informazioni sul server Apache</p>
@@ -1998,7 +2099,7 @@ ESCLUDE DALLA LISTA L' UTENTE AMMINISTRATORE CHE E' ANCHE L'UTENTE ATTIVO E HA i
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getServerConnectionParameters">#</a>
-		<code><a href="source-class-MySqlFunctionsClass.html#1110-1148" title="Go to source code">getServerConnectionParameters</a>( )</code>
+		<code><a href="source-class-MySqlFunctionsClass.html#1180-1218" title="Go to source code">getServerConnectionParameters</a>( )</code>
 
 		<div class="description short">
 			<p>Recupera i parametri di connessione al server MySql
@@ -2039,7 +2140,7 @@ Questa feature dovr� essere disabilitata ?!</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_connectToMySql">#</a>
-		<code><a href="source-class-MySqlFunctionsClass.html#1150-1175" title="Go to source code">connectToMySql</a>( )</code>
+		<code><a href="source-class-MySqlFunctionsClass.html#1220-1245" title="Go to source code">connectToMySql</a>( )</code>
 
 		<div class="description short">
 			<p>Effettua la connessione al database MySql</p>
@@ -2075,7 +2176,7 @@ Questa feature dovr� essere disabilitata ?!</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_connectToMySqlWithParams">#</a>
-		<code><a href="source-class-MySqlFunctionsClass.html#1177-1196" title="Go to source code">connectToMySqlWithParams</a>( <span>string <var>$server</var></span>, <span>string <var>$username</var></span>, <span>password <var>$password</var></span> )</code>
+		<code><a href="source-class-MySqlFunctionsClass.html#1247-1266" title="Go to source code">connectToMySqlWithParams</a>( <span>string <var>$server</var></span>, <span>string <var>$username</var></span>, <span>password <var>$password</var></span> )</code>
 
 		<div class="description short">
 			<p>Effettua la connessione al database MySql con i parametri indicato</p>
@@ -2119,7 +2220,7 @@ Questa feature dovr� essere disabilitata ?!</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_closeConnection">#</a>
-		<code><a href="source-class-MySqlFunctionsClass.html#1198-1204" title="Go to source code">closeConnection</a>( )</code>
+		<code><a href="source-class-MySqlFunctionsClass.html#1268-1274" title="Go to source code">closeConnection</a>( )</code>
 
 		<div class="description short">
 			<p>Chiude la connessione al database MySql</p>
@@ -2155,7 +2256,7 @@ Questa feature dovr� essere disabilitata ?!</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_createUtenteScuola">#</a>
-		<code><a href="source-class-MySqlFunctionsClass.html#1206-1229" title="Go to source code">createUtenteScuola</a>( <span>mixed <var>$name</var></span>, <span>mixed <var>$surname</var></span>, <span>mixed <var>$user_email</var></span>, <span>mixed <var>$password</var></span> )</code>
+		<code><a href="source-class-MySqlFunctionsClass.html#1276-1299" title="Go to source code">createUtenteScuola</a>( <span>mixed <var>$name</var></span>, <span>mixed <var>$surname</var></span>, <span>mixed <var>$user_email</var></span>, <span>mixed <var>$password</var></span> )</code>
 
 		<div class="description short">
 			<p>Crea il record per l'utente che si sta registrando all'applicazione</p>
@@ -2206,7 +2307,7 @@ Questa feature dovr� essere disabilitata ?!</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_authenticateUser">#</a>
-		<code><a href="source-class-MySqlFunctionsClass.html#1231-1273" title="Go to source code">authenticateUser</a>( <span>email <var>$user_email</var></span>, <span>password <var>$password</var></span>, <span>boolean <var>$isLogin</var></span> )</code>
+		<code><a href="source-class-MySqlFunctionsClass.html#1301-1343" title="Go to source code">authenticateUser</a>( <span>email <var>$user_email</var></span>, <span>password <var>$password</var></span>, <span>boolean <var>$isLogin</var></span> )</code>
 
 		<div class="description short">
 			<p>Autenticazione utente per l'accesso all'applicazione</p>
@@ -2254,7 +2355,7 @@ Questa feature dovr� essere disabilitata ?!</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_changeUtenteScuolaPassword">#</a>
-		<code><a href="source-class-MySqlFunctionsClass.html#1275-1301" title="Go to source code">changeUtenteScuolaPassword</a>( <span>bigint <var>$id_utente</var></span>, <span>email <var>$user_email</var></span>, <span>password <var>$oldpassword</var></span>, <span>password <var>$newpassword</var></span> )</code>
+		<code><a href="source-class-MySqlFunctionsClass.html#1345-1371" title="Go to source code">changeUtenteScuolaPassword</a>( <span>bigint <var>$id_utente</var></span>, <span>email <var>$user_email</var></span>, <span>password <var>$oldpassword</var></span>, <span>password <var>$newpassword</var></span> )</code>
 
 		<div class="description short">
 			<p>Cambio password utente scuola</p>
@@ -2301,7 +2402,7 @@ Questa feature dovr� essere disabilitata ?!</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_changePassword">#</a>
-		<code><a href="source-class-MySqlFunctionsClass.html#1303-1327" title="Go to source code">changePassword</a>( <span>unknown_type <var>$selectedRecipient</var></span>, <span>unknown_type <var>$user_email</var></span>, <span>unknown_type <var>$oldpassword</var></span>, <span>unknown_type <var>$password</var></span> )</code>
+		<code><a href="source-class-MySqlFunctionsClass.html#1373-1397" title="Go to source code">changePassword</a>( <span>unknown_type <var>$selectedRecipient</var></span>, <span>unknown_type <var>$user_email</var></span>, <span>unknown_type <var>$oldpassword</var></span>, <span>unknown_type <var>$password</var></span> )</code>
 
 		<div class="description short">
 			
@@ -2348,7 +2449,7 @@ Questa feature dovr� essere disabilitata ?!</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_testPasswordErr">#</a>
-		<code><a href="source-class-MySqlFunctionsClass.html#1329-1347" title="Go to source code">testPasswordErr</a>( <span>unknown_type <var>$password</var></span> )</code>
+		<code><a href="source-class-MySqlFunctionsClass.html#1399-1417" title="Go to source code">testPasswordErr</a>( <span>unknown_type <var>$password</var></span> )</code>
 
 		<div class="description short">
 			
@@ -2386,7 +2487,7 @@ Questa feature dovr� essere disabilitata ?!</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_testPasswordsAreEqual">#</a>
-		<code><a href="source-class-MySqlFunctionsClass.html#1349-1369" title="Go to source code">testPasswordsAreEqual</a>( <span>unknown_type <var>$password</var></span>, <span>unknown_type <var>$password_one</var></span> )</code>
+		<code><a href="source-class-MySqlFunctionsClass.html#1419-1439" title="Go to source code">testPasswordsAreEqual</a>( <span>unknown_type <var>$password</var></span>, <span>unknown_type <var>$password_one</var></span> )</code>
 
 		<div class="description short">
 			

@@ -86,7 +86,7 @@
                     var ticks = ['May', 'June', 'July', 'August'];
 
                     var plot1 = $.jqplot('applicationStatsGraph', [s1, s2, s3], {
-                        title: "Statistiche PhpRegistroScuola 1.0",
+                        title: "Statistiche PhpRegistroWeb 1.0",
                         // The "seriesDefaults" option is an options object that will
                         // be applied to all series in the chart.
                         seriesDefaults: {

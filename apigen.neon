@@ -28,6 +28,7 @@ source:
 	- ./frames/othersPasswordFrame.php
 	- ./frames/passwordGeneratorFrame.php
 	- ./frames/ruoliUtenteFrame.php
+	- ./frames/startPlotsFrame.php
 	- ./frames/templateFrame.php
 	- ./frames/utentiSelectFrame.php
 	- ./jquery/jq_dialogs.php

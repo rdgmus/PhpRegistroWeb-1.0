@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="15">
+        <file>
+            <url>jquery/jquery.php</url>
+            <bookmark id="15">
+                <name/>
+                <line>1066</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>ajax.php</url>
+            <bookmark id="13">
+                <name/>
+                <line>180</line>
+                <key/>
+            </bookmark>
+            <bookmark id="14">
+                <name/>
+                <line>180</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>jquery/jq_ruoli_utente.php</url>
+            <bookmark id="10">
+                <name/>
+                <line>240</line>
+                <key/>
+            </bookmark>
+            <bookmark id="8">
+                <name/>
+                <line>271</line>
+                <key/>
+            </bookmark>
+            <bookmark id="9">
+                <name/>
+                <line>373</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>functions/MySqlFunctionsClass.php</url>
+            <bookmark id="11">
+                <name/>
+                <line>1016</line>
+                <key/>
+            </bookmark>
+            <bookmark id="12">
+                <name/>
+                <line>1076</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/Applications/XAMPP/xamppfiles/htdocs/PhpRegistroScuolaNetBeans/PHPMailer.php</file>
+            <file>file:/Applications/XAMPP/xamppfiles/htdocs/PhpRegistroScuolaNetBeans/jquery/jquery.php</file>
+            <file>file:/Applications/XAMPP/xamppfiles/htdocs/PhpRegistroScuolaNetBeans/emailToUser.php</file>
+            <file>file:/Applications/XAMPP/xamppfiles/htdocs/PhpRegistroScuolaNetBeans/jquery/jq_emails.php</file>
+            <file>file:/Applications/XAMPP/xamppfiles/htdocs/PhpRegistroScuolaNetBeans/ajax.php</file>
+            <file>file:/Applications/XAMPP/xamppfiles/htdocs/PhpRegistroScuolaNetBeans/functions/MySqlFunctionsClass.php</file>
+        </group>
+    </open-files>
+</project-private>

@@ -36,6 +36,8 @@ src="jquery/jquery.cookie.js"></script>
 <script
 src="jquery/jQuery-Impromptu-master/dist/jquery-impromptu.js"></script>
 
+
+
 <?php
 /**
  * jQuery-datepicker
@@ -152,6 +154,18 @@ src="jquery/MsgPop-3.1/js/jquery.msgPop.js"></script>
 <script
 src="jquery/Magnific-Popup/dist/jquery.magnific-popup.js"></script>
 
+<!----------
+ jqPlot 
+---------->
+
+ <!--<script language="javascript" type="text/javascript" src="jqplot/jquery.min.js"></script>-->
+<script language="javascript" type="text/javascript" src="jqplot/jquery.jqplot.min.js"></script>
+<link rel="stylesheet" type="text/css" href="jqplot/jquery.jqplot.min.css" />
+
+<script type="text/javascript" src="jqplot/plugins/jqplot.barRenderer.min.js"></script>
+<script type="text/javascript" src="jqPlot/plugins/jqplot.categoryAxisRenderer.min.js"></script>
+<script type="text/javascript" src="jqPlot/plugins/jqplot.pointLabels.min.js"></script>
+<script type="text/javascript" src="jqPlot/plugins/jqplot.dateAxisRenderer.min.js"></script>
 
 <?php
 include 'jquery/jq_ruoli_utente.php';
@@ -162,7 +176,21 @@ include 'jquery/jq_emails.php';
 
 <script>
     var pwd, pwd_repeat;
+    function connectionsPerMonthGraph() {
+        var line1 = [
+            ['2008-09-15 4:00PM', 4],
+            ['2008-10-15 4:00PM', 6.5],
+            ['2008-11-15 4:00PM', 5.7],
+            ['2008-12-15 4:00PM', 9],
+            ['2009-01-15 4:00PM', 8.2]
+        ];
+        var plot1 = $.jqplot('connectionsPerMonthGraph', [line1], {
+            title: 'Connessioni mensili',
+            axes: {xaxis: {renderer: $.jqplot.DateAxisRenderer}, yaxis: {min: 0, max: 10}},
+            series: [{lineWidth: 4, markerOptions: {style: 'square'}}]
+        });
 
+    }
     function passwordCopiata() {
         MsgPop.closeAll();
         $.ajax({
@@ -334,6 +362,11 @@ if (isset($_COOKIE['firstLogin'])) {
     $(document).ready(function () {
         // Stuff to do as soon as the DOM is ready;
         MsgPop.live(); // Attaches listener to current page.
+
+
+        $(function () {
+//            applicationStatsGraph();   
+        });
 
         $(function () {
             $("#user_email").focus();
@@ -1074,10 +1107,10 @@ if (isset($_COOKIE['firstLogin'])) {
                                             if (response == 1) {
                                                 //e.preventDefault();
                                                 $.prompt.goToState('state2');//RICHIESTA INOLTRATA
-                                            }else if (response == 0) {
+                                            } else if (response == 0) {
                                                 e.preventDefault();
                                                 $.prompt.goToState('state3');//RICHIESTA FALLITA
-                                            }else if (response == 2) {
+                                            } else if (response == 2) {
                                                 e.preventDefault();
                                                 $.prompt.goToState('state4');//RICHIESTA ESISTENTE
                                             }
@@ -1113,10 +1146,10 @@ if (isset($_COOKIE['firstLogin'])) {
                         },
                         state4: {
                             html: '<img  src="images/dialog_close_icon.png"  width="32" height="32"><h1>Richiesta gi&agrave; inoltrata!</h1>' +
-                                    ' <h2>PhpRegistroWeb 1.0</h2>',                          
+                                    ' <h2>PhpRegistroWeb 1.0</h2>',
                             submit: function (e, v, m, f) {
-                                 e.preventDefault();
-                                    $.prompt.goToState('state1');
+                                e.preventDefault();
+                                $.prompt.goToState('state1');
                             }
                         }
                     };

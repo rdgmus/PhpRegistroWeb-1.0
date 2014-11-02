@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="15">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="17">
         <file>
             <url>jquery/jquery.php</url>
-            <bookmark id="15">
+            <bookmark id="17">
                 <name/>
-                <line>1066</line>
+                <line>248</line>
+                <key/>
+            </bookmark>
+            <bookmark id="16">
+                <name/>
+                <line>375</line>
                 <key/>
             </bookmark>
         </file>
@@ -56,12 +61,7 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Applications/XAMPP/xamppfiles/htdocs/PhpRegistroScuolaNetBeans/PHPMailer.php</file>
             <file>file:/Applications/XAMPP/xamppfiles/htdocs/PhpRegistroScuolaNetBeans/jquery/jquery.php</file>
-            <file>file:/Applications/XAMPP/xamppfiles/htdocs/PhpRegistroScuolaNetBeans/emailToUser.php</file>
-            <file>file:/Applications/XAMPP/xamppfiles/htdocs/PhpRegistroScuolaNetBeans/jquery/jq_emails.php</file>
-            <file>file:/Applications/XAMPP/xamppfiles/htdocs/PhpRegistroScuolaNetBeans/ajax.php</file>
-            <file>file:/Applications/XAMPP/xamppfiles/htdocs/PhpRegistroScuolaNetBeans/functions/MySqlFunctionsClass.php</file>
         </group>
     </open-files>
 </project-private>

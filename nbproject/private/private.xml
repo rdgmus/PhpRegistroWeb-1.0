@@ -5,12 +5,12 @@
             <url>ajax.php</url>
             <bookmark id="13">
                 <name/>
-                <line>180</line>
+                <line>100</line>
                 <key/>
             </bookmark>
             <bookmark id="14">
                 <name/>
-                <line>180</line>
+                <line>100</line>
                 <key/>
             </bookmark>
         </file>
@@ -49,20 +49,21 @@
             <url>functions/MySqlFunctionsClass.php</url>
             <bookmark id="11">
                 <name/>
-                <line>1016</line>
+                <line>1058</line>
                 <key/>
             </bookmark>
             <bookmark id="12">
                 <name/>
-                <line>1076</line>
+                <line>1118</line>
                 <key/>
             </bookmark>
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Applications/XAMPP/xamppfiles/htdocs/PhpRegistroScuolaNetBeans/index.php</file>
             <file>file:/Applications/XAMPP/xamppfiles/htdocs/PhpRegistroScuolaNetBeans/jquery/jquery.php</file>
+            <file>file:/Applications/XAMPP/xamppfiles/htdocs/PhpRegistroScuolaNetBeans/ajax.php</file>
+            <file>file:/Applications/XAMPP/xamppfiles/htdocs/PhpRegistroScuolaNetBeans/functions/MySqlFunctionsClass.php</file>
             <file>file:/Applications/XAMPP/xamppfiles/htdocs/PhpRegistroScuolaNetBeans/frames/startPlotsFrame.php</file>
         </group>
     </open-files>

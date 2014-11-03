@@ -82,7 +82,7 @@ if (NULL != filter_input(INPUT_POST, 'page')) {
             $action = filter_input(INPUT_POST, 'action');
             if ($action == "getConnectionPerMonth") {
                 $connectionPerMonth = $mySqlFunctions->getConnectionPerMonth();
-                echo $connectionPerMonth;
+                echo json_encode($connectionPerMonth);
                 exit();
             } elseif ($action == "startLoginPage") {
                 echo filter_input(INPUT_SERVER, 'SERVER_NAME');
@@ -350,3 +350,4 @@ if (NULL != filter_input(INPUT_POST, 'page')) {
 }
 
 
+    

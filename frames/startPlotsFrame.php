@@ -11,7 +11,8 @@
                 <script type="text/javascript" src="../jquery/jqplot/plugins/jqplot.barRenderer.min.js"></script>
                 <script type="text/javascript" src="../jquery/jqPlot/plugins/jqplot.categoryAxisRenderer.min.js"></script>
                 <script type="text/javascript" src="../jquery/jqPlot/plugins/jqplot.pointLabels.min.js"></script>
-                <script type="text/javascript" src="../jquery/jqPlot/plugins/jqplot.dateAxisRenderer.min.js"></script>-->
+                <script type="text/javascript" src="../jquery/jqPlot/plugins/jqplot.dateAxisRenderer.min.js"></script>
+        -->
 
         <?php
         /*
@@ -35,7 +36,11 @@
         <script type="text/javascript">
             $(document).ready(function () {
 
-                function getConnectionPerMonth() {
+                /**
+                 * Grafico delle connessioni per mese
+                 * @returns {NULL}
+                 */
+                function connectionsPerMonthGraph() {
 
                     $.ajax({
                         type: "POST",
@@ -43,40 +48,49 @@
                         data: {"page": "index.php",
                             "action": "getConnectionPerMonth"},
                         success: function (response) {//response is value returned from php (for your example it's "bye bye"
-                            alert("getConnectionPerMonth success:"+response);
-                            return response;
+                            //alert("getConnectionPerMonth success:" + response);
+                            var connectionPerMonth = jQuery.parseJSON(response);
+                            var arr = [[]];
+                            var labels = [];
+                            for (key in connectionPerMonth) {
+                                var connessioni = parseInt(connectionPerMonth[key].connessioni);
+                                var mese = connectionPerMonth[key].mese;
+                                var anno = connectionPerMonth[key].anno;
+                                arr.push([anno + "/" + mese, connessioni]);
+                                labels[key]=connessioni;
+//                                alert(arr[key]);
+                            }
+                            $('#connectionsPerMonthGraph').jqplot([arr], {
+                                title: 'Login / mese',
+                                seriesDefaults: {
+                                    renderer: $.jqplot.BarRenderer,
+                                    pointLabels: {show: true, stackedValue: true,labels:labels },
+                                    rendererOptions: {
+                                        // Set the varyBarColor option to true to use different colors for each bar.
+                                        // The default series colors are used.
+                                        barMargin: 25,
+                                        varyBarColor: true
+                                    }
+                                },
+                                axes: {
+                                    xaxis: {
+                                        renderer: $.jqplot.CategoryAxisRenderer
+                                    }
+                                }
+                            });
+//                            
                         },
                         failure: function (response) {
-                            alert("getConnectionPerMonth failure:"+response);
+                            alert("getConnectionPerMonth failure:" + response);
 //                            location.reload();
                         }
                     });
-
                 }
 
-                /**
-                 * 
-                 * @returns {undefined}
-                 */
-                function connectionsPerMonthGraph() {
-                    var connectionPerMonth = getConnectionPerMonth();
-                    var line1 = [
-                        ['2008-09-15 4:00PM', 4],
-                        ['2008-10-15 4:00PM', 6.5],
-                        ['2008-11-15 4:00PM', 5.7],
-                        ['2008-12-15 4:00PM', 9],
-                        ['2009-01-15 4:00PM', 8.2]
-                    ];
-                    var plot1 = $.jqplot('connectionsPerMonthGraph', [line1], {
-                        title: 'Connessioni mensili',
-                        axes: {xaxis: {renderer: $.jqplot.DateAxisRenderer}, yaxis: {min: 0, max: 10}},
-                        series: [{lineWidth: 4, markerOptions: {style: 'square'}}]
-                    });
 
-                }
 
                 /**
-                 * 
+                 * Grafico delle statistiche ...
                  * @returns {undefined}
                  */
                 function applicationStatsGraph() {
@@ -86,7 +100,6 @@
                     // Can specify a custom tick Array.
                     // Ticks should match up one for each y value (category) in the series.
                     var ticks = ['May', 'June', 'July', 'August'];
-
                     var plot1 = $.jqplot('applicationStatsGraph', [s1, s2, s3], {
                         title: "Statistiche PhpRegistroWeb 1.0",
                         // The "seriesDefaults" option is an options object that will
@@ -129,8 +142,6 @@
 
                 connectionsPerMonthGraph();
                 applicationStatsGraph();
-
-
             });
         </script>
     </head>

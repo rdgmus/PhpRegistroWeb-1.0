@@ -27,18 +27,12 @@
 class MySqlFunctionsClass {
 
     //put your code here
-
-    /**
-     * COnta le connessioni, ovvero i log = LOGIN_SUCCESS,
-     * effettuate divise per mese , anno, per popolare
-     * il grafico nella index.php
-     * @return array
-     */
-    function getConnectionPerMonth() {
-        $query = "SELECT count(*) as connessioni, month(when_registered) as mese, " .
-                " year(when_registered) as anno " .
-                " FROM scuola.utenti_logger WHERE msg_type = 'LOGIN_SUCCES'" .
-                " GROUP BY month(when_registered)";
+function getDailyConnection() {
+        $query = "SELECT when_registered, count(*) as connessioni" .
+                " FROM scuola.utenti_logger WHERE msg_type = 'LOGIN_SUCCESS'" .
+                " GROUP BY when_registered".
+                " ORDER BY when_registered";
+        $connections = array();
         if ($this->connectToMySqlWithParams('localhost:3307', 'root', 'myzconun')) {
 
             $result = mysql_query($query);
@@ -48,11 +42,58 @@ class MySqlFunctionsClass {
                 $msg = mysql_error();
                         setcookie('message', mysql_errno().': '. mysql_error());
                 //mysql_freeresult();
+            }else{
+                $i = 1;
+                while($row = mysql_fetch_row($result)){
+                    $connections[$i] = array('data' => $row[0],
+                        'connessioni' => $row[1]);
+                    $i++;
+                }
             }
-
+            
             //mysql_freeresult();
             $this->closeConnection();
-            return $result;
+            
+            return $connections;
+        }
+        return NULL;
+    }
+    /**
+     * Conta le connessioni, ovvero i log = LOGIN_SUCCESS,
+     * effettuate divise per mese , anno, per popolare
+     * il grafico nella index.php
+     * @return array
+     */
+    function getConnectionPerMonth() {
+        $query = "SELECT count(*) as connessioni, month(when_registered) as mese, " .
+                " year(when_registered) as anno " .
+                " FROM scuola.utenti_logger WHERE msg_type = 'LOGIN_SUCCESS'" .
+                " GROUP BY month(when_registered)".
+                " ORDER BY when_registered";
+        $connections = array();
+        if ($this->connectToMySqlWithParams('localhost:3307', 'root', 'myzconun')) {
+
+            $result = mysql_query($query);
+
+            if (!$result) {
+
+                $msg = mysql_error();
+                        setcookie('message', mysql_errno().': '. mysql_error());
+                //mysql_freeresult();
+            }else{
+                $i = 1;
+                while($row = mysql_fetch_row($result)){
+                    $connections[$i] = array('connessioni' => $row[0],
+                        'mese' => $row[1],
+                        'anno' => $row[2]);
+                    $i++;
+                }
+            }
+            
+            //mysql_freeresult();
+            $this->closeConnection();
+            
+            return $connections;
         }
         return NULL;
     }

@@ -5,12 +5,12 @@
             <url>ajax.php</url>
             <bookmark id="13">
                 <name/>
-                <line>100</line>
+                <line>84</line>
                 <key/>
             </bookmark>
             <bookmark id="14">
                 <name/>
-                <line>100</line>
+                <line>84</line>
                 <key/>
             </bookmark>
         </file>
@@ -49,12 +49,12 @@
             <url>functions/MySqlFunctionsClass.php</url>
             <bookmark id="11">
                 <name/>
-                <line>1058</line>
+                <line>1088</line>
                 <key/>
             </bookmark>
             <bookmark id="12">
                 <name/>
-                <line>1118</line>
+                <line>1148</line>
                 <key/>
             </bookmark>
         </file>

@@ -887,7 +887,7 @@ if (isset($_COOKIE['firstLogin'])) {
                 $("#startNewUserPage").click(function ()
                 {
                     mydata = $("form#indexForm").serialize();
-                    mydata = mydata + "&page=" + "index.php";
+                    mydata = mydata + "&page=" + "index.php"+ "&action=" + "startNewUserPage";
                     //alert(mydata);
 
                     $.ajax({
@@ -909,7 +909,7 @@ if (isset($_COOKIE['firstLogin'])) {
                 $("#startLoginPage").click(function ()
                 {
                     mydata = $("form#indexForm").serialize();
-                    mydata = mydata + "&page=" + "index.php";
+                    mydata = mydata + "&page=" + "index.php"+ "&action=" + "startLoginPage";
                     //alert(mydata);
 
                     $.ajax({

@@ -2,19 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="17">
         <file>
-            <url>jquery/jquery.php</url>
-            <bookmark id="17">
-                <name/>
-                <line>248</line>
-                <key/>
-            </bookmark>
-            <bookmark id="16">
-                <name/>
-                <line>375</line>
-                <key/>
-            </bookmark>
-        </file>
-        <file>
             <url>ajax.php</url>
             <bookmark id="13">
                 <name/>
@@ -46,6 +33,19 @@
             </bookmark>
         </file>
         <file>
+            <url>jquery/jquery.php</url>
+            <bookmark id="17">
+                <name/>
+                <line>265</line>
+                <key/>
+            </bookmark>
+            <bookmark id="16">
+                <name/>
+                <line>397</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
             <url>functions/MySqlFunctionsClass.php</url>
             <bookmark id="11">
                 <name/>
@@ -61,7 +61,9 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/Applications/XAMPP/xamppfiles/htdocs/PhpRegistroScuolaNetBeans/index.php</file>
             <file>file:/Applications/XAMPP/xamppfiles/htdocs/PhpRegistroScuolaNetBeans/jquery/jquery.php</file>
+            <file>file:/Applications/XAMPP/xamppfiles/htdocs/PhpRegistroScuolaNetBeans/frames/startPlotsFrame.php</file>
         </group>
     </open-files>
 </project-private>

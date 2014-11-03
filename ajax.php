@@ -77,7 +77,21 @@ if (NULL != filter_input(INPUT_POST, 'page')) {
      */
     if ($page == 'index.php') {//index.php
         setcookie('MYSQL_SERVER', trim(filter_input(INPUT_POST, 'MySqlServer')));
-        echo filter_input(INPUT_SERVER, 'SERVER_NAME');
+//        echo filter_input(INPUT_SERVER, 'SERVER_NAME');
+        if (NULL != filter_input(INPUT_POST, 'action')) {
+            $action = filter_input(INPUT_POST, 'action');
+            if ($action == "getConnectionPerMonth") {
+                $connectionPerMonth = $mySqlFunctions->getConnectionPerMonth();
+                echo $connectionPerMonth;
+                exit();
+            } elseif ($action == "startLoginPage") {
+                echo filter_input(INPUT_SERVER, 'SERVER_NAME');
+                exit();
+            } elseif ($action == "startNewUserPage") {
+                echo filter_input(INPUT_SERVER, 'SERVER_NAME');
+                exit();
+            }
+        }
     }
     /**
      * $page == 'emailToUser.php'
@@ -224,7 +238,7 @@ if (NULL != filter_input(INPUT_POST, 'page')) {
                 }
 
                 $password_one = filter_input(INPUT_POST, 'password_one');
-                $repeatPasswordErr =$mySqlFunctions->testPasswordsAreEqual($password, $password_one);
+                $repeatPasswordErr = $mySqlFunctions->testPasswordsAreEqual($password, $password_one);
                 setcookie('repeatPasswordErr', $repeatPasswordErr);
                 if ($repeatPasswordErr != '*') {
                     echo filter_input(INPUT_SERVER, 'SERVER_NAME');

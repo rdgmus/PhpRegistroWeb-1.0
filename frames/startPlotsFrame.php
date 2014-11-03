@@ -4,14 +4,14 @@
         <!----------
         jqPlot 
        ---------->
-
-        <script language="javascript" type="text/javascript" src="../jquery/jqplot/jquery.jqplot.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="../jquery/jqplot/jquery.jqplot.min.css" />
-
-        <script type="text/javascript" src="../jquery/jqplot/plugins/jqplot.barRenderer.min.js"></script>
-        <script type="text/javascript" src="../jquery/jqPlot/plugins/jqplot.categoryAxisRenderer.min.js"></script>
-        <script type="text/javascript" src="../jquery/jqPlot/plugins/jqplot.pointLabels.min.js"></script>
-        <script type="text/javascript" src="../jquery/jqPlot/plugins/jqplot.dateAxisRenderer.min.js"></script>
+        <!--
+                <script language="javascript" type="text/javascript" src="../jquery/jqplot/jquery.jqplot.min.js"></script>
+                <link rel="stylesheet" type="text/css" href="../jquery/jqplot/jquery.jqplot.min.css" />
+        
+                <script type="text/javascript" src="../jquery/jqplot/plugins/jqplot.barRenderer.min.js"></script>
+                <script type="text/javascript" src="../jquery/jqPlot/plugins/jqplot.categoryAxisRenderer.min.js"></script>
+                <script type="text/javascript" src="../jquery/jqPlot/plugins/jqplot.pointLabels.min.js"></script>
+                <script type="text/javascript" src="../jquery/jqPlot/plugins/jqplot.dateAxisRenderer.min.js"></script>-->
 
         <?php
         /*
@@ -34,22 +34,23 @@
 
         <script type="text/javascript">
             $(document).ready(function () {
-                function getConnectionPerMonth() {
-                    sql = "SELECT count(*) as connessioni, month(when_registered) as mese, \n" +
-                            "year(when_registered) as anno \n" +
-                            "FROM scuola.utenti_logger` WHERE `msg_type`=\'LOGIN_SUCCESS\'\n" +
-                            "GROUP BY month(`when_registered`)";
 
-//        $.ajax({
-//            type: "POST",
-//            url: 'login.php',
-//            data: mydata,
-//            success: function (response) {//response is value returned from php (for your example it's "bye bye"
-//                //alert(response);
-//                $("#password").val(response);
-//                $("#password").focus(100);
-//                $.prompt.goToState('state1');
-//            }});
+                function getConnectionPerMonth() {
+
+                    $.ajax({
+                        type: "POST",
+                        url: 'ajax.php',
+                        data: {"page": "index.php",
+                            "action": "getConnectionPerMonth"},
+                        success: function (response) {//response is value returned from php (for your example it's "bye bye"
+                            alert("getConnectionPerMonth success:"+response);
+                            return response;
+                        },
+                        failure: function (response) {
+                            alert("getConnectionPerMonth failure:"+response);
+//                            location.reload();
+                        }
+                    });
 
                 }
 
@@ -58,6 +59,7 @@
                  * @returns {undefined}
                  */
                 function connectionsPerMonthGraph() {
+                    var connectionPerMonth = getConnectionPerMonth();
                     var line1 = [
                         ['2008-09-15 4:00PM', 4],
                         ['2008-10-15 4:00PM', 6.5],
@@ -134,15 +136,15 @@
     </head>
 
     <body>
-            <tr>
-                <td bgcolor="white">
-                    <div id="applicationStatsGraph" style="height:200px;width:500px; "></div>
+    <tr>
+        <td bgcolor="white">
+            <div id="applicationStatsGraph" style="height:200px;width:500px; "></div>
 
-                </td>
-                <td bgcolor="white">
-                    <div id="connectionsPerMonthGraph" style="height:200px;width:500px; "></div>
-                </td>
-            </tr>
+        </td>
+        <td bgcolor="white">
+            <div id="connectionsPerMonthGraph" style="height:200px;width:500px; "></div>
+        </td>
+    </tr>
 
-    </body>
+</body>
 </html>

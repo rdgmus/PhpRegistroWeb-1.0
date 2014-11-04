@@ -155,7 +155,7 @@ src="jquery/MsgPop-3.1/js/jquery.msgPop.js"></script>
 src="jquery/Magnific-Popup/dist/jquery.magnific-popup.js"></script>
 
 <!----------
- jqPlot 
+jqPlot 
 ---------->
 
  <!--<script language="javascript" type="text/javascript" src="jqplot/jquery.min.js"></script>-->
@@ -166,6 +166,13 @@ src="jquery/Magnific-Popup/dist/jquery.magnific-popup.js"></script>
 <script type="text/javascript" src="jqPlot/plugins/jqplot.categoryAxisRenderer.min.js"></script>
 <script type="text/javascript" src="jqPlot/plugins/jqplot.pointLabels.min.js"></script>
 <script type="text/javascript" src="jqPlot/plugins/jqplot.dateAxisRenderer.min.js"></script>
+
+<!-------------->
+<!--SLIDE TABS-->
+<!-------------->
+
+<!--<link rel="stylesheet" href="sliderTabs-1.1/styles/jquery.sliderTabs.min.css">
+<script src="sliderTabs-1.1/jquery.sliderTabs.min.js"></script>-->
 
 <?php
 include 'jquery/jq_ruoli_utente.php';
@@ -365,10 +372,6 @@ if (isset($_COOKIE['firstLogin'])) {
 
 
         $(function () {
-//            applicationStatsGraph();   
-        });
-
-        $(function () {
             $("#user_email").focus();
             $("#name").focus();
             $("#oldpasswordId").focus();
@@ -516,6 +519,7 @@ if (isset($_COOKIE['firstLogin'])) {
         }
 
         $(function () {
+
 
             $("#datepicker").datepicker({
                 inline: true,
@@ -887,7 +891,7 @@ if (isset($_COOKIE['firstLogin'])) {
                 $("#startNewUserPage").click(function ()
                 {
                     mydata = $("form#indexForm").serialize();
-                    mydata = mydata + "&page=" + "index.php"+ "&action=" + "startNewUserPage";
+                    mydata = mydata + "&page=" + "index.php" + "&action=" + "startNewUserPage";
                     //alert(mydata);
 
                     $.ajax({
@@ -909,7 +913,7 @@ if (isset($_COOKIE['firstLogin'])) {
                 $("#startLoginPage").click(function ()
                 {
                     mydata = $("form#indexForm").serialize();
-                    mydata = mydata + "&page=" + "index.php"+ "&action=" + "startLoginPage";
+                    mydata = mydata + "&page=" + "index.php" + "&action=" + "startLoginPage";
                     //alert(mydata);
 
                     $.ajax({

@@ -41,8 +41,17 @@
         <script type="text/javascript" src="jquery/jqPlot/plugins/jqplot.categoryAxisRenderer.min.js"></script>
         <script type="text/javascript" src="jquery/jqPlot/plugins/jqplot.pointLabels.min.js"></script>
         <script type="text/javascript" src="jquery/jqPlot/plugins/jqplot.dateAxisRenderer.min.js"></script>
+        
+        <script>
+            $(document).ready(function () {
+                // Stuff to do as soon as the DOM is ready;
+                $(function () {
+                    $("#datepicker").datepicker("setDate", "now");
+                });
+            });
 
-      
+        </script>
+
     </head>
     <body>
         <form method="post" id="indexForm"
@@ -105,6 +114,9 @@
                     <td>
                         <table width="100%" id="userMenuTable">
                             <tr>
+                                <td>Date: <input type="text" id="datepicker" readonly="true"></td>                              
+                            </tr>
+                            <tr>
                                 <td>
                                     <h1>
                                         Prova le connessioni a MySql: 
@@ -135,7 +147,7 @@
                     </td>
                 </tr>
                 <tr>
-                        <?php include 'frames/startPlotsFrame.php'; ?>
+                    <?php include 'frames/startPlotsFrame.php'; ?>
 
                 </tr>
             </table>

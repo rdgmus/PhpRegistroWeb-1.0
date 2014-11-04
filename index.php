@@ -114,12 +114,12 @@
                     <td>
                         <table width="100%" id="userMenuTable">
                             <tr>
-                                <td>Date: <input type="text" id="datepicker" readonly="true"></td>                              
+                                <td>Oggi => <input type="text" id="datepicker" readonly="true"></td>                              
                             </tr>
                             <tr>
                                 <td>
                                     <h1>
-                                        Prova le connessioni a MySql: 
+                                        Prova le connessioni a MySql 
                                     </h1>
                                 </td>
                             </tr>
@@ -133,7 +133,7 @@
                             <tr>
                                 <td>
                                     <h1>
-                                        Documentazione:
+                                        Documentazione
                                     </h1>
                                 </td>
                             </tr>

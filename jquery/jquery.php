@@ -166,6 +166,8 @@ jqPlot
 <script type="text/javascript" src="jqPlot/plugins/jqplot.categoryAxisRenderer.min.js"></script>
 <script type="text/javascript" src="jqPlot/plugins/jqplot.pointLabels.min.js"></script>
 <script type="text/javascript" src="jqPlot/plugins/jqplot.dateAxisRenderer.min.js"></script>
+<script type="text/javascript" src="jqPlot/plugins/jqplot.canvasAxisTickRenderer.min.js"></script>
+<script type="text/javascript" src="jqPlot/plugins/jqplot.canvasTextRenderer.min.js"></script>
 
 <!-------------->
 <!--SLIDE TABS-->

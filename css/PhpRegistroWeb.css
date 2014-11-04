@@ -6,6 +6,13 @@
     font-stretch: condensed;
     font-weight: bold;
 }
+#connectionsPerDayGraph{
+    background-color: #00AAE7;
+    color: navy;
+    font-size: medium;
+    font-stretch: condensed;
+    font-weight: bold;
+}
 #applicationStatsGraph{
     background-color: #ffe862;
     color: navy;

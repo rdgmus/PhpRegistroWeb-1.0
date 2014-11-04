@@ -84,6 +84,10 @@ if (NULL != filter_input(INPUT_POST, 'page')) {
                 $connectionPerMonth = $mySqlFunctions->getConnectionPerMonth();
                 echo json_encode($connectionPerMonth);
                 exit();
+            } elseif ($action == "getConnectionPerDay") {
+                $connectionPerDay = $mySqlFunctions->getDailyConnection();
+                echo json_encode($connectionPerDay);
+                exit();
             } elseif ($action == "startLoginPage") {
                 echo filter_input(INPUT_SERVER, 'SERVER_NAME');
                 exit();

@@ -25,12 +25,19 @@
  * @filesource
  */
 class MySqlFunctionsClass {
-
     //put your code here
-function getDailyConnection() {
-        $query = "SELECT when_registered, count(*) as connessioni" .
+
+    /**
+     * Conta le connessioni, ovvero i log = LOGIN_SUCCESS,
+     * effettuate divise per data, per popolare
+     * il grafico nella index.php
+     * @return array
+     */
+    function getDailyConnection() {
+        $query = "SELECT day(when_registered) as giorno, month(when_registered) as mese, " .
+                " year(when_registered) as anno , count(*) as connessioni" .
                 " FROM scuola.utenti_logger WHERE msg_type = 'LOGIN_SUCCESS'" .
-                " GROUP BY when_registered".
+                " GROUP BY day(when_registered)" .
                 " ORDER BY when_registered";
         $connections = array();
         if ($this->connectToMySqlWithParams('localhost:3307', 'root', 'myzconun')) {
@@ -40,24 +47,28 @@ function getDailyConnection() {
             if (!$result) {
 
                 $msg = mysql_error();
-                        setcookie('message', mysql_errno().': '. mysql_error());
+                setcookie('message', mysql_errno() . ': ' . mysql_error());
                 //mysql_freeresult();
-            }else{
+            } else {
                 $i = 1;
-                while($row = mysql_fetch_row($result)){
-                    $connections[$i] = array('data' => $row[0],
-                        'connessioni' => $row[1]);
+                while ($row = mysql_fetch_row($result)) {
+                    $connections[$i] = array(
+                        'giorno' => $row[0],
+                        'mese' => $row[1],
+                        'anno' => $row[2],
+                        'connessioni' => $row[3]);
                     $i++;
                 }
             }
-            
+
             //mysql_freeresult();
             $this->closeConnection();
-            
+
             return $connections;
         }
         return NULL;
     }
+
     /**
      * Conta le connessioni, ovvero i log = LOGIN_SUCCESS,
      * effettuate divise per mese , anno, per popolare
@@ -68,7 +79,7 @@ function getDailyConnection() {
         $query = "SELECT count(*) as connessioni, month(when_registered) as mese, " .
                 " year(when_registered) as anno " .
                 " FROM scuola.utenti_logger WHERE msg_type = 'LOGIN_SUCCESS'" .
-                " GROUP BY month(when_registered)".
+                " GROUP BY month(when_registered)" .
                 " ORDER BY when_registered";
         $connections = array();
         if ($this->connectToMySqlWithParams('localhost:3307', 'root', 'myzconun')) {
@@ -78,21 +89,21 @@ function getDailyConnection() {
             if (!$result) {
 
                 $msg = mysql_error();
-                        setcookie('message', mysql_errno().': '. mysql_error());
+                setcookie('message', mysql_errno() . ': ' . mysql_error());
                 //mysql_freeresult();
-            }else{
+            } else {
                 $i = 1;
-                while($row = mysql_fetch_row($result)){
+                while ($row = mysql_fetch_row($result)) {
                     $connections[$i] = array('connessioni' => $row[0],
                         'mese' => $row[1],
                         'anno' => $row[2]);
                     $i++;
                 }
             }
-            
+
             //mysql_freeresult();
             $this->closeConnection();
-            
+
             return $connections;
         }
         return NULL;

@@ -12,7 +12,11 @@
                 <script type="text/javascript" src="../jquery/jqPlot/plugins/jqplot.categoryAxisRenderer.min.js"></script>
                 <script type="text/javascript" src="../jquery/jqPlot/plugins/jqplot.pointLabels.min.js"></script>
                 <script type="text/javascript" src="../jquery/jqPlot/plugins/jqplot.dateAxisRenderer.min.js"></script>
+       
+        <script type="text/javascript" src="../jquery/jqPlot/plugins/jqplot.canvasAxisTickRenderer.min.js"></script>
+        <script type="text/javascript" src="../jquery/jqPlot/plugins/jqplot.canvasTextRenderer.min.js"></script>
         -->
+
 
         <?php
         /*
@@ -34,6 +38,98 @@
         ?>
         <script type="text/javascript">
             $(document).ready(function () {
+
+                function test() {
+                    var line1 = [['Cup Holder Pinion Bob', 7], ['Generic Fog Lamp', 9], ['HDTV Receiver', 15],
+                        ['8 Track Control Module', 12], [' Sludge Pump Fourier Modulator', 3],
+                        ['Transcender/Spice Rack', 6], ['Hair Spray Danger Indicator', 18]];
+                    var line2 = [['Nickle', 28], ['Aluminum', 13], ['Xenon', 54], ['Silver', 47],
+                        ['Sulfer', 16], ['Silicon', 14], ['Vanadium', 23]];
+
+                    var plot2 = $.jqplot('chart2', [line1, line2], {
+                        series: [{renderer: $.jqplot.BarRenderer}, {xaxis: 'x2axis', yaxis: 'y2axis'}],
+                        axesDefaults: {
+                            tickRenderer: $.jqplot.CanvasAxisTickRenderer,
+                            tickOptions: {
+                                angle: 30
+                            }
+                        },
+                        axes: {
+                            xaxis: {
+                                renderer: $.jqplot.CategoryAxisRenderer
+                            },
+                            x2axis: {
+                                renderer: $.jqplot.CategoryAxisRenderer
+                            },
+                            yaxis: {
+                                autoscale: true
+                            },
+                            y2axis: {
+                                autoscale: true
+                            }
+                        }
+                    });
+                }
+                /**
+                 * Grafico delle connessioni giornaliere
+                 * @returns {NULL}
+                 */
+                function connectionsPerDayGraph() {
+
+                    $.ajax({
+                        type: "POST",
+                        url: 'ajax.php',
+                        data: {"page": "index.php",
+                            "action": "getConnectionPerDay"},
+                        success: function (response) {//response is value returned from php (for your example it's "bye bye"
+//                            alert("getConnectionPerDay success:" + response);
+                            var connectionPerDay = jQuery.parseJSON(response);
+                            var arr = [[]];
+                            var labels = [];
+                            for (key in connectionPerDay) {
+                                var giorno = connectionPerDay[key].giorno;
+                                var mese = connectionPerDay[key].mese;
+                                var anno = connectionPerDay[key].anno;
+                                var connessioni = parseInt(connectionPerDay[key].connessioni);
+
+                                arr.push([mese + "/" + giorno, connessioni]);
+                                labels[key] = connessioni;
+                            }
+                            $('#connectionsPerDayGraph').jqplot([arr], {
+                                title: 'Login / Giorno -  PhpRegistroWeb 1.0',
+                                seriesDefaults: {
+                                    renderer: $.jqplot.BarRenderer,
+                                    pointLabels: {show: true, labels: labels},
+                                    rendererOptions: {
+                                        // Set the varyBarColor option to true to use different colors for each bar.
+                                        // The default series colors are used.
+                                        varyBarColor: true
+                                    }
+                                },
+                                axesDefaults: {
+                                    tickRenderer: $.jqplot.CanvasAxisTickRenderer,
+                                    tickOptions: {
+                                        fontFamily: 'Georgia',
+                                        fontSize: '8pt',
+                                        angle: 90
+                                    }
+                                },
+                                axes: {
+                                    xaxis: {
+                                        renderer: $.jqplot.CategoryAxisRenderer
+                                    }
+                                }
+                            });
+//                            
+                        },
+                        failure: function (response) {
+                            alert("getConnectionPerDay failure:" + response);
+//                            location.reload();
+                        }
+                    });
+                }
+
+
                 /**
                  * Grafico delle connessioni per mese
                  * @returns {NULL}
@@ -85,8 +181,6 @@
                     });
                 }
 
-
-
                 /**
                  * Grafico delle statistiche ...
                  * @returns {undefined}
@@ -137,13 +231,45 @@
                         }
                     });
                 }
+
+                /**
+                 * FUNZIONI TABS IN index.php
+                 * @returns {undefined}
+                 */
                 $(function () {
-                    //Prima crea i plot da inserire nei tabs
-                    connectionsPerMonthGraph();
-                    applicationStatsGraph();
-                    
-                    //Poi crea i tabs
-                    $("#tabs").tabs();
+                    $("#tabs").tabs({
+//                        active: 1 
+//                        ,show: { effect: "blind", duration: 400 }
+                        create: function (event, ui) {
+                            // Do stuff here
+//                            alert('create');
+                            connectionsPerMonthGraph();
+                        }
+                    });
+                    $("#tabs").tabs({
+                        activate: function (event, ui) {
+                            // Do stuff here
+                            switch (ui.newTab.index()) {
+                                case 0:
+                                    connectionsPerMonthGraph();
+                                    break;
+                                case 1:
+                                    connectionsPerDayGraph();
+                                    break;
+                                case 2:
+                                    applicationStatsGraph();
+                                    break;
+                                case 3:
+                                    test();
+                                    break;
+                            }
+                        },
+                        create: function (event, ui) {
+                            // Do stuff here
+                            alert('create');
+//                            connectionsPerMonthGraph();
+                        }
+                    });
 
                 });
 
@@ -157,17 +283,19 @@
         <div id="tabs">
             <ul>
                 <li><a href="#connectionsPerMonthGraph"><span>Login / Mese</span></a></li>
+                <li><a href="#connectionsPerDayGraph"><span>Login / Giorno</span></a></li>
                 <li><a href="#applicationStatsGraph"><span>Statistiche</span></a></li>
+                <li><a href="#chart2"><span>Test</span></a></li>
             </ul>
 
-            <div id="connectionsPerMonthGraph" style="height:200px;width:500px; "></div>
+            <div id="connectionsPerMonthGraph" style="height:200px;"></div>
 
-            <div id="applicationStatsGraph" style="height:200px;width:500px; "></div>
+            <div id="connectionsPerDayGraph" style="height:200px;"></div>
+
+            <div id="applicationStatsGraph" style="height:200px;"></div>
+
+            <div id="chart2" style="height:200px;"></div>
 
         </div>
-
-        <script>
-            //        $("#tabs").tabs();
-        </script>
     </body>
 </html>

@@ -4,18 +4,16 @@
         <!----------
         jqPlot 
        ---------->
-        <!--
-                <script language="javascript" type="text/javascript" src="../jquery/jqplot/jquery.jqplot.min.js"></script>
-                <link rel="stylesheet" type="text/css" href="../jquery/jqplot/jquery.jqplot.min.css" />
-        
-                <script type="text/javascript" src="../jquery/jqplot/plugins/jqplot.barRenderer.min.js"></script>
-                <script type="text/javascript" src="../jquery/jqPlot/plugins/jqplot.categoryAxisRenderer.min.js"></script>
-                <script type="text/javascript" src="../jquery/jqPlot/plugins/jqplot.pointLabels.min.js"></script>
-                <script type="text/javascript" src="../jquery/jqPlot/plugins/jqplot.dateAxisRenderer.min.js"></script>
-       
-        <script type="text/javascript" src="../jquery/jqPlot/plugins/jqplot.canvasAxisTickRenderer.min.js"></script>
-        <script type="text/javascript" src="../jquery/jqPlot/plugins/jqplot.canvasTextRenderer.min.js"></script>
-        -->
+<!--  <script language="javascript" type="text/javascript" src="jqplot/jquery.min.js"></script>
+<script language="javascript" type="text/javascript" src="jqplot/jquery.jqplot.min.js"></script>
+<link rel="stylesheet" type="text/css" href="jqplot/jquery.jqplot.min.css" />
+
+<script type="text/javascript" src="jqplot/plugins/jqplot.barRenderer.min.js"></script>
+<script type="text/javascript" src="jqPlot/plugins/jqplot.categoryAxisRenderer.min.js"></script>
+<script type="text/javascript" src="jqPlot/plugins/jqplot.pointLabels.min.js"></script>
+<script type="text/javascript" src="jqPlot/plugins/jqplot.dateAxisRenderer.min.js"></script>
+<script type="text/javascript" src="jqPlot/plugins/jqplot.canvasAxisTickRenderer.min.js"></script>
+<script type="text/javascript" src="jqPlot/plugins/jqplot.canvasTextRenderer.min.js"></script>-->
 
 
         <?php
@@ -92,11 +90,11 @@
                                 var anno = connectionPerDay[key].anno;
                                 var connessioni = parseInt(connectionPerDay[key].connessioni);
 
-                                arr.push([mese + "/" + giorno, connessioni]);
+                                arr.push([giorno + "\n" + mese + "\n" + anno, connessioni]);
                                 labels[key] = connessioni;
                             }
                             $('#connectionsPerDayGraph').jqplot([arr], {
-                                title: 'Login / Giorno -  PhpRegistroWeb 1.0',
+                                title: 'Login / Giorno',
                                 seriesDefaults: {
                                     renderer: $.jqplot.BarRenderer,
                                     pointLabels: {show: true, labels: labels},
@@ -111,7 +109,7 @@
                                     tickOptions: {
                                         fontFamily: 'Georgia',
                                         fontSize: '8pt',
-                                        angle: 90
+                                        angle: -90
                                     }
                                 },
                                 axes: {
@@ -155,7 +153,7 @@
 //                                alert(arr[key]);
                             }
                             $('#connectionsPerMonthGraph').jqplot([arr], {
-                                title: 'Login / Mese -  PhpRegistroWeb 1.0',
+                                title: 'Login / Mese',
                                 seriesDefaults: {
                                     renderer: $.jqplot.BarRenderer,
                                     pointLabels: {show: true, stackedValue: true, labels: labels},
@@ -193,7 +191,7 @@
                     // Ticks should match up one for each y value (category) in the series.
                     var ticks = ['May', 'June', 'July', 'August'];
                     var plot1 = $.jqplot('applicationStatsGraph', [s1, s2, s3], {
-                        title: "Statistiche - PhpRegistroWeb 1.0",
+                        title: "Statistiche",
                         // The "seriesDefaults" option is an options object that will
                         // be applied to all series in the chart.
                         seriesDefaults: {
@@ -237,6 +235,8 @@
                  * @returns {undefined}
                  */
                 $(function () {
+
+                    $.jqplot.config.enablePlugins = true;
                     $("#tabs").tabs({
 //                        active: 1 
 //                        ,show: { effect: "blind", duration: 400 }
@@ -246,6 +246,7 @@
                             connectionsPerMonthGraph();
                         }
                     });
+
                     $("#tabs").tabs({
                         activate: function (event, ui) {
                             // Do stuff here

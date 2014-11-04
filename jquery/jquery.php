@@ -158,7 +158,7 @@ src="jquery/Magnific-Popup/dist/jquery.magnific-popup.js"></script>
 jqPlot 
 ---------->
 
- <!--<script language="javascript" type="text/javascript" src="jqplot/jquery.min.js"></script>-->
+ <script language="javascript" type="text/javascript" src="jqplot/jquery.min.js"></script>
 <script language="javascript" type="text/javascript" src="jqplot/jquery.jqplot.min.js"></script>
 <link rel="stylesheet" type="text/css" href="jqplot/jquery.jqplot.min.css" />
 
@@ -371,7 +371,7 @@ if (isset($_COOKIE['firstLogin'])) {
     $(document).ready(function () {
         // Stuff to do as soon as the DOM is ready;
         MsgPop.live(); // Attaches listener to current page.
-
+        
 
         $(function () {
             $("#user_email").focus();

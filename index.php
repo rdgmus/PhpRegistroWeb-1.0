@@ -41,7 +41,7 @@
         <script type="text/javascript" src="jquery/jqPlot/plugins/jqplot.categoryAxisRenderer.min.js"></script>
         <script type="text/javascript" src="jquery/jqPlot/plugins/jqplot.pointLabels.min.js"></script>
         <script type="text/javascript" src="jquery/jqPlot/plugins/jqplot.dateAxisRenderer.min.js"></script>
-        
+
         <script>
             $(document).ready(function () {
                 // Stuff to do as soon as the DOM is ready;
@@ -147,8 +147,9 @@
                     </td>
                 </tr>
                 <tr>
-                    <?php include 'frames/startPlotsFrame.php'; ?>
-
+                    <td>
+                        <?php include_once 'frames/startPlotsFrame.php'; ?>
+                    </td>
                 </tr>
             </table>
 

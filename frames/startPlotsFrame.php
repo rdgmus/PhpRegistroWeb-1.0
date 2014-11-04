@@ -32,10 +32,8 @@
          * along with this program.  If not, see <http://www.gnu.org/licenses/>.
          */
         ?>
-
         <script type="text/javascript">
             $(document).ready(function () {
-
                 /**
                  * Grafico delle connessioni per mese
                  * @returns {NULL}
@@ -57,14 +55,14 @@
                                 var mese = connectionPerMonth[key].mese;
                                 var anno = connectionPerMonth[key].anno;
                                 arr.push([anno + "/" + mese, connessioni]);
-                                labels[key]=connessioni;
+                                labels[key] = connessioni;
 //                                alert(arr[key]);
                             }
                             $('#connectionsPerMonthGraph').jqplot([arr], {
-                                title: 'Login / mese',
+                                title: 'Login / Mese -  PhpRegistroWeb 1.0',
                                 seriesDefaults: {
                                     renderer: $.jqplot.BarRenderer,
-                                    pointLabels: {show: true, stackedValue: true,labels:labels },
+                                    pointLabels: {show: true, stackedValue: true, labels: labels},
                                     rendererOptions: {
                                         // Set the varyBarColor option to true to use different colors for each bar.
                                         // The default series colors are used.
@@ -101,7 +99,7 @@
                     // Ticks should match up one for each y value (category) in the series.
                     var ticks = ['May', 'June', 'July', 'August'];
                     var plot1 = $.jqplot('applicationStatsGraph', [s1, s2, s3], {
-                        title: "Statistiche PhpRegistroWeb 1.0",
+                        title: "Statistiche - PhpRegistroWeb 1.0",
                         // The "seriesDefaults" option is an options object that will
                         // be applied to all series in the chart.
                         seriesDefaults: {
@@ -139,23 +137,37 @@
                         }
                     });
                 }
+                $(function () {
+                    //Prima crea i plot da inserire nei tabs
+                    connectionsPerMonthGraph();
+                    applicationStatsGraph();
+                    
+                    //Poi crea i tabs
+                    $("#tabs").tabs();
 
-                connectionsPerMonthGraph();
-                applicationStatsGraph();
+                });
+
+
+
             });
         </script>
     </head>
 
     <body>
-    <tr>
-        <td bgcolor="white">
+        <div id="tabs">
+            <ul>
+                <li><a href="#connectionsPerMonthGraph"><span>Login / Mese</span></a></li>
+                <li><a href="#applicationStatsGraph"><span>Statistiche</span></a></li>
+            </ul>
+
+            <div id="connectionsPerMonthGraph" style="height:200px;width:500px; "></div>
+
             <div id="applicationStatsGraph" style="height:200px;width:500px; "></div>
 
-        </td>
-        <td bgcolor="white">
-            <div id="connectionsPerMonthGraph" style="height:200px;width:500px; "></div>
-        </td>
-    </tr>
+        </div>
 
-</body>
+        <script>
+            //        $("#tabs").tabs();
+        </script>
+    </body>
 </html>

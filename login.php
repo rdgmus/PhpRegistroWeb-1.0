@@ -58,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             //QUERY FOR DATABASE CONNECTION HERE
                             if ($mySqlFunctions->connectToMySql()) {
                                 //QUERY FOR USER ACCOUNT HERE
-                                if ($esito = $mySqlFunctions->authenticateUser($user_email, $password, TRUE)) {
+                                if ($mySqlFunctions->authenticateUser($user_email, $password, TRUE)) {
                                     $mySqlFunctions->registerLogEvent('LOGIN_SUCCESS', 'LOGIN IN REGISTRO SCOLASTICO:SUCCESS', $mySqlFunctions->getUserId($user_email, $password), $_SERVER['REMOTE_ADDR']);
 
                                     //SETTA LA COOKYE PER IL MESSAGE POP DI BENVENUTO ALL'UTENTE
@@ -92,7 +92,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($mySqlFunctions->alreadyExistsPasswordRequestFor($cognome, $nome, $email)) {
 //                $msg = "<h3>Esiste gi&agrave; una richiesta di cambiamento password per"
 //                        . "</h3><h2> ".$cognome." ".$nome." [".$email."]";
-               
+
                 echo (int) 2;
                 exit();
             }

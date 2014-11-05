@@ -158,7 +158,7 @@ src="jquery/Magnific-Popup/dist/jquery.magnific-popup.js"></script>
 jqPlot 
 ---------->
 
- <script language="javascript" type="text/javascript" src="jqplot/jquery.min.js"></script>
+<script language="javascript" type="text/javascript" src="jqplot/jquery.min.js"></script>
 <script language="javascript" type="text/javascript" src="jqplot/jquery.jqplot.min.js"></script>
 <link rel="stylesheet" type="text/css" href="jqplot/jquery.jqplot.min.css" />
 
@@ -200,6 +200,7 @@ include 'jquery/jq_emails.php';
         });
 
     }
+
     function passwordCopiata() {
         MsgPop.closeAll();
         $.ajax({
@@ -211,28 +212,6 @@ include 'jquery/jq_emails.php';
         });
     }
 
-    function benvenutoUserAjax() {
-        MsgPop.closeAll();
-        var urData = {Content: 'Moscow'};
-        $.ajax({
-            url: "json/benvenutoUser.json",
-            type: 'POST',
-            cache: false,
-            data: JSON.stringify(urData),
-            dataType: "json",
-            responseType: "json",
-            success: function (data) {
-                //alert('success: '+data.MsgPopQueue[0].Content);
-
-                //$.cookie('firstLogin', false);
-                $("#liveDemo").html(data.content);
-            },
-            error: function (data) {
-                alert('fails');
-                $("#liveDemo").html(data.content);
-            }
-        });
-    }
 
     function generaPassword(e) {
 
@@ -335,6 +314,36 @@ include 'jquery/jq_emails.php';
         });
     }
 
+    function createBenvenutoUserContent() {
+        $.ajax({
+            type: "POST",
+            url: 'ajax.php',
+            data: {"page": "userMenu.php",
+                "action": "fillBenvenutoUser"
+            },
+            success: function (response) {//response is value returned from php (for your example it's "bye bye"
+                //alert(response);
+                benvenutoUserAjax();
+            }
+        });
+    }
+
+    function benvenutoUserAjax() {
+        MsgPop.closeAll();
+        $.ajax({
+            url: "json/benvenutoUser.json",
+            dataType: "json",
+            success: function (data) {
+                $("#liveDemo").html(data.content);
+            },
+            error: function (data) {
+                alert('fails');
+                $("#liveDemo").html(data.content);
+            }
+        });
+    }
+
+
     function benvenutoUser() {
         MsgPop.closeAll();
 <?php
@@ -371,7 +380,7 @@ if (isset($_COOKIE['firstLogin'])) {
     $(document).ready(function () {
         // Stuff to do as soon as the DOM is ready;
         MsgPop.live(); // Attaches listener to current page.
-        
+
 
         $(function () {
             $("#user_email").focus();
@@ -1189,7 +1198,7 @@ if (isset($_COOKIE['firstLogin'])) {
                         data: mydata,
                         success: function (response) {//response is value returned from php (for your example it's "bye bye"
                             //alert(response);
-
+                            //benvenutoUser();
                             window.location = response;
 
                         }

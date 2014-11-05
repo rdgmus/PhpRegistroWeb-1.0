@@ -1,6 +1,8 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN">
 <html>
     <head>
+        <link href="css/PhpRegistroWeb.css" rel="stylesheet">
+
         <meta http-equiv="Content-Type" content="text/html; charset=MacRoman">
         <title>User Menu</title>
         <?php
@@ -13,30 +15,21 @@
         setTitle($mySqlFunctions->userIsAdministrator($_COOKIE['id_utente']) ? 'Men&ugrave Amministratore' : 'Men&ugrave Utente');
         include 'frames/logoTitleFrame.php';
         ?>
-        <link href="css/PhpRegistroWeb.css" rel="stylesheet">
+        <script>
+            $(document).ready(function () {
 
-        <script type="text/javascript">
-            //IMPOSTA IL FILE JSON DI BENVENUTO CON I DATI UTENTE
-<?php
-if (isset($_COOKIE['firstLogin'])) {
-    if ($_COOKIE['firstLogin'] == 'true') {
-        //$_COOKIE['firstLogin'] == 'false';
-        if (isset($_COOKIE['id_utente'])) {
-            if ($mySqlFunctions->userIsAdministrator($_COOKIE['id_utente'])) {
-                $typeOfUser = " Administrator: ";
-            } else {
-                $typeOfUser = " User: ";
-            }
-            setMsgPopContent("<img  src='images/accept_icon.png'  width='32' height='32'>", "success", 'json/benvenutoUser.json', "<h1>Benvenuto!" . $typeOfUser . "</h1><h2>[" . $_COOKIE['id_utente'] . "] - " .
-                    $_COOKIE['cognome_user'] . " " . $_COOKIE['nome_user'] . " [" . $_COOKIE['email_user'] . "]");
-            ?>	benvenutoUserAjax();
-            <?php
-        }
-    }
-}
-?>
+                $(function () {
+                    if ($.cookie('firstLogin')) {
+                        if ($.cookie('firstLogin') == 'true') {
+                            if ($.cookie('id_utente')) {
+                                createBenvenutoUserContent();
+                            }
+                        }
+                    }
+
+                });
+            });
         </script>
-
     </head>
     <body>
         <form method="post" id="userMenuForm"

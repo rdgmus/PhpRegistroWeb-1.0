@@ -34,8 +34,9 @@ function getBaseURL() {
  * @param  $msg [ messaggio ]
  */
 function setMsgPopContent($Icon, $Type, $file, $msg) {
-    //$json = json_decode(file_get_contents($file), true); //private
-
+    $json = json_decode(file_get_contents($file), true); //private
+//    file_put_contents($file, json_encode($json));
+//    return $json;
     $msgPopQueue[] = array(
         "AutoClose" => true,
         "CloseTimer" => 3000,
@@ -47,8 +48,8 @@ function setMsgPopContent($Icon, $Type, $file, $msg) {
     );
 
     $msgPop = array("MsgPopQueue" => $msgPopQueue, "content" => "<div>This is new <b>text!</b></div>");
-    $json = $msgPop;
-    file_put_contents($file, json_encode($json));
+    
+    file_put_contents($file, json_encode($msgPop));
 }
 
 /**

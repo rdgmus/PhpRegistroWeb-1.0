@@ -152,7 +152,21 @@ if (NULL != filter_input(INPUT_POST, 'page')) {
      * $page == 'userMenu.php'
      */ elseif ($page == 'userMenu.php') {//userMenu.php
         if (NULL != filter_input(INPUT_POST, 'action')) {
-            if (filter_input(INPUT_POST, 'action') == "gotochangeOthersPassword") {
+            if (filter_input(INPUT_POST, 'action') == "fillBenvenutoUser") {
+                $typeOfUser = " User: ";
+                if ($mySqlFunctions->userIsAdministrator($_COOKIE['id_utente'])) {
+                    $typeOfUser = " Administrator: ";
+                }
+                $msg = setMsgPopContent("<img  src='images/accept_icon.png'  width='32' height='32'>", 
+                        "success", 
+                        'json/benvenutoUser.json', 
+                        "<h1>Benvenuto!" . $typeOfUser . "</h1><h2>[" . $_COOKIE['id_utente'] . "] - " .
+                        $_COOKIE['cognome_user'] . " " . $_COOKIE['nome_user'] . " [" . $_COOKIE['email_user'] . "]");
+                echo filter_input(INPUT_SERVER, 'SERVER_NAME');
+//                echo print_r($msg);
+                exit();
+                //echo $_SERVER['SERVER_ADDR'];
+            } elseif (filter_input(INPUT_POST, 'action') == "gotochangeOthersPassword") {
                 echo filter_input(INPUT_SERVER, 'SERVER_NAME');
                 //echo get_ip();
                 //echo $_SERVER['SERVER_ADDR'];

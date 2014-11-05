@@ -6,7 +6,7 @@ This README would normally document whatever steps are necessary to get your app
 ![Key Orchestra](https://raw.githubusercontent.com/rdgmus/PhpProjects/GitHubPhpRegistroScuola/images/Cbasso1.png)
 * Quick summary
 * Version 1.0
-* [Roberto Della Grotta](https://rdgmus@bitbucket.org/rdgmus/phpregistroscuolanetbeans.git)
+* [Roberto Della Grotta](https://github.com/rdgmus/PhpProjects.git)
 
 ### How do I get set up? ###
 

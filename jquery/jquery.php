@@ -24,6 +24,8 @@ src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
 src="jquery/jquery.cookie.js"></script>
 <!-- ---------------------- -->
 
+
+
 <?php
 /**
  * jQuery-Impromptu-master
@@ -38,38 +40,6 @@ src="jquery/jQuery-Impromptu-master/dist/jquery-impromptu.js"></script>
 
 
 
-<?php
-/**
- * jQuery-datepicker
- */
-?>
-<!--
-<script
-        src="jquery/js/jquery-1.7.1.min.js"></script>
-<script
-        src="jquery/js/jquery-ui-1.8.18.custom.min.js"></script>
-
-<link href="css/normalize.css"
-        rel="stylesheet" type="text/css" />
-
-
-<link href="css/datepicker.css"
-        rel="stylesheet" type="text/css" />
--->
-
-<?php
-/**
- * MarkItUp
- * http://markitup.jaysalvat.com/home/
- */
-?>
-<!-- 
-<link rel="stylesheet" type="text/css" href="jquery/markitup/markitup/skins/markitup/style.css" />
-<link rel="stylesheet" type="text/css" href="jquery/markitup/markitup/sets/default/style.css" />
-
-<script type="text/javascript" src="jquery/markitup/markitup/jquery.markitup.js"></script>
-<script type="text/javascript" src="jquery/markitup/markitup/sets/default/set.js"></script>
--->
 <?php
 /**
  *
@@ -175,6 +145,13 @@ jqPlot
 
 <!--<link rel="stylesheet" href="sliderTabs-1.1/styles/jquery.sliderTabs.min.css">
 <script src="sliderTabs-1.1/jquery.sliderTabs.min.js"></script>-->
+<!----------------------->
+<!--jquery-toast-plugin-->
+<!----------------------->
+
+<!--<link rel="stylesheet" href="jquery-toast-plugin-master/jquery.toast.css">
+<script src="jquery-toast-plugin-master/jquery.toast.js"></script>-->
+
 
 <?php
 include 'jquery/jq_ruoli_utente.php';

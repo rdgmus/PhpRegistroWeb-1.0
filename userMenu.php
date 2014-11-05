@@ -9,6 +9,7 @@
         include 'functions/utilities_functions.php';
         include './functions/MySqlFunctionsClass.php';
 
+
         $mySqlFunctions = new MySqlFunctionsClass();
         ?>
         <?php
@@ -19,10 +20,13 @@
             $(document).ready(function () {
 
                 $(function () {
+//                    $.toast("Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic, consequuntur doloremque eveniet eius eaque dicta repudiandae illo ullam. Minima itaque sint magnam dolorum asperiores repudiandae dignissimos expedita, voluptatum vitae velit.");
+
                     if ($.cookie('firstLogin')) {
                         if ($.cookie('firstLogin') == 'true') {
                             if ($.cookie('id_utente')) {
                                 createBenvenutoUserContent();
+
                             }
                         }
                     }

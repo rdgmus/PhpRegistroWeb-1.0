@@ -20,7 +20,11 @@ This README would normally document whatever steps are necessary to get your app
 
 ### How do I get set up? ###
 
-* Summary of set up
+## Summary of set up ##
+###1-Set up database schema:###
+#### trovate sotto ./MySql/*.sql l'ultimo dump dello schema del database da creare e che sottintende a tutta l'applicazione.####
+###2-Download project and install into Apache server:###
+
 * Configuration
 * Dependencies
 * Database configuration

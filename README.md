@@ -3,7 +3,7 @@
 This README would normally document whatever steps are necessary to get your application up and running.
 
 ### PhpRegistroScuolaNetBeans 1.0 ###
-![Key Orchestra](https://raw.githubusercontent.com/rdgmus/PhpProjects/GitHubPhpRegistroScuola/images/LogoPhpRegistroWeb.png)
+![Key Orchestra](https://raw.githubusercontent.com/rdgmus/PhpProjects/GitHubPhpRegistroScuola/images/CBasso1.png)
 
 #Quick summary#
  Il progetto mira alla creazione di un'applicazione web per la gestione del Registro Scolastico.

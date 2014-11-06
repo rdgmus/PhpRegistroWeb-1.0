@@ -2,10 +2,10 @@
 
 This README would normally document whatever steps are necessary to get your application up and running.
 
-### PhpRegistroScuolaNetBeans 1.0 ###
+# PhpRegistroScuolaNetBeans 1.0 #
 ![Key Orchestra](https://raw.githubusercontent.com/rdgmus/PhpProjects/GitHubPhpRegistroScuola/images/CBasso1.png)
 
-#Quick summary#
+## Quick summary ##
  Il progetto mira alla creazione di un'applicazione web per la gestione del Registro Scolastico.
  Tale applicazione già funzionante in versione localhost la potete trovare nel mio repository JsfProjects.
  Si sta quindi effettuando il porting di tale applicazione da JSF a PHP.

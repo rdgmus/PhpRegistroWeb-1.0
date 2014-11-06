@@ -2,7 +2,7 @@
 
 This README would normally document whatever steps are necessary to get your application up and running.
 
-# PhpRegistroScuolaNetBeans 1.0 #
+# PhpRegistroWeb 1.0 #
 ![Key Orchestra](https://raw.githubusercontent.com/rdgmus/PhpProjects/GitHubPhpRegistroScuola/images/LogoPhpRegistroWeb.png)
 
 ## Quick summary ##

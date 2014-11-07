@@ -24,6 +24,8 @@ src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
 src="jquery/jquery.cookie.js"></script>
 <!-- ---------------------- -->
 
+
+
 <?php
 /**
  * jQuery-Impromptu-master
@@ -36,38 +38,8 @@ src="jquery/jquery.cookie.js"></script>
 <script
 src="jquery/jQuery-Impromptu-master/dist/jquery-impromptu.js"></script>
 
-<?php
-/**
- * jQuery-datepicker
- */
-?>
-<!--
-<script
-        src="jquery/js/jquery-1.7.1.min.js"></script>
-<script
-        src="jquery/js/jquery-ui-1.8.18.custom.min.js"></script>
-
-<link href="css/normalize.css"
-        rel="stylesheet" type="text/css" />
 
 
-<link href="css/datepicker.css"
-        rel="stylesheet" type="text/css" />
--->
-
-<?php
-/**
- * MarkItUp
- * http://markitup.jaysalvat.com/home/
- */
-?>
-<!-- 
-<link rel="stylesheet" type="text/css" href="jquery/markitup/markitup/skins/markitup/style.css" />
-<link rel="stylesheet" type="text/css" href="jquery/markitup/markitup/sets/default/style.css" />
-
-<script type="text/javascript" src="jquery/markitup/markitup/jquery.markitup.js"></script>
-<script type="text/javascript" src="jquery/markitup/markitup/sets/default/set.js"></script>
--->
 <?php
 /**
  *
@@ -152,6 +124,22 @@ src="jquery/MsgPop-3.1/js/jquery.msgPop.js"></script>
 <script
 src="jquery/Magnific-Popup/dist/jquery.magnific-popup.js"></script>
 
+<!----------
+jqPlot 
+---------->
+
+<script language="javascript" type="text/javascript" src="jqplot/jquery.min.js"></script>
+<script language="javascript" type="text/javascript" src="jqplot/jquery.jqplot.min.js"></script>
+<link rel="stylesheet" type="text/css" href="jqplot/jquery.jqplot.min.css" />
+
+<script type="text/javascript" src="jqplot/plugins/jqplot.barRenderer.min.js"></script>
+<script type="text/javascript" src="jqPlot/plugins/jqplot.categoryAxisRenderer.min.js"></script>
+<script type="text/javascript" src="jqPlot/plugins/jqplot.pointLabels.min.js"></script>
+<script type="text/javascript" src="jqPlot/plugins/jqplot.dateAxisRenderer.min.js"></script>
+<script type="text/javascript" src="jqPlot/plugins/jqplot.canvasAxisTickRenderer.min.js"></script>
+<script type="text/javascript" src="jqPlot/plugins/jqplot.canvasTextRenderer.min.js"></script>
+
+
 
 <?php
 include 'jquery/jq_ruoli_utente.php';
@@ -162,6 +150,21 @@ include 'jquery/jq_emails.php';
 
 <script>
     var pwd, pwd_repeat;
+    function connectionsPerMonthGraph() {
+        var line1 = [
+            ['2008-09-15 4:00PM', 4],
+            ['2008-10-15 4:00PM', 6.5],
+            ['2008-11-15 4:00PM', 5.7],
+            ['2008-12-15 4:00PM', 9],
+            ['2009-01-15 4:00PM', 8.2]
+        ];
+        var plot1 = $.jqplot('connectionsPerMonthGraph', [line1], {
+            title: 'Connessioni mensili',
+            axes: {xaxis: {renderer: $.jqplot.DateAxisRenderer}, yaxis: {min: 0, max: 10}},
+            series: [{lineWidth: 4, markerOptions: {style: 'square'}}]
+        });
+
+    }
 
     function passwordCopiata() {
         MsgPop.closeAll();
@@ -174,28 +177,6 @@ include 'jquery/jq_emails.php';
         });
     }
 
-    function benvenutoUserAjax() {
-        MsgPop.closeAll();
-        var urData = {Content: 'Moscow'};
-        $.ajax({
-            url: "json/benvenutoUser.json",
-            type: 'POST',
-            cache: false,
-            data: JSON.stringify(urData),
-            dataType: "json",
-            responseType: "json",
-            success: function (data) {
-                //alert('success: '+data.MsgPopQueue[0].Content);
-                
-                //$.cookie('firstLogin', false);
-                $("#liveDemo").html(data.content);
-            },
-            error: function (data) {
-                alert('fails');
-                $("#liveDemo").html(data.content);
-            }
-        });
-    }
 
     function generaPassword(e) {
 
@@ -298,6 +279,36 @@ include 'jquery/jq_emails.php';
         });
     }
 
+    function createBenvenutoUserContent() {
+        $.ajax({
+            type: "POST",
+            url: 'ajax.php',
+            data: {"page": "userMenu.php",
+                "action": "fillBenvenutoUser"
+            },
+            success: function (response) {//response is value returned from php (for your example it's "bye bye"
+                //alert(response);
+                benvenutoUserAjax();
+            }
+        });
+    }
+
+    function benvenutoUserAjax() {
+        MsgPop.closeAll();
+        $.ajax({
+            url: "json/benvenutoUser.json",
+            dataType: "json",
+            success: function (data) {
+                $("#liveDemo").html(data.content);
+            },
+            error: function (data) {
+                alert('fails');
+                $("#liveDemo").html(data.content);
+            }
+        });
+    }
+
+
     function benvenutoUser() {
         MsgPop.closeAll();
 <?php
@@ -334,6 +345,7 @@ if (isset($_COOKIE['firstLogin'])) {
     $(document).ready(function () {
         // Stuff to do as soon as the DOM is ready;
         MsgPop.live(); // Attaches listener to current page.
+
 
         $(function () {
             $("#user_email").focus();
@@ -483,6 +495,7 @@ if (isset($_COOKIE['firstLogin'])) {
         }
 
         $(function () {
+
 
             $("#datepicker").datepicker({
                 inline: true,
@@ -854,7 +867,7 @@ if (isset($_COOKIE['firstLogin'])) {
                 $("#startNewUserPage").click(function ()
                 {
                     mydata = $("form#indexForm").serialize();
-                    mydata = mydata + "&page=" + "index.php";
+                    mydata = mydata + "&page=" + "index.php" + "&action=" + "startNewUserPage";
                     //alert(mydata);
 
                     $.ajax({
@@ -876,7 +889,7 @@ if (isset($_COOKIE['firstLogin'])) {
                 $("#startLoginPage").click(function ()
                 {
                     mydata = $("form#indexForm").serialize();
-                    mydata = mydata + "&page=" + "index.php";
+                    mydata = mydata + "&page=" + "index.php" + "&action=" + "startLoginPage";
                     //alert(mydata);
 
                     $.ajax({
@@ -930,11 +943,16 @@ if (isset($_COOKIE['firstLogin'])) {
                     var statesLanciaConfermaRichiesta = {
                         state0: {
                             html: '<h2>Benvenuto! <hr>' + cognome + ' ' + nome + ' [' + email + ']<hr></h2>' +
-                                    '<h3> se vuoi confermare la tua richiesta' +
-                                    ' all\'amministratore per la riattivazione prosegui...</h3>',
+                                    '<h3>Se sei arrivata/o a questo link, hai inoltrato una\n\
+                                    richiesta di cambiamento password e hai ricevuto una\n\
+                                    email dal nostro sistema.\n\
+                                    Se vuoi confermare la tua richiesta' +
+                                    ' all\'amministratore per la riattivazione clicca \'Prosegui\'\n\
+                                    Se clicchi \'Esci\', la presente richiesta verr&agrave; cancellata!</h3>',
                             buttons: {Esci: false, Prosegui: true},
                             focus: 1,
                             submit: function (e, v, m, f) {
+                                //alert(v);
                                 if (v) {
                                     //ESEGUE LA CONFERMA SUL DATABASE
                                     e.preventDefault();
@@ -956,12 +974,14 @@ if (isset($_COOKIE['firstLogin'])) {
                                         }
                                     });
 
-                                } else
-                                    $.prompt.close();
+                                } else {
+                                    e.preventDefault();
+                                    $.prompt.goToState('state3');
+                                }
                             }
                         },
                         state1: {
-                            html: '<img  src="images/accept_icon.png"  width="32" height="32"><h2>La nuova password verr&agrave inviata per email a:</h2> <hr>' +
+                            html: '<img  src="images/accept_icon.png"  width="32" height="32"><h2>La nuova password le verr&agrave; inviata per email a:</h2> <hr>' +
                                     '<h2>' + cognome + ' ' + nome + ' <br>[' + email + ']</h2><hr>' +
                                     '<h3>Cordiali saluti!</h3>' +
                                     ' <h2>Admin - PhpRegistroWeb 1.0</h2>',
@@ -974,14 +994,41 @@ if (isset($_COOKIE['firstLogin'])) {
                             }
                         },
                         state2: {
-                            html: '<img  src="images/dialog_close_icon.png"  width="32" height="32"><h2>Non  stato possibile confermare</h2> <hr>' +
-                                    '<h2>riprovi pi&ugrave tardi</h2><hr>' +
+                            html: '<img  src="images/dialog_close_icon.png"  width="32" height="32"><h2>Non &egrave; stato possibile confermare</h2> <hr>' +
+                                    '<h2>riprovi pi&ugrave; tardi</h2><hr>' +
                                     '<h3>Cordiali saluti!</h3>' +
                                     ' <h2>Admin - PhpRegistroWeb 1.0</h2>',
                             buttons: {Esci: false},
                             focus: 0,
                             submit: function (e, v, m, f) {
                                 $.prompt.close();
+                            }
+                        },
+                        state3: {
+                            html: '<img  src="images/dialog_close_icon.png"  width="32" height="32"><h2>La richiesta sta per essere\n\
+                                    cancellata!</h2><hr>' +
+                                    '<h3>Cordiali saluti!</h3>' +
+                                    ' <h2>Admin - PhpRegistroWeb 1.0</h2>',
+                            buttons: {"Prosegui": false, "Annulla": true},
+                            focus: 0,
+                            submit: function (e, v, m, f) {
+                                if (v) {
+                                    $.prompt.close();
+                                } else {
+                                    e.preventDefault();
+                                    $.ajax({
+                                        type: "POST",
+                                        url: 'ajax.php',
+                                        data: {"actionRequest": "confirmCancelRequest",
+                                            "hash": hash,
+                                            "id_request": id_request},
+                                        success: function (response) {//response is value returned from php (for your example it's "bye bye"
+                                            //alert(response);
+                                            $.prompt.close();
+                                            location.reload();
+                                        }
+                                    });
+                                }
                             }
                         }
 
@@ -1018,7 +1065,7 @@ if (isset($_COOKIE['firstLogin'])) {
                             focus: 1,
                             submit: function (e, v, m, f) {
                                 e.preventDefault();
-                                
+
                                 if (v == 0)
                                     $.prompt.close();
                                 else if (v == 1) {
@@ -1030,7 +1077,7 @@ if (isset($_COOKIE['firstLogin'])) {
                                     });
                                     //ELABORA LA RICHIESTA DI CAMBIO PASSWORD CON ajax???
                                     //alert(mydata);
-                                    
+
                                     $.ajax({
                                         type: "POST",
                                         url: 'login.php',
@@ -1040,10 +1087,12 @@ if (isset($_COOKIE['firstLogin'])) {
                                             if (response == 1) {
                                                 //e.preventDefault();
                                                 $.prompt.goToState('state2');//RICHIESTA INOLTRATA
-                                            }
-                                            else if (response == 0) {
+                                            } else if (response == 0) {
                                                 e.preventDefault();
                                                 $.prompt.goToState('state3');//RICHIESTA FALLITA
+                                            } else if (response == 2) {
+                                                e.preventDefault();
+                                                $.prompt.goToState('state4');//RICHIESTA ESISTENTE
                                             }
                                         }
                                     });//FINE
@@ -1073,6 +1122,14 @@ if (isset($_COOKIE['firstLogin'])) {
                                     e.preventDefault();
                                     $.prompt.goToState('state1');
                                 }
+                            }
+                        },
+                        state4: {
+                            html: '<img  src="images/dialog_close_icon.png"  width="32" height="32"><h1>Richiesta gi&agrave; inoltrata!</h1>' +
+                                    ' <h2>PhpRegistroWeb 1.0</h2>',
+                            submit: function (e, v, m, f) {
+                                e.preventDefault();
+                                $.prompt.goToState('state1');
                             }
                         }
                     };
@@ -1106,7 +1163,7 @@ if (isset($_COOKIE['firstLogin'])) {
                         data: mydata,
                         success: function (response) {//response is value returned from php (for your example it's "bye bye"
                             //alert(response);
-
+                            //benvenutoUser();
                             window.location = response;
 
                         }

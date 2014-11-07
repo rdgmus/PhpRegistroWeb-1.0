@@ -24,6 +24,12 @@ if (NULL != filter_input(INPUT_POST, 'actionRequest')) {
 
         echo $mySqlFunctions->setRequestConfirmedFor($hash, $id_request);
         exit();
+    } elseif (filter_input(INPUT_POST, 'actionRequest') == 'confirmCancelRequest') {
+        $hash = (filter_input(INPUT_POST, 'hash'));
+        $id_request = (filter_input(INPUT_POST, 'id_request'));
+
+        echo $mySqlFunctions->confirmCancelRequestFor($hash, $id_request);
+        exit();
     }
     echo FALSE;
     exit();
@@ -35,6 +41,7 @@ if (NULL != filter_input(INPUT_POST, 'callGetEmailSubject')) {
         $mySqlFunctions->setEmailSubject(filter_input(INPUT_COOKIE, 'emailId'), $subject);
     }
     echo $mySqlFunctions->getEmailSubject(filter_input(INPUT_COOKIE, 'emailId'));
+    //exit();
 }
 
 if (NULL != filter_input(INPUT_POST, 'callGetEmailBody')) {//emailBody
@@ -70,7 +77,25 @@ if (NULL != filter_input(INPUT_POST, 'page')) {
      */
     if ($page == 'index.php') {//index.php
         setcookie('MYSQL_SERVER', trim(filter_input(INPUT_POST, 'MySqlServer')));
-        echo filter_input(INPUT_SERVER, 'SERVER_NAME');
+//        echo filter_input(INPUT_SERVER, 'SERVER_NAME');
+        if (NULL != filter_input(INPUT_POST, 'action')) {
+            $action = filter_input(INPUT_POST, 'action');
+            if ($action == "getConnectionPerMonth") {
+                $connectionPerMonth = $mySqlFunctions->getConnectionPerMonth();
+                echo json_encode($connectionPerMonth);
+                exit();
+            } elseif ($action == "getConnectionPerDay") {
+                $connectionPerDay = $mySqlFunctions->getDailyConnection();
+                echo json_encode($connectionPerDay);
+                exit();
+            } elseif ($action == "startLoginPage") {
+                echo filter_input(INPUT_SERVER, 'SERVER_NAME');
+                exit();
+            } elseif ($action == "startNewUserPage") {
+                echo filter_input(INPUT_SERVER, 'SERVER_NAME');
+                exit();
+            }
+        }
     }
     /**
      * $page == 'emailToUser.php'
@@ -127,7 +152,21 @@ if (NULL != filter_input(INPUT_POST, 'page')) {
      * $page == 'userMenu.php'
      */ elseif ($page == 'userMenu.php') {//userMenu.php
         if (NULL != filter_input(INPUT_POST, 'action')) {
-            if (filter_input(INPUT_POST, 'action') == "gotochangeOthersPassword") {
+            if (filter_input(INPUT_POST, 'action') == "fillBenvenutoUser") {
+                $typeOfUser = " User: ";
+                if ($mySqlFunctions->userIsAdministrator($_COOKIE['id_utente'])) {
+                    $typeOfUser = " Administrator: ";
+                }
+                $msg = setMsgPopContent("<img  src='images/accept_icon.png'  width='32' height='32'>", 
+                        "success", 
+                        'json/benvenutoUser.json', 
+                        "<h1>Benvenuto!" . $typeOfUser . "</h1><h2>[" . $_COOKIE['id_utente'] . "] - " .
+                        $_COOKIE['cognome_user'] . " " . $_COOKIE['nome_user'] . " [" . $_COOKIE['email_user'] . "]");
+                echo filter_input(INPUT_SERVER, 'SERVER_NAME');
+//                echo print_r($msg);
+                exit();
+                //echo $_SERVER['SERVER_ADDR'];
+            } elseif (filter_input(INPUT_POST, 'action') == "gotochangeOthersPassword") {
                 echo filter_input(INPUT_SERVER, 'SERVER_NAME');
                 //echo get_ip();
                 //echo $_SERVER['SERVER_ADDR'];
@@ -217,7 +256,7 @@ if (NULL != filter_input(INPUT_POST, 'page')) {
                 }
 
                 $password_one = filter_input(INPUT_POST, 'password_one');
-                $repeatPasswordErr = testPasswordsAreEqual($password, $password_one);
+                $repeatPasswordErr = $mySqlFunctions->testPasswordsAreEqual($password, $password_one);
                 setcookie('repeatPasswordErr', $repeatPasswordErr);
                 if ($repeatPasswordErr != '*') {
                     echo filter_input(INPUT_SERVER, 'SERVER_NAME');
@@ -225,7 +264,7 @@ if (NULL != filter_input(INPUT_POST, 'page')) {
                 }
 
                 if ($oldpasswordErr == '*' && $newpasswordErr = '*' && $repeatPasswordErr = '*') {
-                    changePassword($selectedRecipient, $user_email, $oldpassword, $password);
+                    $mySqlFunctions->changePassword($selectedRecipient, $user_email, $oldpassword, $password);
                     $mySqlFunctions->setUserHasToChangePassword(filter_input(INPUT_COOKIE, 'id_utente'), 0);
 
                     echo filter_input(INPUT_SERVER, 'SERVER_NAME');
@@ -329,4 +368,4 @@ if (NULL != filter_input(INPUT_POST, 'page')) {
 }
 
 
-
+    

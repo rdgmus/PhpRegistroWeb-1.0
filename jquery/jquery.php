@@ -139,18 +139,6 @@ jqPlot
 <script type="text/javascript" src="jqPlot/plugins/jqplot.canvasAxisTickRenderer.min.js"></script>
 <script type="text/javascript" src="jqPlot/plugins/jqplot.canvasTextRenderer.min.js"></script>
 
-<!-------------->
-<!--SLIDE TABS-->
-<!-------------->
-
-<!--<link rel="stylesheet" href="sliderTabs-1.1/styles/jquery.sliderTabs.min.css">
-<script src="sliderTabs-1.1/jquery.sliderTabs.min.js"></script>-->
-<!----------------------->
-<!--jquery-toast-plugin-->
-<!----------------------->
-
-<!--<link rel="stylesheet" href="jquery-toast-plugin-master/jquery.toast.css">
-<script src="jquery-toast-plugin-master/jquery.toast.js"></script>-->
 
 
 <?php

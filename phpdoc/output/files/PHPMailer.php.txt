@@ -1,7 +1,7 @@
 <?php
 
 include 'functions/utilities_functions.php';
-//include './functions/MySqlFunctionsClass.php';
+include './functions/MySqlFunctionsClass.php';
 
 $mySqlFunctions = new MySqlFunctionsClass();
 

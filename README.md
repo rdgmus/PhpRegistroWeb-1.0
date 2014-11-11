@@ -1,4 +1,4 @@
-# README  ![under development](https://github.com/rdgmus/Luxemburg/blob/master/images/under%20development.png)
+# README  ![under development](https://raw.githubusercontent.com/rdgmus/Luxemburg/master/images/under%20development.png)
 
 
 This README would normally document whatever steps are necessary to get your application up and running.

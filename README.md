@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # README  ![under development](https://raw.githubusercontent.com/rdgmus/Luxemburg/master/images/under%20development.png)
 
 
@@ -42,3 +43,9 @@ This README would normally document whatever steps are necessary to get your app
 
 * Repo owner or admin
 * Other community or team contact
+=======
+PhpProjects
+===========
+
+Progetti redatti in Php
+>>>>>>> FETCH_HEAD

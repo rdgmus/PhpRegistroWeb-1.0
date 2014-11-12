@@ -37,6 +37,7 @@ source:
 	- ./jquery/jq_ruoli_utente.php
 	- ./jquery/jquery.php
 	- ./json/benvenutoUser.json
+	- ./json/liveDemo.json
 	- ./json/passwordCopiata.json
 	- ./json/person.json
 	

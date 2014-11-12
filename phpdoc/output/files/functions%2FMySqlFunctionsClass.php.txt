@@ -18,13 +18,96 @@
  */
 
 /**
- * Description of MySqlFunctionsClass
+ * MySqlFunctionsClass ragruppa tutte le funzioni rivolte 
+ * all'interrogazione del database
  *
  * @author rdgmus
  * @filesource
  */
 class MySqlFunctionsClass {
     //put your code here
+
+    /**
+     * Conta le connessioni, ovvero i log = LOGIN_SUCCESS,
+     * effettuate divise per data, per popolare
+     * il grafico nella index.php
+     * @return array
+     */
+    function getDailyConnection() {
+        $query = "SELECT day(when_registered) as giorno, month(when_registered) as mese, " .
+                " year(when_registered) as anno , count(*) as connessioni" .
+                " FROM scuola.utenti_logger WHERE msg_type = 'LOGIN_SUCCESS'" .
+                " GROUP BY day(when_registered)" .
+                " ORDER BY when_registered";
+        $connections = array();
+        if ($this->connectToMySqlWithParams('localhost:3307', 'root', 'myzconun')) {
+
+            $result = mysql_query($query);
+
+            if (!$result) {
+
+                $msg = mysql_error();
+                setcookie('message', mysql_errno() . ': ' . mysql_error());
+                //mysql_freeresult();
+            } else {
+                $i = 1;
+                while ($row = mysql_fetch_row($result)) {
+                    $connections[$i] = array(
+                        'giorno' => $row[0],
+                        'mese' => $row[1],
+                        'anno' => $row[2],
+                        'connessioni' => $row[3]);
+                    $i++;
+                }
+            }
+
+            //mysql_freeresult();
+            $this->closeConnection();
+
+            return $connections;
+        }
+        return NULL;
+    }
+
+    /**
+     * Conta le connessioni, ovvero i log = LOGIN_SUCCESS,
+     * effettuate divise per mese , anno, per popolare
+     * il grafico nella index.php
+     * @return array
+     */
+    function getConnectionPerMonth() {
+        $query = "SELECT count(*) as connessioni, month(when_registered) as mese, " .
+                " year(when_registered) as anno " .
+                " FROM scuola.utenti_logger WHERE msg_type = 'LOGIN_SUCCESS'" .
+                " GROUP BY month(when_registered)" .
+                " ORDER BY when_registered";
+        $connections = array();
+        if ($this->connectToMySqlWithParams('localhost:3307', 'root', 'myzconun')) {
+
+            $result = mysql_query($query);
+
+            if (!$result) {
+
+                $msg = mysql_error();
+                setcookie('message', mysql_errno() . ': ' . mysql_error());
+                //mysql_freeresult();
+            } else {
+                $i = 1;
+                while ($row = mysql_fetch_row($result)) {
+                    $connections[$i] = array('connessioni' => $row[0],
+                        'mese' => $row[1],
+                        'anno' => $row[2]);
+                    $i++;
+                }
+            }
+
+            //mysql_freeresult();
+            $this->closeConnection();
+
+            return $connections;
+        }
+        return NULL;
+    }
 
     /**
      * Registra evento relativo ad accesso fallito! nella tabella utenti_logger
@@ -143,15 +226,39 @@ class MySqlFunctionsClass {
 
     /**
      *
-     * Enter description here ...
+     * Conferma la richiesta di cambiamento password in modo che un amministratore
+     * possa operare il cambiamento ed inviare una email di conferma con le nuove
+     * generalit&agrave; all'utente.
      * @param string $hash
      * @param bigint $id_request
+     * @return boolean
      */
     function setRequestConfirmedFor($hash, $id_request) {
-        if (connectToMySqlWithParams('localhost:3307', 'root', 'myzconun')) {
+        if ($this->connectToMySqlWithParams('localhost:3307', 'root', 'myzconun')) {
             //RECUPERA id_request dalla tabella
             $query = sprintf("UPDATE scuola.change_password_request" .
                     " SET confirmed = 1 WHERE id_request = %s AND hash = '%s'", $id_request, $hash);
+
+            $result = mysql_query($query);
+
+            $this->closeConnection();
+            return $result;
+        }
+        return FALSE;
+    }
+
+    /**
+     * 
+     * Cancellazione della richiesta di cambiamento password.
+     * @param string $hash
+     * @param bigint $id_request
+     * @return boolean
+     */
+    function confirmCancelRequestFor($hash, $id_request) {
+        if ($this->connectToMySqlWithParams('localhost:3307', 'root', 'myzconun')) {
+            //RECUPERA id_request dalla tabella
+            $query = sprintf("DELETE FROM scuola.change_password_request" .
+                    " WHERE id_request = %s AND hash = '%s'", $id_request, $hash);
 
             $result = mysql_query($query);
 
@@ -189,6 +296,52 @@ class MySqlFunctionsClass {
             }
         }
         return NULL;
+    }
+
+    /**
+     * Controlla se gi&agrave; &egrave; stata inoltrata una richiesta di
+     * cambiamento di password per l'utente in oggetto. 
+     * 
+     * @param string $cognome
+     * @param string $nome
+     * @param email $email
+     * @return boolean
+     */
+    function alreadyExistsPasswordRequestFor($cognome, $nome, $email) {
+        if ($this->connectToMySqlWithParams('localhost:3307', 'root', 'myzconun')) {
+            //RECUPERA l'id_utente
+            $query = sprintf("SELECT id_utente FROM scuola.utenti_scuola" .
+                    " WHERE cognome = upper('%s') AND nome = upper('%s') AND email = '%s'", $cognome, $nome, $email);
+
+            $result = mysql_query($query);
+            if (mysql_numrows($result) != 1) {
+                setcookie('message', mysql_error());
+                $this->closeConnection();
+                return FALSE;
+            } else {
+                $row = mysql_fetch_row($result);
+                $id_utente = $row[0];
+                //Registra la richiesta
+                $query = sprintf("SELECT  * FROM scuola.change_password_request"
+                        . " WHERE from_user = %s AND pending = 1", $id_utente);
+
+                // Perform Query
+                $result = mysql_query($query);
+                if (!$result) {
+                    setcookie('message', mysql_error());
+                    $this->closeConnection();
+                    return FALSE;
+                } else {
+                    if (mysql_num_rows($result) > 0) {
+                        $this->closeConnection();
+                        return TRUE;
+                    }
+                    $this->closeConnection();
+                    return FALSE;
+                }
+            }
+        }
+        return FALSE;
     }
 
     /**
@@ -302,9 +455,9 @@ class MySqlFunctionsClass {
         // Perform Query
         $result = mysql_query($query);
 
-        while ($row = mysql_fetch_assoc($result)) {
-            $password = $row['password'];
-        }
+        $row = mysql_fetch_assoc($result);
+        $password = $row['password'];
+
 
         return base64_decode(base64_decode($password));
     }
@@ -567,7 +720,7 @@ class MySqlFunctionsClass {
      * @param bigint $id_user
      */
     function createEmail($from_email, $from_name, $id_user) {
-        $result = getNewEmailId($id_user); //Contiene le email dell'utente con data a null
+        $result = $this->getNewEmailId($id_user); //Contiene le email dell'utente con data a null
         if (mysql_num_rows($result) > 0) {//Se vi sono email pregresse ritorna la lista delle email pregresse
             return $result;
         }
@@ -1292,7 +1445,7 @@ class MySqlFunctionsClass {
                 $msg = '<span class="error">PASSWORD cambiata per l\'utente: <h2>' . $this->getUserName($id_utente) . '</h2> email: <h3>' . $user_email . '</h3></span>';
                 setcookie("message", $msg);
             } else {
-                $msg = '<span class="error">Non � stato possibile cambiare la PASSWORD per ' .
+                $msg = '<span class="error">Non &egrave; stato possibile cambiare la PASSWORD per ' .
                         $user_email . ': ' . mysql_error($GLOBALS['link']) . '</span>';
                 setcookie("message", $msg);
             }

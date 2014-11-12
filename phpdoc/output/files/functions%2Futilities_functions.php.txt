@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * Nome dell'aplicazione
  */
@@ -35,8 +34,9 @@ function getBaseURL() {
  * @param  $msg [ messaggio ]
  */
 function setMsgPopContent($Icon, $Type, $file, $msg) {
-    //$json = json_decode(file_get_contents($file), true); //private
-
+    $json = json_decode(file_get_contents($file), true); //private
+//    file_put_contents($file, json_encode($json));
+//    return $json;
     $msgPopQueue[] = array(
         "AutoClose" => true,
         "CloseTimer" => 3000,
@@ -48,8 +48,8 @@ function setMsgPopContent($Icon, $Type, $file, $msg) {
     );
 
     $msgPop = array("MsgPopQueue" => $msgPopQueue, "content" => "<div>This is new <b>text!</b></div>");
-    $json = $msgPop;
-    file_put_contents($file, json_encode($json));
+    
+    file_put_contents($file, json_encode($msgPop));
 }
 
 /**
@@ -235,9 +235,13 @@ function listSessionAttribute() {
  * imposta le cookyes relative
  */
 function createEmailAndCookyes() {
-    createEmail($_COOKIE['email_user'], $_COOKIE['cognome_user'] . " " . $_COOKIE['nome_user'], $_COOKIE['id_utente']);
+    require_once './functions/MySqlFunctionsClass.php';
 
-    $result = getNewEmailId($_COOKIE['id_utente']);
+    $mySqlFunctions = new MySqlFunctionsClass();
+
+    $mySqlFunctions->createEmail($_COOKIE['email_user'], $_COOKIE['cognome_user'] . " " . $_COOKIE['nome_user'], $_COOKIE['id_utente']);
+
+    $result = $mySqlFunctions->getNewEmailId($_COOKIE['id_utente']);
     $row = mysql_fetch_assoc($result);
     setcookie('emailId', $row['id_email']);
 }

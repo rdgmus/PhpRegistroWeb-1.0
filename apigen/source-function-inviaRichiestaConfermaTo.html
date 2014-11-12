@@ -149,7 +149,7 @@
 </span><span id="58" class="l"><a class="l" href="#58"> 58: </a>                            <span class="php-comment">//QUERY FOR DATABASE CONNECTION HERE</span>
 </span><span id="59" class="l"><a class="l" href="#59"> 59: </a>                            <span class="php-keyword1">if</span> (<span class="php-var">$mySqlFunctions</span>-&gt;connectToMySql()) {
 </span><span id="60" class="l"><a class="l" href="#60"> 60: </a>                                <span class="php-comment">//QUERY FOR USER ACCOUNT HERE</span>
-</span><span id="61" class="l"><a class="l" href="#61"> 61: </a>                                <span class="php-keyword1">if</span> (<span class="php-var">$esito</span> = <span class="php-var">$mySqlFunctions</span>-&gt;authenticateUser(<span class="php-var">$user_email</span>, <span class="php-var">$password</span>, <span class="php-keyword1">TRUE</span>)) {
+</span><span id="61" class="l"><a class="l" href="#61"> 61: </a>                                <span class="php-keyword1">if</span> (<span class="php-var">$mySqlFunctions</span>-&gt;authenticateUser(<span class="php-var">$user_email</span>, <span class="php-var">$password</span>, <span class="php-keyword1">TRUE</span>)) {
 </span><span id="62" class="l"><a class="l" href="#62"> 62: </a>                                    <span class="php-var">$mySqlFunctions</span>-&gt;registerLogEvent(<span class="php-quote">'LOGIN_SUCCESS'</span>, <span class="php-quote">'LOGIN IN REGISTRO SCOLASTICO:SUCCESS'</span>, <span class="php-var">$mySqlFunctions</span>-&gt;getUserId(<span class="php-var">$user_email</span>, <span class="php-var">$password</span>), <span class="php-var">$_SERVER</span>[<span class="php-quote">'REMOTE_ADDR'</span>]);
 </span><span id="63" class="l"><a class="l" href="#63"> 63: </a>
 </span><span id="64" class="l"><a class="l" href="#64"> 64: </a>                                    <span class="php-comment">//SETTA LA COOKYE PER IL MESSAGE POP DI BENVENUTO ALL'UTENTE</span>
@@ -183,7 +183,7 @@
 </span><span id="92" class="l"><a class="l" href="#92"> 92: </a>            <span class="php-keyword1">if</span> (<span class="php-var">$mySqlFunctions</span>-&gt;alreadyExistsPasswordRequestFor(<span class="php-var">$cognome</span>, <span class="php-var">$nome</span>, <span class="php-var">$email</span>)) {
 </span><span id="93" class="l"><a class="l" href="#93"> 93: </a><span class="php-comment">//                $msg = &quot;&lt;h3&gt;Esiste gi&amp;agrave; una richiesta di cambiamento password per&quot;</span>
 </span><span id="94" class="l"><a class="l" href="#94"> 94: </a><span class="php-comment">//                        . &quot;&lt;/h3&gt;&lt;h2&gt; &quot;.$cognome.&quot; &quot;.$nome.&quot; [&quot;.$email.&quot;]&quot;;</span>
-</span><span id="95" class="l"><a class="l" href="#95"> 95: </a>               
+</span><span id="95" class="l"><a class="l" href="#95"> 95: </a>
 </span><span id="96" class="l"><a class="l" href="#96"> 96: </a>                <span class="php-keyword1">echo</span> (int) <span class="php-num">2</span>;
 </span><span id="97" class="l"><a class="l" href="#97"> 97: </a>                <span class="php-keyword1">exit</span>();
 </span><span id="98" class="l"><a class="l" href="#98"> 98: </a>            }

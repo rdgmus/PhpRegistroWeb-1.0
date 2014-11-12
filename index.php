@@ -48,6 +48,7 @@
                 $(function () {
                     $("#datepicker").datepicker("setDate", "now");
                 });
+                 
             });
 
         </script>
@@ -139,8 +140,10 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <h2><a href="apigen/">ApiGen</a> </h2>
+                                    <h2><a href="apigen/" id="apigen">ApiGen</a> </h2>
                                     <h2><a href="phpdoc/output/">PhpDoc</a> </h2>
+                                    <!--<h2><a href="https://github.com/rdgmus/PhpProjects/wiki">WIKI</a> </h2>-->
+                                    
                                 </td>
                             </tr>
                         </table>
